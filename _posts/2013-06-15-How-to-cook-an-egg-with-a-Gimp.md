@@ -1,3 +1,9 @@
+---
+layout: post
+title:  "How to cook an egg with a Gimp"
+date:   2013-06-15 12:44:00
+categories: graphism absync egg gimp
+---
 Here is a tutorial to draw an egg with [Gimp](http://www.gimp.org/).
 
 With the following techniques, you will be able to build a realistic egg for a serious business **(!)** as well as a cartoonish one typically for a gamification usage **;-)**
