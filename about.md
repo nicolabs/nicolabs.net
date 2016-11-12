@@ -8,4 +8,4 @@ This site is currently under construction [using Jekyll on GitHub Pages](https:/
 
 You can look at its source at [github.com/nicolabs/nicolabs.github.io](https://github.com/nicolabs/nicolabs.github.io) (but I bet you won't find it interesting for now...).
 
-The current blog can be found at http://blog.nicolabs.net.
+The current blog can be found at [blog.nicolabs.net](http://blog.nicolabs.net).
