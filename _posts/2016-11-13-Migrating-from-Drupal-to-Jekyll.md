@@ -18,6 +18,8 @@ That bothers me a bit because of the root principles of the web I've learnt year
 
 Because of all of this, I will not use the [drafts feature of Jekyll](https://jekyllrb.com/docs/drafts/), or very sparefully.
 
+As a logical following, articles that were still in draft state and therefore hidden are now going to be live !
+
 ## Migrating paths
 
 Beside changing the concept, I'm also changing the platform, moving from self-hosted Drupal to Jekyll on GitHub Pages.
