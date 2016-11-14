@@ -1,17 +1,21 @@
 ---
 layout: post
-title:  "How to cook an egg with a Gimp"
-date:   2013-06-15 12:44:00
-categories: graphism absync egg gimp
+title: "How to cook an egg with a Gimp"
+date: 2013-06-15 12:44:22 +0100
+categories: graphism
+tags: absync egg gimp
+permalink: articles/how-cook-egg-gimp
 ---
+![The egg evolves !](/assets/blog/egg-evolution_0.png)
+
 Here is a tutorial to draw an egg with [Gimp](http://www.gimp.org/).
 
 With the following techniques, you will be able to build a realistic egg for a serious business **(!)** as well as a cartoonish one typically for a gamification usage **;-)**
 
 You will find the full Gimp source attached to this article, which I invite you to reuse at will.
 
->Being a casual user of Gimp, there might be better approaches to get it done.
->For instance, if you're looking for a way to quickly build a textured egg, have a look at this tutorial : [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)
+> Being a casual user of Gimp, there might be better approaches to get it done.
+> For instance, if you're looking for a way to quickly build a textured egg, have a look at this tutorial : [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)
 
 ## The shape
 
