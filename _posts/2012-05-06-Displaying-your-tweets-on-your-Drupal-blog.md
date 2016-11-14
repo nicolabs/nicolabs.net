@@ -51,16 +51,14 @@ Simply look for the file named `twitter.inc` in the module's files, and replace 
 
 There is only one line to change :
 
-```php
-<?php
-...
-function twitter_fetch_user_timeline($id) {
-...
-//  $statuses = $twitter->user_timeline($account->id, $params, $account->protected);
-  $statuses = $twitter->user_timeline($account->id, $params, _twitter_use_oauth());
-...
-?>
-```
+    <?php
+    ...
+    function twitter_fetch_user_timeline($id) {
+    ...
+    //  $statuses = $twitter->user_timeline($account->id, $params, $account->protected);
+      $statuses = $twitter->user_timeline($account->id, $params, _twitter_use_oauth());
+    ...
+    ?>
 
 And here we go : a nice Twitter timeline fetched and displayed on a shared host !
 
