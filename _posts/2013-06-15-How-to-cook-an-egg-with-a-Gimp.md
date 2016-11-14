@@ -2,8 +2,7 @@
 layout: post
 title: "How to cook an egg with a Gimp"
 date: 2013-06-15 12:44:22 +0100
-categories: graphism
-tags: absync egg gimp
+tags: absync egg gimp graphism
 permalink: articles/how-cook-egg-gimp
 ---
 ![The egg evolves !](/assets/blog/egg-evolution_0.png)

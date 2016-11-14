@@ -2,8 +2,7 @@
 layout: post
 title: "A paper backup for your private key"
 date: 2012-06-14 00:03:28 +0100
-categories: android
-tags: printkey security certificate cryptography java JKS keystore keytool openssl paperkey password PEM PKCS12 X.509
+tags: android printkey security certificate cryptography java JKS keystore keytool openssl paperkey password PEM PKCS12 X.509
 permalink: articles/paper-backup-your-private-key
 ---
 > This article focuses on Android and Java keystores, but it applies as well to any key that can be printed as plain text.

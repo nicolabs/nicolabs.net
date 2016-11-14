@@ -1,8 +1,8 @@
 # Site settings
-title: nicolabs
+title: Work in progress.
 #email: https://nicolabs.net/contact
 description: > # this means to ignore newlines until "baseurl:"
-  From personal notes to technical articles, in the hope it will be useful to somebody one day.
+  This article is under perpetual rewriting, take it carefully as it may have changed tomorrow !
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "https://nicolabs.net" # the base hostname & protocol for your site
 twitter_username: nic0b0
