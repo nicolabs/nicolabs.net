@@ -11,6 +11,6 @@ This is because when you pin a program to the task bar, it uses the executable o
 
 ![Putty shortcut](/assets/blog/win7_taskbar_pinned_putty.png)
 
-=> edit the shortcut to use the parent process, like `C:\Tools\PortablePuTTY\PortablePuTTY.exe` for instance.
+=> edit the shortcut to use the parent executable, like `C:\Tools\PortablePuTTY\PortablePuTTY.exe` for instance.
 
 See [answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00](http://answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00)
