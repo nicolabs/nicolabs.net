@@ -12,3 +12,7 @@ github_username:  nicolabs
 markdown: kramdown
 gems:
   - jekyll-sitemap
+  - jekyll-mentions
+
+jekyll-mentions:
+  base_url: https://twitter.com
