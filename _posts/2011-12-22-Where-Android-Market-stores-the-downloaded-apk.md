@@ -5,7 +5,7 @@ date: 2011-12-22 07:12:17 +0100
 tags: android apk internals market temporary files
 permalink: articles/where-android-market-stores-downloaded-apk
 ---
-Today I ran into a small problem that might happen sometimes : trying to benefit from a 2 day-only offer to download for free [Duke Nukem 3d](https://market.android.com/details?id=com.machineworksnorthwest.duke3d) (just for fun, I don't think it's going to be the killer app this year), I found out that my phone had not enough free memory to install it (Market told me : 56MB required).
+Today I ran into a small problem that might happen sometimes : trying to benefit from a 2 day-only offer to download for free [Duke Nukem 3d](https://market.android.com/details?id=com.machineworksnorthwest.duke3d) (just for fun, I don't think it's going to be the killer app this year ;-), I found out that my phone had not enough free memory to install it (Market told me : 56MB required).
 
 After having removed several apps from the memory to free enough space to install the game - and after a first failed attempt to download the 28MB archive - I was able to download the _.apk_ from the Market (that was "phase 1 : download").
 
