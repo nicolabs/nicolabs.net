@@ -20,11 +20,11 @@ It takes 2 major steps :
 
 Oddly enough, this was the hardest part to figure out :
 
-## 1. Create a local repository
+**1. Create a local repository**
 
 It will mirror the existing (remote) one. I just used TortoiseSVN on an new, empty directory.
 
-## 2. Initialize this repository
+**2. Initialize this repository**
 
     C:\Users\nicolas\Work>"C:\Program Files\TortoiseSVN\bin\svnsync.exe" init file:///c:/Users/nicolas/Work/ciform-bak https://plugnauth.svn.sourceforge.net/svnroot/plugnauth
 
@@ -52,7 +52,7 @@ You may find similar code on the net but :
 
 It looked strange to me that it was not working out of the box on Windows, but I really had to create that script to make it work...
 
-## 3. Start the synchronization
+**3. Start the synchronization**
 
     C:\Users\nicolas\Work>"C:\Program Files\TortoiseSVN\bin\svnsync.exe" sync --username cbonar file:///C:/Users/nicolas/Work/ciform-bak
     [...]
@@ -69,7 +69,7 @@ We can now work with this local SVN mirror.
 
 This operation is quite simple...
 
-## 1. Enable ConvertExtension
+**1. Enable ConvertExtension**
 
 With a command line client, it should be as easy as making sure you have the following in your `.hgrc` or `mercurial.ini` file :
 
@@ -80,7 +80,7 @@ With TortoiseHg I just had to enable `convert` in the global settings (I did fir
 
 ![ConvertExtension enabled in TortoiseHg](/assets/blog/TortoiseHg-ConvertExtension.png)
 
-## 2. Run the "hg convert" command
+**2. Run the "hg convert" command**
 
 It might be the right time to [remap author names](http://mercurial.selenic.com/wiki/ConvertExtension#A--authors)...
 
