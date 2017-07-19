@@ -16,3 +16,5 @@ gems:
 
 jekyll-mentions:
   base_url: https://twitter.com
+
+theme: jekyll-theme-cayman
