@@ -6,6 +6,24 @@ tags: java level logging monitoring privacy security testing
 ---
 ## Draft !
 
+# Sémantiquement
+
+Événements destinés au développeur ou à l'exploitant.
+
+Habituellement les évènements sont des "messages", composés de méta données (ex. En tête) et de champs de données. Une ligne de log contient également des méta données (timestamp, niveau de verbosité, nom du logger, ...) Et généralement un seul champ : le contenu que le développeur a écrit).
+
+On pourrait donc utiliser la même API ou le même framework pour tout type d'événement, y compris des logs.
+
+Toutefois en termes de mise en place il est plus simple/direct d'implémenter des logs qu'un système d'événements, les 2 ont donc leur place.
+
+Il manque peu pour pouvoir uniformiser les 2 :
+- API suffisamment fluide pour les différents types d'événements (méthodes/fonctions adaptées)
+- API assez puissante pour ne pas restreindre les usages actuels (ex. Topics/tags pour les évènements, niveaux de verbosité pour les logs*)
+- performances non pénalisées par un mode (traces et envois asynchrones)
+- connecteurs pour différents types de récolte (fichiers locaux, serveur distant, ...)
+
+* On peut donc imaginer profiter de tags dans les logs pour pouvoir les filtrer facilement (les marqueurs slf4j ne sont pas simples à utiliser) ou d'un niveau de verbosité pour les évènements (ex. Disposer de plus ou moins d'informations sur un parcours client)
+
 + Niveaux de log
 
 trace
