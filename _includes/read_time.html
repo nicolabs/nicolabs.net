@@ -1,0 +1,19 @@
+{% if page.minutes %}
+  {% assign minutes = page.minutes %}
+{% else %}
+  {% assign num_words = page.content | strip_html | number_of_words %}
+  {% assign minutes_f = num_words | divided_by: 200.0 %}
+  {% assign minutes_i = num_words | divided_by: 200 %}
+  {% assign diff = minutes_f | minus: minutes_i %}
+  {% if diff >= 0.5 %}
+      {% assign minutes = minutes_i + 1 %}
+  {% else %}
+      {% assign minutes = minutes_i %}
+  {% endif %}
+{% endif %}
+{% if minutes <= 1 %}
+    {% assign reading_time = '1' | append: ' minute read' %}
+{% else %}
+    {% assign reading_time = minutes | append: ' minutes read' %}
+{% endif %}
+{{ reading_time }}

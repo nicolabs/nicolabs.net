@@ -166,6 +166,17 @@ strong {
 .post-meta {
   color: $medium-gray-color;
   font-style: italic;
+
+  .post-meta-separator {
+    padding: 0 .5em;
+  }
+}
+
+.post-header {
+  .post-meta {
+    color: $secondary-color;
+    font-weight: bold;
+  }
 }
 
 .post-link,
