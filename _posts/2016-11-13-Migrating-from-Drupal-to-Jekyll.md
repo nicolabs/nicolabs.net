@@ -1,4 +1,4 @@
----
+ly---
 layout: post
 title: Migrating from Drupal to Jekyll
 tags: drupal jekyll github blogging
@@ -8,7 +8,7 @@ tags: drupal jekyll github blogging
 
 Well that's not really an invention, but I have to admit that I don't have time to write full articles.
 
-Therefore this blog is going to have only unfinished (and shorter) articles !
+Therefore this blog is going to show more unfinished (and shorter) articles !
 
 I'm going to include some banner saying something like "This article is under perpetual rewriting, take it carefully as it may have changed tomorrow".
 

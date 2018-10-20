@@ -4,8 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This site is currently under construction [using Jekyll on GitHub Pages](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/).
+This blog is currently under construction : the current one can be found at [blog.nicolabs.net](http://blog.nicolabs.net).
 
-You can look at its source at [github.com/nicolabs/nicolabs.github.io](https://github.com/nicolabs/nicolabs.github.io) (but I bet you won't find it interesting for now...).
+It is built [with Jekyll on GitHub Pages](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/). You can look at its source at [github.com/nicolabs/nicolabs.github.io](https://github.com/nicolabs/nicolabs.github.io) (but I bet you won't find it interesting for now...).
 
-The current blog can be found at [blog.nicolabs.net](http://blog.nicolabs.net).
+Its theme is based on nandomoreirame's ["simplest" theme](https://github.com/nandomoreirame/simplest). [Here's the license](https://github.com/nandomoreirame/simplest/blob/master/LICENSE).

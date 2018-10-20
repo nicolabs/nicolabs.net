@@ -1,20 +1,57 @@
-# Site settings
-title: Work in progress.
-#email: https://nicolabs.net/contact
-description: > # this means to ignore newlines until "baseurl:"
-  This article is under perpetual rewriting, take it carefully as it may have changed tomorrow !
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "https://nicolabs.net" # the base hostname & protocol for your site
-twitter_username: nic0b0
-github_username:  nicolabs
+# SEO settings
+title: nicolabs
+description: Work in progress.
+keywords: "android, development, java, javascript, python, web"
+url: https://nicolabs.net
+#baseurl: ""
+baseurl: null
+
+repo: https://github.com/nicolabs/nicolabs.github.io
+#disqus_shortname: "nicolabs"
 
 # Build settings
-markdown: kramdown
-gems:
-  - jekyll-sitemap
+permalink   : /:year/:title/
+markdown    : kramdown
+highlighter : pygments
+
+paginate: 4
+paginate_path: "/page/:num/"
+comments: false
+
+# Sass configuration
+sass:
+  sass_dir: _sass
+  style: compressed # expanded
+
+# Author settings
+author:
+  name     : nicobo
+  job      : Software Engineer
+  bio      : "I'm interested into whatever you call technology and this is my lab's log."
+  thumb    : /images/author.png
+  url      : https://nicolabs.net/contact
+  github   : https://github.com/nicolabs
+  twitter  : nic0b0
+  mastodon : https://mastodon.social/@nicobo
+
+# social settings
+og_locale: en_US
+og_locale_alternate: [fr_FR]
+
+plugins:
+  - bourbon
   - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-sitemap
 
 jekyll-mentions:
-  base_url: https://twitter.com
+  base_url: https://mastodon.social
 
-theme: jekyll-theme-cayman
+# navbar pages
+navbar:
+  - slug : about
+    title: About
+  - slug : blog
+    title: Blog
+
+exclude: ["gulp", "node_modules", "bower", "bower_components", "config.rb", "src", "Gemfile", "Gemfile.lock", ".rvmrc", ".rbenv-version", "package.json", "gulpfile.js", "README.md", "Rakefile", "changelog.md"]

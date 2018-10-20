@@ -5,9 +5,10 @@ date: 2012-06-14 00:03:28 +0100
 tags: android printkey security certificate cryptography java JKS keystore keytool openssl paperkey password PEM PKCS12 X.509
 permalink: articles/paper-backup-your-private-key
 ---
-> This article focuses on Android and Java keystores, but it applies as well to any key that can be printed as plain text.
->
-> Before printing a private key, make sure that it is what you need : for instance you would rather print a revocation certificate for an OpenPGP key since you can still sign content with a new key. This is not the case for Android, which requires the same key for every release of an application.
+
+**This article focuses on Android and Java keystores, but it applies as well to any key that can be printed as plain text.**
+
+**Before printing a private key, make sure that it is what you need : for instance you would rather print a revocation certificate for an OpenPGP key since you can still sign content with a new key. This is not the case for Android, which requires the same key for every release of an application.**
 
 ## Securing a private key
 
@@ -54,7 +55,7 @@ To deal with JKS you use the `keytool` command, which is [included in the JDK](h
 
 Here is a reminder of the [Android recommended way](http://developer.android.com/guide/publishing/app-signing.html#cert) to generate a certificate for signing applications :
 
-    keytool -genkeypair -keystore mykeys.jks -alias foo -keyalg RSA -keysize 2048 -validity 10000`
+    keytool -genkeypair -keystore mykeys.jks -alias foo -keyalg RSA -keysize 2048 -validity 10000
 
 With this command, your JKS will be named `mykeys.jks` and your certificate aliased as "foo".
 
@@ -83,7 +84,6 @@ Therefore, although `openssl` allows keys without passwords, **make sure to put 
 Since JDK 6, `keytool` provides the `-importkeystore` command to import / export full data between keystores. Before that, only public parts could be exported. Unfortunately it is still not able to export private data to plain text : you will need to use another tool to achieve this : `openssl`.
 
     keytool -importkeystore -srcstoretype jks -srcalias foo -deststoretype pkcs12 -srckeystore mykeys.jks -destkeystore foo.p12
-
     openssl pkcs12 -in foo.p12 -out foo.pem -nodes
 
 The first command exports all key/certificate data to a binary PKCS12 file. Make sure to give this file the *same* password as the exported key (see the note about passwords).
@@ -132,10 +132,9 @@ One more advice before printing : make sure to use a font that does display all 
 When the big day has come and you want to restore your digital certificate from a piece of paper, simply type the key data back into a text file (let's call it `foo-restored.pem`) then run the following commands :
 
     openssl pkcs12 -export -in foo-restored.pem -out foo-restored.p12
-
     keytool -importkeystore -srckeystore foo-restored.p12 -srcstoretype pkcs12 -destkeystore restored.jks -deststoretype jks -srcalias 1 -destalias foorestored
 
-> You could try an OCR software to scan the text from a photo or image. I have not been successful with this yet.
+*You could try an OCR software to scan the text from a photo or image. I have not been successful with this yet.*
 
 This time, the first line converts back the PEM data to binary PKCS12.
 Don't miss the `-export` option, that was not used for the opposite transformation.
@@ -143,11 +142,11 @@ Don't miss the `-export` option, that was not used for the opposite transformati
 The second line imports back the key and certificate into your JKS keystore. If it already exists, it will be updated.
 We did not specify an alias (`-name`) for the key on the `openssl` command so we use `-srcalias 1` to target it. You can choose whatever alias you want for the restored key in your keystore (here `foorestored`).
 
-*Remember : the new password the openssl command asks for will be the password for the key. The new password the `keytool` command asks for will be the password for the keystore.*
+Remember : the new password the openssl command asks for will be the password for the key. The new password the `keytool` command asks for will be the password for the keystore.
 
 Your keystore `restored.jks` now contains an exact copy of your lost key : signing with it will produce *identical* results as signing with the original key.
 
-> If you want to compare two signed jar, compare their content, not the jar themselves : all files must be binary equal (except the name of the key files if you changed it).
+*If you want to compare two signed jar, compare their content, not the jar themselves : all files must be binary equal (except the name of the key files if you changed it).*
 
 ## References
 

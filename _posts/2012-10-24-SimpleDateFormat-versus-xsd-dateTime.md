@@ -126,7 +126,6 @@ _Logback_ uses _SimpleDateFormat_ to format dates, so the pattern `%d{yyyy-MM-dd
 
     09:58:31,716 |-WARN in ch.qos.logback.classic.pattern.DateConverter@1878144 - Could not instantiate SimpleDateFormat with pattern yyyy-MM-dd'T'HH:mm:s
     s.SSSX java.lang.IllegalArgumentException: Illegal pattern character 'X'
-            at java.lang.IllegalArgumentException: Illegal pattern character 'X'
 
 
 ## References
