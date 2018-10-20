@@ -12,7 +12,7 @@ repo: https://github.com/nicolabs/nicolabs.github.io
 # Build settings
 permalink   : /:year/:title/
 markdown    : kramdown
-highlighter : pygments
+highlighter : rouge
 
 paginate: 4
 paginate_path: "/page/:num/"
