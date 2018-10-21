@@ -9,9 +9,9 @@ tags: python scripting shell
 
 A quick "pros & cons" to choose between Python or Shell scripting, from what I've observed through the years.
 
-This could probably apply to [other high level script languages][1] vs shell.
+This could probably apply to other high level script languages* vs shell.
 
-[1]: # "Like Ruby, but not like Perl, as it shares more with shells from my point of view, like unreadable syntax and execution speed."
+\* *Like Ruby, but not like Perl, as it shares more with shells from my point of view, like unreadable syntax and execution speed.*
 
 ## Choose Python for :
 

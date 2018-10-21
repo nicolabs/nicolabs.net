@@ -12,9 +12,7 @@ Let's choose between three essentials tools to begin a new project !
 
 ![h5bp](/assets/blog/h5bp.png){:class="inline" height="120px" width="120px"} ![initializr](/assets/blog/html5-logo-165.png){:class="inline" height="120px" width="120px"} ![yeoman](/assets/blog/yeoman.png){:class="inline" height="120px" width="120px"}
 
-## HTML5 Boilerplate
-
-![H5BP logo (star)](/assets/blog/h5bp-logo.png)
+## ![H5BP logo (star)](/assets/blog/h5bp-logo.png){:class="inline" style="vertical-align:middle;"} HTML5 Boilerplate
 
 **HTML5 Boilerplate** (a.k.a. _H5BP_) is the original scaffolding tool by Paul Irish & Co (will have to search for the exact history...).
 
@@ -34,16 +32,14 @@ It's good for **small** sites.
 Find it at [html5boilerplate.com](http://html5boilerplate.com)
 
 
-## Initializr
-
-![Initializr logo](/assets/blog/html5-logo-165.png){:height="80px"}
+## ![Initializr logo](/assets/blog/html5-logo-165.png){:class="inline" style="vertical-align:middle;" height="80px"} Initializr
 
 While _H5BP_ is a static project template to download, **Initializr** allows you to customize it by selecting the features you want on your site and then downloading the generated files.
 
 It has 3 ready-to-use configurations :
 
 - Classic H5BP
-- Responsive (using a custom framework by @verekia)
+- Responsive (using a custom framework by [@verekia](https://github.com/verekia))
 - (Twitter) Bootstrap
 
 The customization is made online and on-the-fly : you can see the generated files directly online while filtering the features ("What's inside" button).
@@ -54,9 +50,7 @@ Since it's simply a "configurator" over H5BP I find it **more convenient** than 
 Find it at [initializr.com](http://www.initializr.com)
 
 
-## Yeoman
-
-![Yeoman logo](/assets/blog/yeoman-1.svg){:height="80px"}
+## ![Yeoman logo](/assets/blog/yeoman-1.svg){:class="inline" style="vertical-align:middle;" height="80px"} Yeoman
 
 To solve the "static template" issue, _H5BP_ first evolved into "[generator-mobile-boilerplate](https://github.com/h5bp/generator-mobile-boilerplate)", then into several specialized tools now known as "**Yeoman**".
 

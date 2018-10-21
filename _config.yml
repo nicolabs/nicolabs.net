@@ -38,16 +38,10 @@ author:
 og_locale: en_US
 og_locale_alternate: [fr_FR]
 
+# It looks like the following list is totally controlled on github pages : https://help.github.com/articles/configuring-jekyll-plugins/
 plugins:
-  - bourbon
-  - jekyll-mentions
-  - jekyll-paginate
+  - jekyll-feed
   - jekyll-sitemap
-  - jekyll/tagging
-  - jekyll-tagging-related_posts
-
-jekyll-mentions:
-  base_url: https://mastodon.social
 
 # navbar pages
 navbar:
