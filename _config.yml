@@ -43,6 +43,8 @@ plugins:
   - jekyll-mentions
   - jekyll-paginate
   - jekyll-sitemap
+  - jekyll/tagging
+  - jekyll-tagging-related_posts
 
 jekyll-mentions:
   base_url: https://mastodon.social

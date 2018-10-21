@@ -1,4 +1,14 @@
 
+<aside class="tags">
+
+  <ul class="tags">
+      {% for tag in page.tags %}
+        <li class="tag">#{{ tag }}</li>
+      {% endfor %}
+  </ul>
+
+</aside>
+
 <aside class="share">
 
   <h4>Share this.</h4>

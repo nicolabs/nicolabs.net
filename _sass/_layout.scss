@@ -214,6 +214,19 @@ strong {
   }
 }
 
+aside.tags {
+  padding: $base-spacing 0 0;
+
+  @extend .pull-left;
+
+  ul, li {
+    padding: 0;
+    list-style: none;
+    display: inline;
+    color: $secondary-color;
+  }
+}
+
 .disqus {
   background-color: lighten($light-gray-color, 16%);
   padding: $base-spacing 0;
