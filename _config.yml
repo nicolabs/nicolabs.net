@@ -39,6 +39,7 @@ og_locale: en_US
 og_locale_alternate: [fr_FR]
 
 # It looks like the following list is totally controlled on github pages : https://help.github.com/articles/configuring-jekyll-plugins/
+# More accurate : https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb
 plugins:
   - jekyll-feed
   - jekyll-sitemap
