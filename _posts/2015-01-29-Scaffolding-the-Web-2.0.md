@@ -5,12 +5,12 @@ permalink: articles/scaffolding-web-20
 title: Scaffolding the Web 2.0
 tags: web2.0 ant bower grunt gulp h5bp HTML5 html5 boilerplate initializr java maven npm sass scaffolding yeoman yo
 ---
-![h5bp](/assets/blog/h5bp.png){:class="inline" height="120px" width="120px"} ![initializr](/assets/blog/html5-logo-165.png){:class="inline" height="120px" width="120px"} ![yeoman](/assets/blog/yeoman.png){:class="inline" height="120px" width="120px"}
 
 ## Starting up with Web 2.0 development ?
 
 Let's choose between three essentials tools to begin a new project !
 
+![h5bp](/assets/blog/h5bp.png){:class="inline" height="120px" width="120px"} ![initializr](/assets/blog/html5-logo-165.png){:class="inline" height="120px" width="120px"} ![yeoman](/assets/blog/yeoman.png){:class="inline" height="120px" width="120px"}
 
 ## HTML5 Boilerplate
 

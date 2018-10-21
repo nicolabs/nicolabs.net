@@ -24,7 +24,7 @@ As a logical following, articles that were still in draft state and therefore hi
 
 Beside changing the concept, I'm also changing the platform, moving from self-hosted Drupal to Jekyll on GitHub Pages.
 
-During this migration I've tried to keep the old URLs still valid by keeping a way to make it through *HTTP redirects*. For the fun.
+During this migration I've tried to keep the old URLs still valid by keeping a way to make it through *HTTP redirects*. For fun.
 
 - Assets (images) are moved to `/assets/blog/...` and specified as is in the markdown sources. I could have used Jekyll's features to insert some variable but I did not want to add non-markdown code in the articles' source. If the assets were to move again and I would not manage to migrate by server configuration, it should be quite easy to replace all `/assets/blog/...` strings with the correct path.
 - I've used Jekyll's `permalink` option to keep the short URL of the articles so I just have to add an *HTTP redirect* to serve the new blog under the old URLs.
@@ -37,7 +37,7 @@ I had to merge or get rid of some of them and actually I have to say that this d
 - Lack of underlining in Markdown : I've used *normal* (\*) or **strong** (\*\*) emphasis
 - `file names` and `commands` used to have separate styles : although I miss this one a bit, I am now enclosing both of them in backticks (\`) and saving some seconds thinking about which style to use here.
 - I used to have 2 types of block quotes : notes and warnings. I am now using markdown quotes (>) for both, emphasing important words for warnings
-- Pictures and text layout is now only a vertical flow : I don't really care as it's always been for pure visual left/right/center alignment and I used to spend a signifiant time on it.
+- Pictures and text layout is now only a vertical flow : I don't really care as it's always been for pure visual left/right/center alignment and I used to spend a significant time on it.
 - Most of the visual helps I used to render with CSS are now back as indications in the text. E.g. I could emphasize portions of code to make the reader focus on them ; now I just describe them right before/after the code.
 - I was using a *main tag* as a category : android, java, ... I'm now only using tags of the same level.
 - No excerpt and picture to advertise an article in the front page.

@@ -32,9 +32,9 @@ String xsdDateStringAgain = DatatypeConverter.printDateTime(cal);               
 Before JDK 6, one would be tempted to use _SimpleDateFormat_ :
 
 ```java
-DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");         // attempts to defines my date in an XSD-compatible format
-Date myDate = dateFormat.parse("1997-07-16T19:20:30.447+01:00");                    // reads from an XSD string
-String myDateString = dateFormat.format(myDate);                                    // transforms back into an XSD string
+DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");    // attempts to defines my date in an XSD-compatible format
+Date myDate = dateFormat.parse("1997-07-16T19:20:30.447+01:00");               // reads from an XSD string
+String myDateString = dateFormat.format(myDate);                               // transforms back into an XSD string
 ```
 
 Unfortunately, this code doesn't work because the `Z` pattern generates time zones in _RFC 822_'s format (`+HHMM`).
@@ -43,7 +43,7 @@ So parsing the generated string (`1997-07-16T19:20:30,4+0100`) would trigger an 
 One may notice that JDK 7's _SimpleDateFormat_ has a new `X` pattern for time zones in ISO 8601's extended syntax, so we might use the following format :
 
 ```java
-DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");         // an XSD-compatible format
+DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");    // an XSD-compatible format
 ```
 
 But as said in the previous chapter, since JDK 6 there is already a better alternative for _xsd:dateTime_ : _DatatypeConverter_.
@@ -53,11 +53,11 @@ If you really have to deal with pre-JDK 6 date strings formats (for instance wit
 ```java
 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 Date dt = dateFormat.parse("1997-07-16T19:20:30.447+0100");
-System.out.println(dateFormat.format(dt));                                          // prints "1997-07-16T18:20:30.447+0000"
+System.out.println(dateFormat.format(dt));                   // prints "1997-07-16T18:20:30.447+0000"
 
 Calendar cal = Calendar.getInstance();
 cal.setTime(dt);
-System.out.println(DatatypeConverter.printDateTime(cal));                           // prints "1997-07-16T18:20:30.447Z"
+System.out.println(DatatypeConverter.printDateTime(cal));    // prints "1997-07-16T18:20:30.447Z"
 ```
 
 So finally, if you want to keep as close as possible as the original string, you might draw inspiration from the following regular expression : `(.{19}(?:\.\d+)?[+-])(\d{2})(\d{2})`. It matches 3 groups :
@@ -124,8 +124,9 @@ To generate an XSD String in UTC with the symbolic `Z` time zone, simply quote i
 
 _Logback_ uses _SimpleDateFormat_ to format dates, so the pattern `%d{yyyy-MM-dd'T'HH:mm:ss.SSSX}` will only work on JDK7 and fail on JDK6 :
 
-    09:58:31,716 |-WARN in ch.qos.logback.classic.pattern.DateConverter@1878144 - Could not instantiate SimpleDateFormat with pattern yyyy-MM-dd'T'HH:mm:s
-    s.SSSX java.lang.IllegalArgumentException: Illegal pattern character 'X'
+    09:58:31,716 |-WARN in ch.qos.logback.classic.pattern.DateConverter@1878144
+      - Could not instantiate SimpleDateFormat with pattern yyyy-MM-dd'T'HH:mm:ss.SSSX
+      java.lang.IllegalArgumentException: Illegal pattern character 'X'
 
 
 ## References

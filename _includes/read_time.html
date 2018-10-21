@@ -2,8 +2,8 @@
   {% assign minutes = page.minutes %}
 {% else %}
   {% assign num_words = page.content | strip_html | number_of_words %}
-  {% assign minutes_f = num_words | divided_by: 200.0 %}
-  {% assign minutes_i = num_words | divided_by: 200 %}
+  {% assign minutes_f = num_words | divided_by: 120.0 %}
+  {% assign minutes_i = num_words | divided_by: 120 %}
   {% assign diff = minutes_f | minus: minutes_i %}
   {% if diff >= 0.5 %}
       {% assign minutes = minutes_i + 1 %}
