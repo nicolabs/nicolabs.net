@@ -219,11 +219,17 @@ aside.tags {
 
   @extend .pull-left;
 
+  /* tags & list of tags */
   ul, li {
     padding: 0;
     list-style: none;
     display: inline;
     color: $secondary-color;
+  }
+
+  /* a tag */
+  li {
+    padding: .1em;
   }
 }
 

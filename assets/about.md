@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: /about/
+comments: true
 ---
 
 This blog is still under construction : the current one can be found at [blog.nicolabs.net](http://blog.nicolabs.net).
@@ -12,4 +13,4 @@ Its theme is based on nandomoreirame's ["simplest" theme](https://github.com/nan
 
 The code for estimating and displaying the time to read an article comes from [atekihcan.github.io](http://atekihcan.github.io/blog/2014/reading-time-estimate-in-jekyll) and [github.com/renyuanz/leonids](https://github.com/renyuanz/leonids).
 
-You can contact me at [mastodon.social/@nicobo]({{ site.author.mastodon }}).
+You can contact me at [mastodon.social/@nicobo]({{ site.author.mastodon }}) or leave a comment right below.

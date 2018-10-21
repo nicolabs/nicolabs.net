@@ -7,7 +7,7 @@ url: https://nicolabs.net
 baseurl: null
 
 repo: https://github.com/nicolabs/nicolabs.github.io
-#disqus_shortname: "nicolabs"
+disqus_shortname: nicolabs
 
 # Build settings
 permalink   : /:year/:title/
