@@ -32,7 +32,9 @@ author:
   url      : https://nicolabs.net/contact
   github   : https://github.com/nicolabs
   twitter  : nic0b0
-  mastodon : https://mastodon.social/@nicobo
+  mastodon:
+    instance: https://mastodon.social
+    username: "@nicobo"
 
 # social settings
 og_locale: en_US
