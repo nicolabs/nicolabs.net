@@ -134,6 +134,10 @@ hr {
 .post-list {
   background-color: lighten($light-gray-color, 17%);
   padding: $base-spacing 0;
+
+  .mastodon {
+    padding-top: 0;
+  }
 }
 
 em {
@@ -158,9 +162,10 @@ strong {
     margin-bottom: 0;
   }
 
-  .readmore {
-    font-style: italic;
-  }
+}
+
+.readmore {
+  font-style: italic;
 }
 
 .post-meta {
@@ -255,5 +260,53 @@ aside.tags {
     display: block;
     font-size: rem(12);
     color: darken($medium-gray-color, 10%);
+  }
+}
+
+/*
+ Mastodon timeline widget further customization
+*/
+
+/* any container after the 1st one (TODO with a CSS selector) */
+.container-n {
+  padding-bottom: 0;
+}
+
+.mastodon-timeline {
+  padding-top: 0;
+}
+
+.mt-toot {
+  @extend .post-item;
+}
+
+.mt-user,
+.mt-date {
+  display: inline;
+
+  a {
+    @extend .link;
+    font-weight: bold;
+  }
+}
+
+.mt-user:after {
+    content: " — ";
+}
+
+.toot-retoot {
+  display: inline;
+  margin-right: 1em;
+}
+
+.mt-header h4 {
+  @extend h2;
+}
+
+.mt-footer {
+  @extend .readmore;
+
+  a {
+    @extend .post-link;
   }
 }

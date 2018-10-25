@@ -83,13 +83,6 @@
   <meta itemprop="description" content="{{ page_description }}">
   <meta itemprop="image" content="{{ page_image }}">
 
-  <!-- Mastodon toots -->
-  <!-- TODO custom CSS
-  <link rel="stylesheet" href="/assets/mastodon-timeline-widget/mastodon.widget.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/solid.css" integrity="sha384-osqezT+30O6N/vsMqwW8Ch6wKlMofqueuia2H7fePy42uC05rm1G+BUPSd2iBSJL" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/fontawesome.css" integrity="sha384-BzCy2fixOYd0HObpx3GMefNqdbA7Qjcc91RgYeDjrHTIEXqiF00jKvgQG0+zY/7I" crossorigin="anonymous">
-  -->
-
   <!-- rel prev and next -->
   {% if paginator.previous_page %}
     <link rel="prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | prepend: site.url }}">
@@ -103,30 +96,6 @@
   <!-- Canonical link tag -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   {% feed_meta %}
-
-  <!-- Mastodon toots -->
-  <!--script
-			  src="https://code.jquery.com/jquery-3.3.1.min.js"
-			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			  crossorigin="anonymous"></script>
-  <script type="text/javascript" src="/assets/mastodon-timeline-widget/mastodon.widget.js"></script>
-  <script>
-  	$(document).ready(function() {
-  		// jQUERY is required!
-  		var mapi = new MastodonApi({
-  			target_selector          : '#myTimeline'
-  			,instance_uri            : '{{ site.author.mastodon.instance }}'
-  			,access_token            : '84e7ac154c450bc9d0d68e52d94171556af38423e2eed4357dead21532fe30e1'
-  			,account_id              : '566645'
-  			// === optional parameters ===
-  			//,toots_limit           : 5
-  			// samples below require http://fontawesome.io
-  			//,pic_icon              : '<i class="fa fa-picture-o"></i>'
-  			,boosts_count_icon     : '<i class="fa fa-retweet"></i>'
-  			,favourites_count_icon : '<i class="fa fa-star"></i>'
-  		});
-  	});
-  </script-->
 
   <script type="text/javascript">
   var disqus_shortname = '{{ site.disqus_shortname }}';
