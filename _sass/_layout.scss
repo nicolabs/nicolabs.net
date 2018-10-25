@@ -278,6 +278,7 @@ aside.tags {
 
 .mt-toot {
   @extend .post-item;
+  padding-bottom: 1em;
 }
 
 .mt-user,
@@ -304,6 +305,7 @@ aside.tags {
 }
 
 .mt-footer {
+  @extend .container;
   @extend .readmore;
 
   a {
