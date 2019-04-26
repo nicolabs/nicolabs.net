@@ -3,7 +3,10 @@ layout: post
 title: "Python versus Shell scripting : from experience"
 date: 2015-11-08 14:24:13 +0100
 permalink: articles/python-versus-shell-scripting-experience
-tags: python scripting shell
+tags:
+  - python
+  - scripting
+  - shell
 ---
 ![Python vs Shell](/assets/blog/Selection_008.png)
 

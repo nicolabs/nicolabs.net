@@ -3,7 +3,10 @@ layout: post
 date: 2012-05-06 17:22:47 +0100
 title: Displaying your tweets on your Drupal blog
 permalink: articles/displaying-your-tweets-your-drupal-blog
-tags: drupal oauth twitter
+tags:
+  - drupal
+  - oauth
+  - twitter
 ---
 ## Twitter module for Drupal
 

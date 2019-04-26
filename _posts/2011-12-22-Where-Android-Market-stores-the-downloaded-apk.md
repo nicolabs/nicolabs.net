@@ -2,7 +2,9 @@
 layout: post
 title: Where Android Market stores the downloaded .apk
 date: 2011-12-22 07:12:17 +0100
-tags: android apk internals market temporary files
+tags:
+  - android
+  - apk
 permalink: articles/where-android-market-stores-downloaded-apk
 ---
 Today I ran into a small problem that might happen sometimes : trying to benefit from a 2 day-only offer to download for free [Duke Nukem 3d](https://market.android.com/details?id=com.machineworksnorthwest.duke3d) (just for fun, I don't think it's going to be the killer app this year ;-), I found out that my phone had not enough free memory to install it (Market told me : 56MB required).

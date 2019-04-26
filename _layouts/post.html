@@ -7,7 +7,7 @@ layout: default
     <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
     <p class="post-meta">
       <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
-      {% if page.modified %}<span class="post-meta-separator">•</span> <time datetime="{{ page.modified | date_to_xmlschema }}" itemprop="dateModified">Updated {{ page.modified  | date: "%b %-d, %Y" }}</time>{% endif %}
+      {% if page.modified %}<span class="post-meta-separator">•</span> <time class="dateModified" datetime="{{ page.modified | date_to_xmlschema }}" itemprop="dateModified">Updated on {{ page.modified  | date: "%b %-d, %Y" }}</time>{% endif %}
       {% if page.author %}<span class="post-meta-separator">•</span> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}
       <span class="post-meta-separator">•</span> <span itemprop="read_time">{% include read_time.html %}</span>
     </p>

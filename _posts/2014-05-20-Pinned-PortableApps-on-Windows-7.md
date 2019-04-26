@@ -3,7 +3,10 @@ layout: post
 title: Pinned PortableApps on Windows 7
 date: 2014-05-20 08:10:45 +0100
 permalink: articles/pinned-portableapps-windows-7
-tags: portable PortableApps windows
+tags:
+  - portable
+  - PortableApps
+  - windows
 ---
 If you are using _PortableApps_, you might have noticed that some programs like _Firefox_ or _PuTTY_ launched from Windows 7's task bar starts the system wide installation instead of the PortableApps's one.
 

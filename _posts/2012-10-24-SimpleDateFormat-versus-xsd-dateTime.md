@@ -3,7 +3,10 @@ layout: post
 date: 2012-10-24 17:47:21 +0100
 permalink: articles/simpledateformat-versus-xsddatetime
 title: SimpleDateFormat versus xsd:dateTime
-tags: dateTime java SimpleDateFormat time zone XML Schema XSD
+tags:
+  - dates
+  - java
+  - XML
 ---
 ## Time zones in XML Schema and Java
 

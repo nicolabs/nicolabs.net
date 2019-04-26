@@ -3,7 +3,22 @@ layout: post
 date: 2015-01-29 23:52:38 +0100
 permalink: articles/scaffolding-web-20
 title: Scaffolding the Web 2.0
-tags: web2.0 ant bower grunt gulp h5bp HTML5 html5 boilerplate initializr java maven npm sass scaffolding yeoman yo
+tags:
+  - ant
+  - bower
+  - grunt
+  - gulp
+  - h5bp
+  - html5
+  - initializr
+  - java
+  - maven
+  - npm
+  - sass
+  - scaffolding
+  - web design
+  - yeoman
+  - yo
 ---
 
 ## Starting up with Web 2.0 development ?

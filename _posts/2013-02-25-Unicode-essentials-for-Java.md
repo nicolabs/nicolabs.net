@@ -2,8 +2,11 @@
 layout: post
 date: 2013-02-25 13:33:16 +0100
 title: Unicode essentials for Java
-tags: java internationalization unicode
 permalink: articles/unicode-essentials-java
+tags:
+  - internationalization
+  - java
+  - unicode
 ---
 ## Draft !
 ![Rosetta Stone + Unicode logo](/assets/blog/rosetta_unicode.jpg)

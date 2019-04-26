@@ -3,7 +3,9 @@ layout: post
 title: AddThis for Drupal
 date: 2012-05-08 11:11:57 +0100
 permalink: articles/addthis-drupal
-tags: drupal addthis social sharing
+tags:
+  - drupal
+  - social
 ---
 > This small article might help you to figure out quickly how to work with the AddThis module for Drupal.
 >

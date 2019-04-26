@@ -1,7 +1,13 @@
 ---
 layout: post
 title: Migrating from Drupal to Jekyll
-tags: drupal jekyll github blogging
+tags:
+  - blogging
+  - drupal
+  - github
+  - jekyll
+  - web design
+modified: 2019-04-26
 ---
 
 ## New blog concept ?

@@ -3,7 +3,10 @@ layout: post
 title: Migrating from Subversion to Mercurial
 date: 2012-01-25 22:25:10 +0100
 permalink: articles/migrating-subversion-mercurial
-tags: tooling mercurial migration pre-revprop-change subversion svnsync
+tags:
+  - mercurial
+  - subversion
+  - tooling
 ---
 > Instructions are aimed at Windows mainly (on Linux it should be easier).
 
