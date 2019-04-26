@@ -27,7 +27,7 @@ sass:
 author:
   name     : nicobo
   job      : Software Engineer
-  bio      : "I'm interested into whatever is called technology and this is my lab's log."
+  bio      : "I'm interested into whatever is called technology and this is my <strong class=\"author-name\" itemprop=\"name\">lab's</strong> log."
   thumb    : /images/author.png
   url      : https://nicolabs.net/contact
   github   : https://github.com/nicolabs
