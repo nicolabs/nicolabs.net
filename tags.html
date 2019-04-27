@@ -17,11 +17,11 @@ The following part extracts all the tags from your posts and sort tags, so that 
 	{% assign ttags = post.tags | join:'|' | append:'|' %}
 	{% assign rawtags = rawtags | append:ttags %}
 {% endfor %}
-{% assign rawtags = rawtags | split:'|' | sort %}
+{% assign rawtags = rawtags | split:'|' | sort_natural %}
 
 {% comment %}
 =======================
-The following part removes dulpicated tags and invalid tags like blank tag.
+The following part removes duplicated tags and invalid tags like blank tag.
 =======================
 {% endcomment %}
 {% assign tags = "" %}
@@ -47,9 +47,9 @@ The purpose of this snippet is to list all your posts posted with a certain tag.
 	 {% for post in site.posts %}
 		 {% if post.tags contains tag %}
 		 <li>
-		   <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong>
-       <span class="post-meta-separator">•</span> <time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
-       {% if post.last_modified_at %}<span class="post-meta-separator">•</span> <time class="post-meta dateModified" datetime="{{ post.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">Updated on {{ post.last_modified_at  | date: "%b %-d, %Y" }}</time>{% endif %}
+      <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong>
+      <span class="post-meta-separator">•</span> <time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+      {% if post.last_modified_at %}<span class="post-meta-separator">•</span> <time class="post-meta dateModified" datetime="{{ post.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">Updated on {{ post.last_modified_at  | date: "%b %-d, %Y" }}</time>{% endif %}
 		 </li>
 		 {% endif %}
 	 {% endfor %}

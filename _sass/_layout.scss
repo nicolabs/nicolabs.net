@@ -109,6 +109,11 @@ hr {
   line-height: 28px;
   font-weight: 300;
 
+  a {
+    text-decoration: none;
+    border: none;
+  }
+
   span {
     font-weight: 700;
   }
@@ -173,22 +178,6 @@ strong {
   font-style: italic;
 }
 
-.post-meta {
-  color: $medium-gray-color;
-  font-style: italic;
-
-  .post-meta-separator {
-    padding: 0 .5em;
-  }
-}
-
-.post-header {
-  .post-meta {
-    color: $secondary-color;
-    font-weight: bold;
-  }
-}
-
 .post-link,
 .post a,
 .page a {
@@ -197,6 +186,33 @@ strong {
 
 .post {
   @extend .clearfix;
+}
+
+/* Post meta-data default style (e.g. index.html) */
+.post-meta {
+  color: $medium-gray-color;
+  font-style: italic;
+  text-decoration: none;
+  border: none;
+}
+a {
+  @extend .link;
+}
+
+/* Post meta-data style in the post itself */
+.post-header {
+  .post-meta, a {
+    color: $secondary-color;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: none;
+    border: none;
+  }
+}
+
+/* Adds some space around the meta fields separator */
+.post-meta-separator {
+  padding: 0 .5em;
 }
 
 .pagination {

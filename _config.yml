@@ -6,7 +6,10 @@ url: https://www.nicolabs.net
 #baseurl: ""
 baseurl: null
 
-repo: https://github.com/nicolabs/nicolabs.github.io
+repo:
+  url: https://github.com/nicolabs/nicolabs.github.io
+  # Path to add to `repo.url` to get the commits history root URL
+  commits_path: commits/master
 disqus_shortname: nicolabs
 
 # Build settings
