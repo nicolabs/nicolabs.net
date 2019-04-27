@@ -3,7 +3,7 @@
 
   <ul class="tags">
       {% for tag in page.tags %}
-        <li class="tag">#{{ tag }}</li>
+        <li class="tag"><a href="/tags#{{tag | slugify}}">#{{ tag }}</a></li>
       {% endfor %}
   </ul>
 

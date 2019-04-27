@@ -1,3 +1,11 @@
+%highlighted {
+  background-color: $secondary-color;
+  color: $white-color;
+  display: inline-block;
+  padding: 0 .3em;
+}
+
+
 * {
   &,
   &:before,
@@ -84,10 +92,7 @@ hr {
 
 .intro {
   .author-name {
-    background-color: $secondary-color;
-    color: $white-color;
-    display: inline-block;
-    padding: 0 .3em;
+    @extend %highlighted;
   }
 
   a {
@@ -225,7 +230,7 @@ aside.tags {
   @extend .pull-left;
 
   /* tags & list of tags */
-  ul, li {
+  ul, li, a {
     padding: 0;
     list-style: none;
     display: inline;
@@ -237,6 +242,23 @@ aside.tags {
     padding: .1em;
   }
 }
+
+.tag-decoration {
+  color: $secondary-color;
+}
+
+.tag {
+  /* Tag links should not look like standard links, which are too much emphasized */
+  a {
+    text-decoration: none;
+    border: none;
+  }
+}
+
+h2.tag a {
+  @extend h2;
+}
+
 
 .disqus {
   background-color: lighten($light-gray-color, 16%);
