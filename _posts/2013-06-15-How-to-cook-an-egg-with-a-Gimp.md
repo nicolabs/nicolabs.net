@@ -33,7 +33,7 @@ You can do it in different ways :
 
 As all subsequent steps depend on this one, make sur you get the exact shape you want before going on the next chapter. Especially check that the image resolution is high enough.
 
-If you need a high resolution I would suggest you to build your own image from scratch, as the attached Gimp source is quite low-res. You could use the aforementioned plugin for instance.
+If you need a high resolution I would suggest you build your own image from scratch, as the attached Gimp source is quite low-res. You could use the aforementioned plugin for instance.
 As an example, for Android application icons, [a 864x864 resolution is recommended](https://developer.android.com/guide/practices/ui_guidelines/icon_design.html#design-tips).
 
 ![The egg is taking shape...](/assets/blog/shape.png)
