@@ -42,12 +42,12 @@ As an example, for Android application icons, [a 864x864 resolution is recommend
 
 The main idea to simulate a volume is to apply a shading (yes : in drawing, everything is impression !).
 
-> This part of the tutorial is probably the one that deserves the most to be enhanced, because it has the undesired side effect to blacken colors in place of darkening them. The "Sphere designer" tool might be of a great help to solve this issue (see link at the end).
+> This part of the tutorial probably deserves some enhancement because it has the undesired side effect to blacken colors instead of darkening them. The "Sphere designer" tool might be of a great help to solve this issue (see link at the end).
 
 ### The edges
 
-To create this volume effect we are first going to select the drawn shapeand apply the _"Light and Shadow > Drop Shadow"_ filter with a nul offset (x=0, y=0).
-This will make the edges come out of the sheet.
+To create this volume effect we are first going to select the drawn shapeand apply the _"Light and Shadow > Drop Shadow"_ filter with a null offset (x=0, y=0).
+This will make the edges visibly come out of the sheet.
 
 ![The egg is MORE that an surface...](/assets/blog/pictures/edges.png)
 
@@ -76,13 +76,13 @@ As a way to suggest a shiny and bright aspect to the shell, we can add a reflect
 
 Usually we can give a 'cartoon' effect by adding more importance to the lines.
 
-In our case the first thing to do is to increase the width of the edges, what is easilly done with the _"Select > Border"_ tool.
+In our case the first thing to do is to increase the width of the edges : that is easilly done with the _"Select > Border"_ tool.
 
-It's also possible to enhance the shadings by tuning with the transparency level and to increase colors intensity.
+It's also possible to enhance the shadings by tuning the transparency level and increasing colors intensity.
 
 ![The egg is drawn...](/assets/blog/pictures/cartoon.png)
 
-When sizing down the picture, don't use antialiasing so you get pixel-cut edges on a transparent background.
+When sizing down the picture, don't use antialiasing so you get pixel-perfect edges on a transparent background.
 
 ## The texture
 
