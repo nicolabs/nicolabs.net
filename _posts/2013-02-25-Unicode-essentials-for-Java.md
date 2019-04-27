@@ -11,11 +11,11 @@ tags:
 ## Draft !
 ![Rosetta Stone + Unicode logo](/assets/blog/rosetta_unicode.jpg)
 
-Today, all developers have heard of Unicode : this character encoding that can be used for all the languages in the world.
+Today, all developers have heard of Unicode : this character encoding allows all characters of any language in the world.
 
-This article outlines the basics of Unicode through some key points for Java developers.
+This article outlines the basics of Unicode through some key points for **Java developers**.
 
-It also talks about the influence of Unicode on the JVM like : how characters are stored into a `String` and why you have to be cautious when using `char` and `String.length()`.
+It also talks about the influence of Unicode on the JVM, like how characters are stored into a `String` and why you have to get cautious when using `char` and `String.length()`.
 
 ## Unicode internals
 
