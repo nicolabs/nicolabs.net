@@ -9,7 +9,7 @@ tags:
   - grunt
   - gulp
   - h5bp
-  - html5
+  - HTML5
   - initializr
   - java
   - maven
