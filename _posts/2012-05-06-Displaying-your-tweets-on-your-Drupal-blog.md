@@ -4,10 +4,14 @@ date: 2012-05-06 17:22:47 +0100
 title: Displaying your tweets on your Drupal blog
 permalink: articles/displaying-your-tweets-your-drupal-blog
 tags:
+  - blogging
   - drupal
   - oauth
+  - social
   - twitter
+  - web design
 ---
+
 ## Twitter module for Drupal
 
 If you want to display your latest tweets on your Drupal blog, you will probably want to use the dedicated [Twitter module](http://drupal.org/project/twitter). Among other features, this module provides a new block type that lists a selection of tweets from an account. Tweets are retrieved via a cron job and stored in your website's database, making them available even through corporate firewalls that banish twitter.com. Just-what-you-need !
