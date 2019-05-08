@@ -24,27 +24,32 @@ h6 {
 }
 
 h1 {
-  font-size: rem(30);
+  font-size: rem(50);
+  margin: 0 0 $small-spacing;
   font-weight: bold;
 }
 
 h2 {
   font-size: rem(26);
   margin: $base-spacing 0 $base-spacing;
-  font-weight: 500;
+  font-weight: bold;
 }
 
 h3 {
   font-size: rem(24);
+  margin: $base-spacing 0 $small-spacing;
+  font-weight: 400;
 }
 
 h4 {
   font-size: rem(20);
+  margin: 1em 0 1em;
 }
 
 h5,
 h6 {
   font-size: rem(16);
+  margin: 1em 0 .5em;
 }
 
 p {
