@@ -18,6 +18,6 @@ The *mastodon* widget is from [mastodon-timeline-widget](https://github.com/nico
 
 The [tags page](/tags) has been possible thanks to [this blog article](https://codinfox.github.io/dev/2015/03/06/use-tags-and-categories-in-your-jekyll-based-github-pages/).
 
----
+## Contact
 
 You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}]({{ site.author.mastodon.instance }}/{{ site.author.mastodon.username }}) or [twitter.com/{{ site.author.twitter }}](https://twitter.com/{{ site.author.twitter }}) or leave a comment right below.
