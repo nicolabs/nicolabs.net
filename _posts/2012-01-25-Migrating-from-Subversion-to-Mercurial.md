@@ -10,7 +10,7 @@ tags:
 ---
 > Instructions are aimed at Windows mainly (on Linux it should be easier).
 
-# Need to migrate from Subversion to Mercurial ?
+## Need to migrate from Subversion to Mercurial ?
 
 This is a quick guide to migrating an existing _SVN_ repository to a new _Hg_ one.
 
@@ -19,7 +19,7 @@ It takes 2 major steps :
 1. make a local copy of the existing SVN repository
 2. convert it to Hg
 
-# Make a local copy of the existing SVN repository
+### Make a local copy of the existing SVN repository
 
 Oddly enough, this was the hardest part to figure out :
 
@@ -68,7 +68,7 @@ It looked strange to me that it was not working out of the box on Windows, but I
 We can now work with this local SVN mirror.
 
 
-# Convert the SVN repository to a Hg one
+### Convert the SVN repository to a Hg one
 
 This operation is quite simple...
 
@@ -103,7 +103,7 @@ Successful import from SourceForge's SVN to Google Code's Hg :
 
 ![Sample project imported from Sourceforge's SVN to Google code's Hg](/assets/blog/svn2hg-googlecode.png)
 
-# Related links
+## Related links
 
 - Sample `pre-revprop-change` hooks for Windows : [stackoverflow.com/questions/6155/common-types-of-subversion-hooks/9010360#9010360](http://stackoverflow.com/questions/6155/common-types-of-subversion-hooks/9010360#9010360)
 - Official doc for converting from different sources to Hg : [mercurial.selenic.com/wiki/ConvertExtension](http://mercurial.selenic.com/wiki/ConvertExtension)
