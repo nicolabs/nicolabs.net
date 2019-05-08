@@ -4,6 +4,7 @@ title: AddThis for Drupal
 date: 2012-05-08 11:11:57 +0100
 permalink: articles/addthis-drupal
 tags:
+  - blogging
   - drupal
   - social
 ---
