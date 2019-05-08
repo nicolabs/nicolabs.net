@@ -1,6 +1,6 @@
 ---
 layout: post
-title: My favorites tools I want to tell the world
+title: My favorite tools I want to tell the world
 tags:
   - tooling
   - social
