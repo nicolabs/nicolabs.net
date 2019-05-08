@@ -2,7 +2,12 @@
 layout: post
 title: Un retour d'expérience sur les traces applicatives
 date: 2013-03-07 14:03:41 +0100
-tags: java level logging monitoring privacy security testing
+tags:
+  - java
+  - logging
+  - monitoring
+  - security
+  - testing
 ---
 ## Draft !
 
