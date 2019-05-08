@@ -2,6 +2,7 @@
 layout: post
 title: My favorite tools I want to tell the world
 tags:
+  - android
   - tooling
   - social
   - twitter
@@ -12,7 +13,7 @@ This page lists some tools I've been using with success for while : they may fit
 
 ## Twidere
 
-[Twidere](https://github.com/TwidereProject/Twidere-Android) is definitely the only one, perfect, **Twitter** client for me (and I've been searching a lot).
+[Twidere](https://github.com/TwidereProject/Twidere-Android) is definitely the only one, perfect, **Twitter** Android client for me (and I've been searching a lot).
 It's open source. It handles every single feature I need.
 
 I've been using it for years... And since it happens to be very good also at **Mastodon** I do continue to use it every day.
