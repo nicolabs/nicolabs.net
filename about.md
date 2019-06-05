@@ -1,6 +1,9 @@
 ---
 layout: page
 title: About
+redirect_from:
+    - /contact
+    - /people/nicobo
 comments: true
 ---
 

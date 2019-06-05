@@ -13,9 +13,16 @@ repo:
 disqus_shortname: nicolabs
 
 # Build settings
-permalink   : /:year/:title/
+permalink   : /:year/:title
 markdown    : kramdown
 highlighter : rouge
+
+# TODO Test Paginator ; see https://github.com/sverrirs/jekyll-paginate-v2/
+#pagination:
+#    enabled: true
+#    per_page: 6
+#    permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
+#    #locale: en
 
 paginate: 4
 paginate_path: "/page/:num/"
@@ -48,6 +55,7 @@ og_locale_alternate: [fr_FR]
 plugins:
   - jekyll-feed
   - jekyll-sitemap
+  - jekyll-redirect-from
 
 # navbar pages
 navbar:
