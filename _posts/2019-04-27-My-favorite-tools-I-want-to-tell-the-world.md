@@ -7,9 +7,24 @@ tags:
   - social
   - twitter
   - mastodon
+  - cloud
 ---
 
 This page lists some tools I've been using with success for while : they may fit your needs as well !
+
+
+## NextCloud
+
+[NextCloud](https://nextcloud.com/) (a fork of [OwnCloud](https://owncloud.org/)) is a very promising software that aims to bring usual cloud services to the home.
+
+However, it's based on pluggable features that are not always stable. Here are the ones I'm using on a day-to-day basis :
+
+- web interface to access my own files (however synchronization, backup and other features on files are not yet useable in my opinion)
+- calendar (coupled with DAVDroid and any Android calendar it has all features Google Calendar has, except event import from email)
+- contacts (really excellent)
+- news (use with a RSS/Atom reader on your mobile)
+- bookmarks
+
 
 ## Twidere
 
