@@ -18,3 +18,7 @@ Although they advertise *synchronization* features both on the server and mobile
 Also : most features are not (or very badly) documented so it's very time-consuming to just understand what can be done and how.
 
 # Syncthing
+
+# Samba
+
+Use samba for its performance (vs NFS) and to access files directly when you're on your home network.
