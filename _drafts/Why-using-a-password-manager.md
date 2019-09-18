@@ -12,6 +12,7 @@ It is a general security recommendation to use passwords managers because :
 - It allows to **segregate services** by giving each of them a different password so ~~if~~ when someone gets into their database he would not be able to use the password against other services
 - It greatly simplifies **frequent update of passwords**
 - In special cases (e.g. you die) : it can be used by a trusted person to recover your accounts
+- It's better than online password manager services (e.g. like major web browsers or paying cloud services propose) because it also has integrations for mobile and native applications
 
 However I don't like it much because :
 
