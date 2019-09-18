@@ -27,6 +27,13 @@ Duplicity does :
 - open source
 
 
+## The ultimate sensitive place
+
+There is always a place that can unlock the chain , whether it's your memory or some file.
+With complex secrets like GPG keys, or whole files you just cannot keep it in memory so you can either print them, or simply keep them on a hidden USB key.
+Save the minimal configuration to recover secret keys and backup configuration.
+
+
 ## References
 
 - https://www.backblaze.com/backup-your-computer.html
