@@ -50,6 +50,35 @@ Duplicity also :
 - open source
 
 
+### Sample reports
+
+    --------------[ Backup Statistics ]--------------
+    StartTime 1568759264.08 (Wed Sep 18 00:27:44 2019)
+    EndTime 1568759386.88 (Wed Sep 18 00:29:46 2019)
+    ElapsedTime 122.80 (2 minutes 2.80 seconds)
+    SourceFiles 588
+    SourceFileSize 269671106 (257 MB)
+    NewFiles 588
+    NewFileSize 269671106 (257 MB)
+    DeletedFiles 0
+    ChangedFiles 0
+    ChangedFileSize 0 (0 bytes)
+    ChangedDeltaSize 0 (0 bytes)
+    DeltaEntries 588
+    RawDeltaSize 269507266 (257 MB)
+    TotalDestinationSizeChange 200758158 (191 MB)
+    Errors 0
+    -------------------------------------------------
+
+    --- Finished state OK at 00:37:45.461 - Runtime 00:10:15.079 ---
+
+Files size on B2 are :
+
+- 2.6 MB for the `*.sigtar.gpg`
+- 1.3 KB for the `*.manifest.gpg`
+- 200.8 MB for the `*.vol1.difftar.gpg` (is it compressed / deduplicated ?)
+
+
 ## The ultimate sensitive place
 
 There is always a place that can unlock the chain , whether it's your memory or some file.
