@@ -16,6 +16,14 @@ Let's guess the implicit requirements behind this :
 - how much resiliency
 - how deep history (file deletion or example)
 
+### Covered scenarios
+
+1. 1 disk loss
+  - don't want to download data from all disks
+2. Unwanted file deletion
+  - don't want to download the whole data set
+
+
 ## Technical constraints
 
 Huge size means huge recovery time : separate data into several backup sets per priority or usage. For example one set for system configuration, one for personal configuration, one for photos, ... You're able to quickly restore your system then restore your photos over several days or weeks.
