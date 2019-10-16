@@ -2,6 +2,10 @@
 
 ## Balancing security and usability
 
+The only truly secure data is the one that never leaves a secure enclave. From the time when a secret has been accessible by a possibly corrupted tool/network/environment/device it's not truly safe anymore.
+Therefore you realize you have to use derivative secrets with different trust levels to allow your phone to sign messages, a web service to prove your ownership, ...
+Everything is your definition and usage of the trust levels.
+
 - GPG key set :
   - root, most secure one
   - per segregation case : devices, application, service provider, ...
@@ -36,7 +40,7 @@ However it's a major pain point when coming to generate or edit keys, as people 
 ### Enters keybase.io
 
 Same problems but more integrations available.
-Decreased security but acceptable use : each one must be aware of the actual level of trust it brings.
+Decreased (say adapted) security but acceptable use : each one must be aware this hasn't been battle-tested as pgp.
 
 Account created early, lost key (as usual because I've just not used it enough to make it in my long-term memory).
 
@@ -48,6 +52,12 @@ It allows to sign generic statements (not only keys) and therefore can be used t
 
 The apps are quite good and they provide services over the main mechanism : encrypted chat, encrypted file system, encrypted git repository.
 I use a bit the encrypted chat to transfer data between my devices but I don't use other services yet because I'm worried what would happen to my data if keybase turns off...
+
+The main issues is its centralised architecture :
+- its availability and integrity depends on a unique provider (might be possible to deploy other instances but I haven't seen any and they would not federate, defeating the purpose of being a centralised directory)
+- its terms and privacy rules can change at any time
+- as a cloud service, gathers data about their users (see [their privacy policy](https://keybase.io/docs/privacypolicy))
+- as a US-hosted service it depends on US law (which forces the provider to disclose data, restricts cryptography exports)
 
 
 ## OpenKeychain
