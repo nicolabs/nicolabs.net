@@ -41,6 +41,7 @@ However it's a major pain point when coming to generate or edit keys, as people 
 
 Same problems but more integrations available.
 Decreased (say adapted) security but acceptable use : each one must be aware this hasn't been battle-tested as pgp.
+See [NCC_Group_Keybase_KB2018_Public_Report_2019-02-27_v1.3.pdf](https://keybase.io/docs-assets/blog/NCC_Group_Keybase_KB2018_Public_Report_2019-02-27_v1.3.pdf).
 
 Account created early, lost key (as usual because I've just not used it enough to make it in my long-term memory).
 
@@ -48,7 +49,7 @@ It's now using its own separate cryptography system (it's not PGP anymore) but i
 
 It allows to sign generic statements (not only keys) and therefore can be used to certify almost anything like ownership of online accounts (twitter, Mastodon, ...) but also websites and PGP keys.
 
- IMHO it's still a very nice tool to advertise online identities (including PGP keys).
+IMHO it's still a very nice tool to advertise online identities (including PGP keys).
 
 The apps are quite good and they provide services over the main mechanism : encrypted chat, encrypted file system, encrypted git repository.
 I use a bit the encrypted chat to transfer data between my devices but I don't use other services yet because I'm worried what would happen to my data if keybase turns off...
