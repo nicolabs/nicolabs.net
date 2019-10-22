@@ -52,6 +52,8 @@ Duplicity also :
 
 ### Sample reports
 
+#### Initial upload
+
     --------------[ Backup Statistics ]--------------
     StartTime 1568759264.08 (Wed Sep 18 00:27:44 2019)
     EndTime 1568759386.88 (Wed Sep 18 00:29:46 2019)
@@ -72,11 +74,75 @@ Duplicity also :
 
     --- Finished state OK at 00:37:45.461 - Runtime 00:10:15.079 ---
 
-Files size on B2 are :
+Files sizes on B2 are :
 
 - 2.6 MB for the `*.sigtar.gpg`
 - 1.3 KB for the `*.manifest.gpg`
 - 200.8 MB for the `*.vol1.difftar.gpg` (is it compressed / deduplicated ?)
+
+#### Other uploads
+
+    --------------[ Backup Statistics ]--------------
+    StartTime 1569029572.30 (Sat Sep 21 03:32:52 2019)
+    EndTime 1569051602.44 (Sat Sep 21 09:40:02 2019)
+    ElapsedTime 22030.15 (6 hours 7 minutes 10.15 seconds)
+    SourceFiles 15976
+    SourceFileSize 58373953276 (54.4 GB)
+    NewFiles 9407
+    NewFileSize 39419829255 (36.7 GB)
+    DeletedFiles 0
+    ChangedFiles 0
+    ChangedFileSize 0 (0 bytes)
+    ChangedDeltaSize 0 (0 bytes)
+    DeltaEntries 9407
+    RawDeltaSize 39417859079 (36.7 GB)
+    TotalDestinationSizeChange 35196315298 (32.8 GB)
+    Errors 0
+    -------------------------------------------------
+
+    --- Finished state OK at 09:52:56.818 - Runtime 06:22:48.465 ---
+
+    --------------[ Backup Statistics ]--------------
+    StartTime 1569116155.81 (Sun Sep 22 03:35:55 2019)
+    EndTime 1569155262.71 (Sun Sep 22 14:27:42 2019)
+    ElapsedTime 39106.90 (10 hours 51 minutes 46.90 seconds)
+    SourceFiles 15977
+    SourceFileSize 58373957372 (54.4 GB)
+    NewFiles 15977
+    NewFileSize 58373957372 (54.4 GB)
+    DeletedFiles 15975
+    ChangedFiles 0
+    ChangedFileSize 0 (0 bytes)
+    ChangedDeltaSize 0 (0 bytes)
+    DeltaEntries 31952
+    RawDeltaSize 58370041596 (54.4 GB)
+    TotalDestinationSizeChange 53905745481 (50.2 GB)
+    Errors 0
+    -------------------------------------------------
+
+    --- Finished state OK at 14:46:07.733 - Runtime 11:15:55.851 ---
+
+The previous one and this one ran at the same time :
+
+    --------------[ Backup Statistics ]--------------
+    StartTime 1569115942.63 (Sun Sep 22 03:32:22 2019)
+    EndTime 1569136911.50 (Sun Sep 22 09:21:51 2019)
+    ElapsedTime 20968.86 (5 hours 49 minutes 28.86 seconds)
+    SourceFiles 11269
+    SourceFileSize 26726712099 (24.9 GB)
+    NewFiles 11269
+    NewFileSize 26726712099 (24.9 GB)
+    DeletedFiles 0
+    ChangedFiles 0
+    ChangedFileSize 0 (0 bytes)
+    ChangedDeltaSize 0 (0 bytes)
+    DeltaEntries 11269
+    RawDeltaSize 26723848835 (24.9 GB)
+    TotalDestinationSizeChange 26108177956 (24.3 GB)
+    Errors 0
+    -------------------------------------------------
+
+    --- Finished state OK at 09:32:30.829 - Runtime 06:02:20.171 ---
 
 
 ## The ultimate sensitive place
