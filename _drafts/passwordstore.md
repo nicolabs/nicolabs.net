@@ -1,6 +1,7 @@
 Alternative to the well known keepass.
 
 Surprisingly has been there for quite a time and has many integrations.
+For Dev/ops : ansible, GitHub, ...
 
 Works very well across several different devices.
 Still git to check with iOS.
