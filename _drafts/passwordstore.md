@@ -19,5 +19,6 @@ As seen with ff, extensions and plugins don't have a standard or common conventi
 
 Android application works well for native apps but not for Firefox ! Only with chrome (although I couldn't make it work either).
 It still works by copy/pasting and, in the end, is not worse than keepass xc popping up a special keyboard 3-4 times because it must be unlocked and switched on/off almost every time.
+If the directory is not a git repository, triggers errors on each entry modification, but still works (check this point).
 
 OTP feature : to test
