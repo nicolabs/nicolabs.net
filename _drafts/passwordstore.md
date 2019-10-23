@@ -12,7 +12,7 @@ Command line yet experience is at the top (which keepass does not permit).
 
 Firefox extension works (other browser extensions not tested), although :
 - it requires installing a host application / an agent on the local machine (can be a problem on computers where you're not an admin, even though it might not be a use case for people really concerned about privacy). It does not work on Firefox for Android for instance.
-- matching URLs logic is not self explanatory (must read the docs) and even seems too permissive (might input password in wrong sites ?)
+- matching URLs logic is not self explanatory (must read the docs) and even seems too permissive (might input password in wrong sites ?). Checking the 'Index URL fields on startup' box saved me.
 - fields names are not the same as the ones advertised in pass docs so you may not get login fields filled up before reading carefully passff docs. It's mainly a concern with pass great flexibility, which gives no standard not convention for fields names.
 
 As seen with ff, extensions and plugins don't have a standard or common conventions for fields names. Or are there conventions (check with each plugins) ?
