@@ -8,7 +8,7 @@ comments: true
 ---
 
 This blog talks about computer technology.
-The old version can still be viewed at [blog.nicolabs.net](http://blog.nicolabs.net) but will be deleted one day, since all new work is made here.
+The old version can still be viewed at [blog.nicolabs.net](http://blog.nicolabs.net) but will be deleted one day, since [all new work is made here](/2016/Migrating-from-Drupal-to-Jekyll).
 
 ## Making of
 
@@ -30,4 +30,4 @@ You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}](
 
 You can **contact me more privately** from [keybase.io/encrypt#nicolabs](https://keybase.io/encrypt#nicolabs) or by using [my PGP key](assets/about/nicobo.gpgpubkey.asc) with your favorite tool.
 
-I've published assertions on [keybase.io/nicolabs](https://keybase.io/nicolabs) so you can verify the identities above.
+I've published assertions on [keybase.io/nicolabs](https://keybase.io/nicolabs) so you can verify my identities above.
