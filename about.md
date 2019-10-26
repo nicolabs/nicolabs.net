@@ -28,7 +28,6 @@ The [tags page](/tags) has been possible thanks to [this blog article](https://c
 
 You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}]({{ site.author.mastodon.instance }}/{{ site.author.mastodon.username }}) or [twitter.com/{{ site.author.twitter }}](https://twitter.com/{{ site.author.twitter }}) or leave a comment right below.
 
-You can **contact me more securely** from there : [keybase.io/encrypt#nicolabs](https://keybase.io/encrypt#nicolabs).
-From this page you can encrypt messages using my PGP key.
+You can **contact me more privately** from [keybase.io/encrypt#nicolabs](https://keybase.io/encrypt#nicolabs) or by using [my PGP key](assets/about/nicobo.gpgpubkey.asc) with your favorite tool.
 
-I've published assertions on [keybase.io/nicolabs](https://keybase.io/nicolabs) so you can verify those identities.
+I've published assertions on [keybase.io/nicolabs](https://keybase.io/nicolabs) so you can verify the identities above.
