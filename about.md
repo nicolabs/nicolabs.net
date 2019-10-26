@@ -7,7 +7,10 @@ redirect_from:
 comments: true
 ---
 
-**This blog is still under construction** : the current one can be found at [blog.nicolabs.net](http://blog.nicolabs.net).
+This blog talks about computer technology.
+The old version can still be viewed at [blog.nicolabs.net](http://blog.nicolabs.net) but will be deleted one day, since all new work is made here.
+
+## Making of
 
 It is built [with Jekyll on GitHub Pages](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/). You can look at its source at [github.com/nicolabs/nicolabs.github.io](https://github.com/nicolabs/nicolabs.github.io) (but I bet you won't find it interesting for now...).
 
@@ -24,3 +27,8 @@ The [tags page](/tags) has been possible thanks to [this blog article](https://c
 ## Contact
 
 You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}]({{ site.author.mastodon.instance }}/{{ site.author.mastodon.username }}) or [twitter.com/{{ site.author.twitter }}](https://twitter.com/{{ site.author.twitter }}) or leave a comment right below.
+
+You can **contact me more securely** from there : [keybase.io/encrypt#nicolabs](https://keybase.io/encrypt#nicolabs).
+From this page you can encrypt messages using my PGP key.
+
+I've published assertions on [keybase.io/nicolabs](https://keybase.io/nicolabs) so you can verify those identities.
