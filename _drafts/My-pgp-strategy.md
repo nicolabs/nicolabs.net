@@ -52,7 +52,7 @@ It allows to sign generic statements (not only keys) and therefore can be used t
 IMHO it's still a very nice tool to advertise online identities (including PGP keys).
 
 The apps are quite good and they provide services over the main mechanism : encrypted chat, encrypted file system, encrypted git repository.
-I use a bit the encrypted chat to transfer data between my devices but I don't use other services yet because I'm worried what would happen to my data if keybase turns off...
+I use a bit the encrypted chat to exchange data between my devices and to allow people to send encrypted message to me. The user experience it provides is far behind the big commercial ones but it does the job. I've started to use encrypted git repositories for not-so-sensitive-projects-that-I-still-don't-want-to-publish to prevent me from hosting my own, but I don't mean it as a target solution because I'm worried what would happen to my data if keybase turns off...
 
 The main issues is its centralised architecture :
 - its availability and integrity depends on a unique provider (might be possible to deploy other instances but I haven't seen any and they would not federate, defeating the purpose of being a centralised directory)

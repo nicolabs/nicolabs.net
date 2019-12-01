@@ -22,3 +22,12 @@ It still works by copy/pasting and, in the end, is not worse than keepass xc pop
 If the directory is not a git repository, triggers errors on each entry modification, but still works (check this point).
 
 OTP feature : to test
+
+From the following articles, bitwarden seems to be a good Challenger :
+- https://shivering-isles.com/password-safes-lastpass-vs-bitwarden-vs-keepass-vs-pass
+- https://medium.com/@QuantopianCyber/head-to-head-evaluation-of-five-password-managers-8faa4851c767
+
+However :
+- it stores passwords in the cloud (do you trust bitwarden to install exactly from the sources they publish ? Do you trust all network & middlewares involved besides the open source components?)
+- the server side can be installed (open source) but again it requires maintainance (what if your server goes offline or if it is attacked : would you be able to fix it better and quicker than bitwarden ?)
+- it uses "only" AES (symmetric encryption)
