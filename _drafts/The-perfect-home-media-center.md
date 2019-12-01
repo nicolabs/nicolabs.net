@@ -1,10 +1,10 @@
 Compare :
 - Miracast
 - UPnP
+- DLNA
 - AirPlay
-- Bluetooth audio ?
+- Bluetooth audio streaming ?
 - ...
-
 
 
 Sources

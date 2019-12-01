@@ -19,7 +19,7 @@ This could probably apply to other high level script languages* vs shell.
 ## Choose Python for :
 
 - **its simple syntax** : can be read even by non Python-speaking people. End users may not be scared to change scripts to fit their need.
-- **portability** : Python is actually more portable than shell because of ease of installation for any OS. Shell is theoretically portable but it's complicated to explain end users how to install the runtime (e.g. see cygwin). A Python script can be packaged into an executable program. There may be ways to bundle a script with the shell runtime.
+- **portability** : Python is actually more portable than shell because it's easy to install on any OS. Shell is theoretically portable but it's complicated to explain end users how to install the runtime (e.g. see cygwin). A Python script can be packaged into an executable program. There may be ways to bundle a script with the shell runtime.
 
 ## Choose Shell for :
 
