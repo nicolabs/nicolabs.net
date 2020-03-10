@@ -33,3 +33,10 @@ However, it's based on pluggable features that are not always stable. Here are t
 It's open source. It handles every single feature I need.
 
 I've been using it for years... And since it happens to be very good also at **Mastodon** I do continue to use it every day.
+
+
+## Wallabag
+
+[Wallabag](https://wallabag.org) is an open source alternative to Pocket, Instapaper, ... to save articles from the web and read them later.
+There are many integrations with web browsers and smartphones.
+I've been adding and reading articles with wallabag for years : you don't need another tool !
