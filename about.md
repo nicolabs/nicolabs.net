@@ -25,7 +25,7 @@ The *mastodon* widget on the front page is from [mastodon-timeline-widget](https
 
 The [tags page](/tags) has been possible thanks to [this blog article](https://codinfox.github.io/dev/2015/03/06/use-tags-and-categories-in-your-jekyll-based-github-pages/).
 
-Acknowledgment for third party content can be found in [this file](/assets/blog/README.md).
+Acknowledgment for third party content can be found [here](/assets/blog/README.md).
 
 
 ## Contact
