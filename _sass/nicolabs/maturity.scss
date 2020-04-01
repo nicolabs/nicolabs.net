@@ -1,0 +1,31 @@
+$maturity-draft-color: #f03;
+$maturity-good-color: #f6f;
+$maturity-stable-color: $secondary-color;
+$maturity-deprecated-color: #AA8;
+
+/* A tag/label-like decoration to indicate the level of maturity of an article */
+.maturity-label {
+	color: white;
+	padding-left: 0.2em;
+	padding-right: 0.2em;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	text-decoration: none;
+}
+/* When an article is just started or has a lot of issues and therefore that I don't endorse yet but thay may still be published if it has interesting content */
+.maturity-draft {
+	background: $maturity-draft-color;
+}
+/* Such an article may be published but is likely to be completed later */
+.maturity-good {
+    background: $maturity-good-color;
+}
+/* Articles achieved or that have just been stable for a while */
+.maturity-stable {
+	background: $maturity-stable-color;
+}
+/* Whatever the status of such an article, it is outdated but will probably not get updated */
+.maturity-deprecated {
+	background: $maturity-deprecated-color;
+}

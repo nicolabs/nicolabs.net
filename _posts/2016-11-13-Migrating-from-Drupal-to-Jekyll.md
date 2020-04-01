@@ -8,62 +8,71 @@ tags:
   - jekyll
   - web design
 date: 2016-11-13
-last_modified_at: 2019-10-26
+last_modified_at: 2020-03-31
+maturity: stable
 ---
 
 ![Previous blog's banner background](/assets/blog/nicobo-landscape.png)
 
 ## New blog concept ?
 
-I have to admit that I don’t have time to write full articles.
+I write articles about things that required enough amount of work for them to be considered worth sharing.
+Writing, in turn, also require a fair amount of work to be comprehensive and accurate enough.
 
-Therefore this blog is going to show more unfinished (and shorter) articles !
+I have to admit however that I don’t have time to write advanced articles as much as I would like to.
+Many of them just stay unfinished in a draft state, never published...
 
-I will maybe include some banner saying something like "This article is under perpetual rewriting, take it carefully as it may have changed tomorrow".
+Therefore this blog is going to show shorter (and some unfinished) articles !
+The good news is that some content that was hidden, in draft state, is going to be live !
 
-I will also have to find some way to show the freshness of the article to indicate if it’s likely to change or not.
+I opted for a label in each article indicating its *maturity level* :
 
-That bothers me a bit because I like to refer to a given article or content with a fixed URL. If the content behind this URL changes it may totally break referring sources. But this is the only way I can think of to prevent some articles from staying unknown in draft state forever...
+- <span class="post-header"><span class="post-meta"><span class="maturity-label maturity-draft">draft</span></span></span> A *draft* label means something like "This article is in the process of being written, take it carefully as it may be wrong or change tomorrow". **I don't endorse** the content of such articles even if published, however one may find its content useful in some way...
+- <span class="post-header"><span class="post-meta"><span class="maturity-label maturity-good">good</span></span></span> An article with a *good* maturity is one that I consider ready for publication, even if it has some minor flaws or missing parts.
+- <span class="post-header"><span class="post-meta"><span class="maturity-label maturity-stable">stable</span></span></span> *Stable* articles are the ones that have been published for a long time or that I consider rock-solid.
+- <span class="post-header"><span class="post-meta"><span class="maturity-label maturity-deprecated">deprecated</span></span></span> Some articles may explicitly be labelled as *deprecated*, however the creation date also gives good indications on its freshness (see below).
 
-Also, since the source is versionned on GitHub, there's still a way to find or link to an original content.
+I also print both the *creation* and *last update* times, in order to show the freshness of the articles, allowing people to judge by themselves if it's likely to be up-to-date or not.
 
-I currently use the [drafts feature of Jekyll](https://jekyllrb.com/docs/drafts/) until I put a solution in place.
+The paradigm I was fond of is therefore changing : a permanent URL on this blog still leads to the same article, but its content can definitely change (and break referring sources). In order to reference a content at a given fixed time, one can link to the original content on GitHub : there is a link to the full history of each article over their creation and update times labels (try with this one).
 
-The good news is that some articles that were still in draft state and therefore hidden are going to be live !
+Lastly, I still use the [drafts feature of Jekyll](https://jekyllrb.com/docs/drafts/) to prevent publishing of *very* early notes that are not even readable, though... Those can still be viewed in GitHub sources, but not rendered.
+
 
 ## Migrating paths
 
 Beside changing the concept, I'm also changing the platform, moving from self-hosted Drupal to Jekyll on GitHub Pages.
 
-During this migration I've tried to keep the old URLs still valid by keeping a way to make it through *HTTP redirects*. For fun.
+During this migration I've tried to keep the old URLs still valid by keeping a way to make it through *HTTP redirects*. Mostly for fun.
 
-- Assets (images) are moved to `/assets/blog/...` and specified as is in the markdown sources. I could have used Jekyll's features to insert some variable but I did not want to add non-markdown code in the articles' source. If the assets were to move again, it should be quite easy to replace all `/assets/blog/...` strings with the correct path.
+- Assets (images) are moved to `/assets/blog/...` and specified as is in the markdown sources. I could have used Jekyll's features to insert some variable but I did not want to add too much non-markdown (and framework-specific) code in the articles' source. If the assets were to move again, it should be quite easy to replace all `/assets/blog/...` strings with the correct path.
 - I've used Jekyll's `permalink` option to keep the short URL of the articles so I just have to add an *HTTP redirect* to serve the new blog under the old URLs.
 
-There is a screenshot of what the previous blog at [nicobo.net](http://nicobo.net) was looking like : [screenshot](/assets/blog/nicobo.net-screenshot-2019-10-26%2020-00-21.png).
+There is a screenshot of what the previous blog at [nicobo.net](http://nicobo.net) was looking like : [screenshot](/assets/blog/screenshots/nicobo.net-screenshot-2019-10-26%2020-00-21.png).
 
 ## What's lost
 
-From rich HTML to Markdown, I've lost some of the visual/semantic styles I was using.
-I had to merge or get rid of some of them and actually I have to say that this does not really look like a bad thing : they were not *critical* to the meaning of the text and it's easier to concentrate on the content itself.
+From rich HTML to Markdown, I've lost some of the visual/semantic styles I was using : I had to merge or get rid of some of them.
+
+Actually I must say that this does not really look like a bad thing : they were not *critical* to the meaning of the text and it's easier to concentrate on the content itself.
 
 - Lack of underlining in Markdown : I've used *normal* (\*) or **strong** (\*\*) emphasis
 - `file names` and `commands` used to have separate styles : although I miss this one a bit, I am now enclosing both of them in backticks (\`) and saving some seconds thinking about which style to use here.
 - I used to have 2 types of block quotes : *notes* and *warnings*. I am now using markdown quotes (>) for both, emphasizing important words for *warnings* types
-- Pictures and text layout is now only a vertical flow : I don't really care as it's always been for pure visual left/right/center alignment and I used to spend a significant time on it.
-- Most of the visual helps I used to render with CSS are now back as indications in the text. E.g. I could emphasize portions of code to make the reader focus on them ; now I just describe them right before/after the code.
-- I was using a *main tag* as a category : android, java, ... I'm now only using tags of the same level.
-- No excerpt and picture to advertise an article in the front page.
-- No integrated internationalization (*i18n*) but I have only few articles in french, all others are in english, and I feel it's not going a lot of work to add this feature
+- Pictures and text layout is now only a vertical flow : I don't really care as it's always been for pure visual left/right/center alignment and I used to spend a significant time building it.
+- Most of the visual helps I used to render with CSS are now back as indications in the text. E.g. I could emphasize portions of code to make the reader focus on them ; now I just describe them right before/after the code
+- I was using a *main tag* as a category : android, java, ... I'm now using only one level of tags : all tags are equals !
+- No custom excerpt and picture to advertise an article in the front page (but there is still a short excerpt from the first paragraph)
+- No integrated internationalization (*i18n*) but I have only few articles in french, all others are in english, and I feel it's not going to be a lot of work to add this feature
 
 ## What I like
 
-- Simplicity : the default theme, the generation mechanism, the Markdown language, everything is turned towards simplicity without losing style, allowing to concentrate on content.
+- Simplicity : the default theme, the generation mechanism, the Markdown language, everything is turned towards simplicity, allowing to concentrate on content.
 - This is really close to the ideal blogging platform I was looking for my 'work in progress' blog concept (i.e. even drafts are published and articles are always evolving)
 - Integrates very well with Atom and its *git* & *markdown preview* plugins
-- Last but not least, it is a very portable platform, since it's just offline generation of HTML files and upload. GitHub automates the build so I don't really upload generated files but to go over some limitations they put on *GitHub Pages* I may simply change hosting and then really push offline-generated content. That's [KISS](https://en.wikipedia.org/wiki/KISS_principle). Also it's not limited to Jekyll, [there are other very promising engines](https://blog.jim-nielsen.com/2018/choosing-a-static-site-generator/), even distributed ones...
+- Last but not least, it is a very portable platform, since it's just offline generation of HTML files and upload. GitHub automates the build so I don't really upload generated files but to go over some limitations they put on *GitHub Pages* I may simply change hosting and then really push offline-generated content. That's [KISS](https://en.wikipedia.org/wiki/KISS_principle). Also static site generation not limited to Jekyll, [there are other very promising engines](https://blog.jim-nielsen.com/2018/choosing-a-static-site-generator/), even distributed ones...
 
 ## What I don't like
 
-- On GitHub Pages there is *only one* theme, *only one* markdown engine : I understand Github also needs simplicity but I hope it will not lead to dead ends and migration to another host...
-- No *autolink* feature for `kramdown`, the only supported markdown engine on GitHub Pages, which would have saved me from rewritting all links that had just their own URL as text. By the way I therefore rewrote the links' text without "http://" or "www" what makes the text more readable. For the record, I was able to do this with this single *regular expression* : `s/(https?:\/\/)(www\.)?([^\s$]+)/[$3]($1$2$3)/g`
+- On GitHub Pages there is *only one* theme, *only one* markdown engine : Github surely needs to rationalize services it provides but on my side I hope it will not lead to dead ends and migration to another host...
+- No *autolink* feature for `kramdown`, the only supported markdown engine on GitHub Pages, which would have saved me from rewritting all links that had just their own URL as text. By the way I therefore rewrote the links' text trimming the redundant "http://" or "www" parts, making the text more readable. For the record, I was able to do this with this single *regular expression* : `s/(https?:\/\/)(www\.)?([^\s$]+)/[$3]($1$2$3)/g`

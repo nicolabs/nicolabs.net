@@ -9,10 +9,17 @@ layout: default
       {% assign history_url = site.repo.url | append:"/" | append: site.repo.commits_path | append:"/" | append: page.path %}
       <a href="{{ history_url }}" title="Read full history of this post">
         <time class="datePublished" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: "%b %-d, %Y" }}</time>
-        {% if page.last_modified_at %}<span class="post-meta-separator">•</span> <time class="dateModified" datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">Updated on {{ page.last_modified_at  | date: "%b %-d, %Y" }}</time>{% endif %}
+        {% if page.last_modified_at %}
+            <span class="post-meta-separator">•</span> <time class="dateModified" datetime="{{ page.last_modified_at | date_to_xmlschema }}" itemprop="dateModified">Updated on {{ page.last_modified_at  | date: "%b %-d, %Y" }}</time>
+        {% endif %}
       </a>
-      {% if page.author %}<span class="post-meta-separator">•</span> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>{% endif %}
+      {% if page.author %}
+        <span class="post-meta-separator">•</span> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
+      {% endif %}
       <span class="post-meta-separator">•</span> <span itemprop="read_time">{% include read_time.html %}</span>
+      {% if page.maturity %}
+        <span class="post-meta-separator">•</span> <span itemprop="maturity">{% include maturity.html %}</span>
+      {% endif %}
     </p>
   </header>
   <div class="post-content" itemprop="articleBody">
