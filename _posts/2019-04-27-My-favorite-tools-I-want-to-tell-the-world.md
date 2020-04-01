@@ -1,33 +1,57 @@
 ---
 layout: post
-title: My favorite tools I want to tell the world
+title: My favorite tools I want to tell the world about
 tags:
   - android
-  - tooling
-  - social
-  - twitter
-  - mastodon
   - cloud
-last_modified_at: 2019-08-28
+  - diagrams
+  - mastodon
+  - uml
+  - social
+  - tooling
+  - twitter
+last_modified_at: 2020-03-31
+maturity: good
 ---
 
-This page lists some tools I've been using with success for while : they may fit your needs as well !
+This page lists some tools I've been using with success for a while : they may fit your needs as well !
 
 
 ## NextCloud
+
+![NextCloud logo](/assets/blog/3rdparty/logos/nextcloud.108x72.png)
 
 [NextCloud](https://nextcloud.com/) (a fork of [OwnCloud](https://owncloud.org/)) is a very promising software that aims to bring usual cloud services to the home.
 
 However, it's based on pluggable features that are not always stable. Here are the ones I'm using on a day-to-day basis :
 
-- web interface to access my own files (however synchronization, backup and other features on files are not yet useable in my opinion)
-- calendar (coupled with DAVDroid and any Android calendar it has all features Google Calendar has, except event import from/sharing to email)
-- contacts (really excellent)
-- news (use with a RSS/Atom reader on your mobile)
-- bookmarks
+- web interface to **access my own files** (however synchronization, backup and other features on files are not yet usable in my opinion)
+- **share files** with others
+- **calendar** (coupled with DAVDroid and any Android calendar it has all features Google Calendar has, except event import from/sharing to email)
+- **contacts** (really excellent)
+- **news** (use with a RSS/Atom reader on your mobile)
+
+## PlantUML
+
+![PlantUML logo](/assets/blog/3rdparty/logos/plantuml.116x112.png)
+
+[PlantUML](https://plantuml.com/) is a very simple **textual language to create diagrams**.
+You describe your diagram as plain text and use any of the provided tool to automatically render a picture.
+
+It is very easy to learn and has integrations with [A LOT](https://plantuml.com/fr/running) of tools.
+As the diagrams are simple text blocks, you can save them in a version control system, diff' them, embed them in other documents, copy/paste them in online tools to view and edit, ...
+It has several renderers out of the box like PNG, SVG, LaTeX ; you can even generate ASCII art sequence diagrams !
+
+I use it at work in *maven* builds to generate technical or inline documentation, in *Atom* or *Visual Studio Code* for writing specifications, you can live-code architectures with colleagues, build deployment diagrams on the fly within a web page, ...
+You will also find several other tools not referenced from the main site but using the same language.
+
+The main drawback is that you don't control the way figures are laid out.
+Even with the few tweaks available you may not be able to get a clear view with the biggest diagrams.
 
 
 ## Twidere
+
+![Twidere logo](/assets/blog/3rdparty/logos/twidere.512x512.png){:height="128px"}
 
 [Twidere](https://github.com/TwidereProject/Twidere-Android) is definitely the only one, perfect, **Twitter** Android client for me (and I've been searching a lot).
 It's open source. It handles every single feature I need.
@@ -37,6 +61,8 @@ I've been using it for years... And since it happens to be very good also at **M
 
 ## Wallabag
 
-[Wallabag](https://wallabag.org) is an open source alternative to Pocket, Instapaper, ... to save articles from the web and read them later.
-There are many integrations with web browsers and smartphones.
+![Wallabag logo](/assets/blog/3rdparty/logos/wallabag.200x69.png)
+
+[Wallabag](https://wallabag.org) is an open source alternative to *Pocket*, *Instapaper*, ... to save articles from the web and **read them later**.
+There are integrations with web browsers and smartphones.
 I've been adding and reading articles with wallabag for years : you don't need another tool !
