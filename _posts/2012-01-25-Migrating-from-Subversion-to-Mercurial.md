@@ -7,6 +7,7 @@ tags:
   - mercurial
   - subversion
   - tooling
+maturity: stable
 ---
 > Instructions are aimed at Windows mainly (on Linux it should be easier).
 

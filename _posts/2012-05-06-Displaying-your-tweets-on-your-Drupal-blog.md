@@ -10,6 +10,7 @@ tags:
   - social
   - twitter
   - web design
+maturity: stable
 ---
 
 ## Twitter module for Drupal

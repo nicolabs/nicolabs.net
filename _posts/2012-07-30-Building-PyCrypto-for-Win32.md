@@ -8,6 +8,7 @@ tags:
   - MinGW
   - python
   - Windows
+maturity: deprecated
 ---
 
 > This article contains instructions to build PyCrypto 2.6 for Windows XP (32 bits).

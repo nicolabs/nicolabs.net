@@ -12,6 +12,7 @@ tags:
   - openssl
   - printkey
   - security
+maturity: stable
 ---
 
 **This article focuses on Android and Java keystores, but it applies as well to any key that can be printed as plain text.**

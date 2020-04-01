@@ -19,6 +19,7 @@ tags:
   - web design
   - yeoman
   - yo
+maturity: stable
 ---
 
 ## Starting up with Web 2.0 development ?

@@ -7,6 +7,7 @@ tags:
   - python
   - scripting
   - shell
+maturity: stable
 ---
 ![Python vs Shell](/assets/blog/Selection_008.png)
 

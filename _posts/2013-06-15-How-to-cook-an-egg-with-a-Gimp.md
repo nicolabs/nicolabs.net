@@ -7,6 +7,7 @@ tags:
   - absync
   - gimp
   - graphism
+maturity: stable
 ---
 ![The egg evolves !](/assets/blog/egg-evolution_0.png)
 

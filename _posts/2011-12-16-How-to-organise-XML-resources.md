@@ -6,6 +6,7 @@ layout: post
 tags:
     - android
     - XML
+maturity: stable
 ---
 
 > This is a technical article aimed at **Android** developers.

@@ -5,6 +5,7 @@ layout: post
 permalink: articles/small-devices-are-ignored
 tags:
   - android
+maturity: stable
 ---
 
 This has been annoying me since the beginning : small screen devices are not taken into account by the vast majority of apps editors.

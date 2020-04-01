@@ -7,6 +7,7 @@ tags:
   - dates
   - java
   - XML
+maturity: stable
 ---
 ## Time zones in XML Schema and Java
 

@@ -66,3 +66,19 @@ I've been using it for years... And since it happens to be very good also at **M
 [Wallabag](https://wallabag.org) is an open source alternative to *Pocket*, *Instapaper*, ... to save articles from the web and **read them later**.
 There are integrations with web browsers and smartphones.
 I've been adding and reading articles with wallabag for years : you don't need another tool !
+
+
+## More tools
+
+The following ones are part of my toolbox, they will get a small description each in the future :
+
+- Passwordstore
+- ForceDoze (Android)
+- K-9 Mail
+- Silence
+- VLC
+- Markor (Android) / Bear (iOS)
+- FastHub-Libre
+- RadioDroid
+- AntennaPod
+- F-Droid

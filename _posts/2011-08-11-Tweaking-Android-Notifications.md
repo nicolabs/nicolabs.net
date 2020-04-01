@@ -6,6 +6,7 @@ permalink: articles/tweaking-android-notifications
 tags:
   - android
   - switchdataswitch
+maturity: deprecated
 ---
 > This is a technical article aimed at Android developers.
 > It deals with **undocumented features** of the Android API and derives from experimental work.

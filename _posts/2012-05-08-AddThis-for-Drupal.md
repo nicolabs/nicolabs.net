@@ -7,6 +7,7 @@ tags:
   - blogging
   - drupal
   - social
+maturity: stable
 ---
 > This small article might help you to figure out quickly how to work with the AddThis module for Drupal.
 >

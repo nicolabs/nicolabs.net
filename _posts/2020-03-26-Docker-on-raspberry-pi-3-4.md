@@ -4,11 +4,10 @@ layout: post
 tags:
   - docker
   - raspberry pi
-  - draft
+maturity: draft
 ---
 
-
-# Why Docker is not working out-of-the-box on Raspberry Pi 3 & 4
+## Why Docker is not working out-of-the-box on Raspberry Pi 3 & 4
 
 Docker is a virtualization technology, made to allow applications to be independent from the underlying system.
 However because it is not a full-fledge virtual machine but rather a proxy to system resources leveraging on Linux kernel's virtualization features, it does not provide a total independance from the system's CPU architecture.
@@ -21,7 +20,7 @@ For instance, you will not find an XMPP server (*ejabberd* or *Prosody*) image o
 https://hub.docker.com/u/balenalib/ : images balena.io (ex resin.io), surtout des images de base ?
 
 
-# Raspberry Pi 3 & 4 CPU architecture
+## Raspberry Pi 3 & 4 CPU architecture
 
 Raspberry Pi 3 and [4 have a 64 bits CPU (ARM v8)](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/) **but** there is no official OS with 64 bits support.
 
@@ -42,9 +41,9 @@ Questions :
 - would the effort to get a full 64 bits OS be worth it on the RPi ?
 
 
-# So what ?
+## So what ?
 
-There are two alternatives I can think ok.
+There are two alternatives I can think of :
 
 1. Only run 32 bits images.
 As I understand this means running **armhf**/[arm32v7](https://hub.docker.com/u/arm32v7/) images : this does not solve my problem because those images are not widely seen on the net. I would have to build my own images, which sometimes can become cumbersome because of build dependencies not compiled for the host OS (Raspbian).
@@ -54,7 +53,7 @@ This is risky as it may not be stable and many applications / libraries may not 
 
 
 
-# References
+## References
 
 - [What is difference between arm64 and armhf? @ stackoverflow](https://stackoverflow.com/questions/37790029/what-is-difference-between-arm64-and-armhf)
 - [AArch64 support #550 @ github.com/raspberrypi/firmware](https://github.com/raspberrypi/firmware/issues/550)

@@ -8,10 +8,11 @@ tags:
   - PortableApps
   - tooling
   - Windows
+maturity: stable
 ---
 If you are using _PortableApps_, you might have noticed that some programs like _Firefox_ or _PuTTY_ launched from Windows 7's task bar starts the system wide installation instead of the PortableApps's one.
 
-This is because when you pin a program to the task bar, it uses the executable of the current process, and with PortableApps this executable is not the same as the launcher, which takes care of loading the portable configuration.
+This is because when you pin a program to the task bar, it uses the executable of the current process, and with _PortableApps_ this executable is not the same as the launcher, which takes care of loading the portable configuration.
 
 ![Putty shortcut](/assets/blog/win7_taskbar_pinned_putty.png)
 

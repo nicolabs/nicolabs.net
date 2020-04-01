@@ -7,8 +7,11 @@ tags:
   - internationalization
   - java
   - unicode
+maturity: draft
 ---
+
 ## Draft !
+
 ![Rosetta Stone + Unicode logo](/assets/blog/rosetta_unicode.jpg)
 
 Today, all developers have heard of Unicode : this character encoding allows all characters of any language in the world.

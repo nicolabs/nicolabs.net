@@ -5,6 +5,7 @@ tags:
   - hg
   - Ubuntu
   - eclipse
+maturity: deprecated
 ---
 
 I've been used to great *Eclipse* plugins to deal with SVN-versionned projects for a long time.
