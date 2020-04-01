@@ -1,1 +1,22 @@
-<a href="{{ '/2016/Migrating-from-Drupal-to-Jekyll' | prepend: site.baseurl }}" title="Maturity of this article : draft > good > stable > deprecated&#xa;Click for the explanation.">Maturity : <span class="maturity-label maturity-{{ page.maturity }}">{{ page.maturity }}</span></a>
+{% comment %}
+    'post' must be defined before including this template.
+    'show' may be defined before including this template : it should be a comma-separated list of the only maturity levels to render (others are simply not rendered).
+    If 'post.maturity' is not defined, this produces nothing, except for Jekyll drafts (see below).
+    If 'post' is a Jekyll draft, a special maturity of 'unpublished' is applied.
+{% endcomment %}
+{% if include.post %}
+    {% assign dir = include.post.path | split: "/" | first %}
+    {% if dir == "_drafts" %}
+        {% assign maturity = "unpublished" %}
+    {% else %}
+        {% assign maturity = include.post.maturity %}
+    {% endif %}
+    {% if include.show %}
+        {% assign show = include.show | split: "," %}
+    {% else %}
+        {% assign show = "unpublished,draft,good,stable,deprecated" | split: "," %}
+    {% endif %}
+    {% if show contains maturity  %}
+        <span class="maturity-label maturity-{{ maturity }}" title="Maturity of this article : draft < good < stable or deprecated">{{ maturity }}</span>
+    {% endif %}
+{% endif %}

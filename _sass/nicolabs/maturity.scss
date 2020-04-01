@@ -2,10 +2,12 @@ $maturity-draft-color: #f03;
 $maturity-good-color: #f6f;
 $maturity-stable-color: $secondary-color;
 $maturity-deprecated-color: #AA8;
+$maturity-unpublished-color: #30f;
 
 /* A tag/label-like decoration to indicate the level of maturity of an article */
 .maturity-label {
 	color: white;
+    font-weight: bold;
 	padding-left: 0.2em;
 	padding-right: 0.2em;
 	-webkit-border-radius: 5px;
@@ -13,6 +15,21 @@ $maturity-deprecated-color: #AA8;
 	border-radius: 5px;
 	text-decoration: none;
 }
+
+/* When a maturity label is next to a post preview */
+/* TODO ? Should go to layout.scss ? */
+.post-item {
+    .maturity-label {
+        margin-left: 1em;
+        font-size: .8em;
+    }
+}
+
+/* The draft feature of Jekyll (articles in the _draft directory) */
+.maturity-unpublished {
+	background: $maturity-unpublished-color;
+}
+
 /* When an article is just started or has a lot of issues and therefore that I don't endorse yet but thay may still be published if it has interesting content */
 .maturity-draft {
 	background: $maturity-draft-color;

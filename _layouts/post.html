@@ -17,9 +17,7 @@ layout: default
         <span class="post-meta-separator">•</span> by <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">{{ page.author }}</span></span>
       {% endif %}
       <span class="post-meta-separator">•</span> <span itemprop="read_time">{% include read_time.html %}</span>
-      {% if page.maturity %}
-        <span class="post-meta-separator">•</span> <span itemprop="maturity">{% include maturity.html %}</span>
-      {% endif %}
+      <span class="post-meta-separator">•</span> <span itemprop="maturity"><a href="{{ '/2016/Migrating-from-Drupal-to-Jekyll' | prepend: site.baseurl }}" title="Maturity of this article : draft < good < stable or deprecated&#xa;Click for the explanation.">Maturity : {% include maturity.html post=page %}</span></a>
     </p>
   </header>
   <div class="post-content" itemprop="articleBody">
