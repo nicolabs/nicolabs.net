@@ -8,13 +8,16 @@ title: Home
 <section class="post-list">
   <div class="container container-n">
 
-    <h2>Latest articles...</h2>
+    <h2>Latest articles...
+        <div class="chapter-links">
+            <a href="{{ '/articles' | prepend: site.baseurl }}">all articles</a>
+            <span class="post-meta-separator">•</span>
+            <a href="{{ '/tags' | prepend: site.baseurl }}">by tag</a>
+        </div>
+    </h2>
 
     {% for post in paginator.posts %}
-      <article class="post-item">
-        <p><time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>  — <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong><br />
-          <span> {{ post.content | strip_html | truncatewords: 40 }}</span> <a class="post-link readmore" href="{{ post.url | prepend: site.baseurl }}">Read more</a></p>
-      </article>
+        {% include article-preview.html %}
     {% endfor %}
   </div>
 

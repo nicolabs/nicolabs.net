@@ -1,0 +1,12 @@
+---
+layout: page
+title: All articles
+---
+
+{% comment %}
+See https://jekyllrb.com/docs/posts/#displaying-an-index-of-posts
+{% endcomment %}
+
+{% for post in site.posts %}
+    {% include article-preview.html %}
+{% endfor %}
