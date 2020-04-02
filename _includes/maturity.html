@@ -3,6 +3,9 @@
     'show' may be defined before including this template : it should be a comma-separated list of the only maturity levels to render (others are simply not rendered).
     If 'post.maturity' is not defined, this produces nothing, except for Jekyll drafts (see below).
     If 'post' is a Jekyll draft, a special maturity of 'unpublished' is applied.
+
+    Note : there does not seem to be a 'draft' variable that could indicate if the post is a draft so we use its path.
+    See https://github.com/jekyll/jekyll/issues/1470.
 {% endcomment %}
 {% if include.post %}
     {% assign dir = include.post.path | split: "/" | first %}
