@@ -1,10 +1,19 @@
 ---
 date: 2012-03-01 12:56:02 +0100
+title: Remove the stock apps
+layout: post
 tags:
     - android
+maturity: stable
 ---
 
-Just look at which data is the largest : Sony Ericsson and SFR (carrier)...
+*Stock apps* are the applications installed by default when you buy a branded phone.
+Most of them are **useless**, **not optimized** and have **open source alternatives** that can protect your privacy.
+
+JUST REMOVE THEM.
+
+Below, for instance, are listed ring files on my *Xperia X10 Mini*.
+Just look at which ones are the largest : Sony Ericsson and SFR (carrier)...
 
     # busybox ls --color=never -lS /system/media/audio/ringtones
     busybox ls --color=never -lS /system/media/audio/ringtones
@@ -64,15 +73,14 @@ Just look at which data is the largest : Sony Ericsson and SFR (carrier)...
     -rw-r--r--    1 0        0            15563 Jan 18  2011 NewPlayer.ogg
     -rw-r--r--    1 0        0            15146 Jan 18  2011 InsertCoin.ogg
 
+If you are really lucky you might be able to remove them completely with a command from ADB shell like : `rm /system/app/facebook.apk && rm -r /data/data/com.facebook.katana`.
 
-    rm /system/app/facebook.apk
+With less luck you should still be able to deactivate them.
 
-    rm -r /data/data/com.facebook.katana
+Otherwise, each phone has unfortunately different procedures... I wish you good luck...
 
+## References
 
-
-[forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Freeing_Space](http://forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Freeing_Space)
-
-[forum.xda-developers.com/showthread.php?p=6710092#post6710092](http://forum.xda-developers.com/showthread.php?p=6710092#post6710092)
-
-[forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Apps/Default](http://forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Apps/Default)
+- [forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Freeing_Space](http://forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Freeing_Space)
+- [forum.xda-developers.com/showthread.php?p=6710092#post6710092](http://forum.xda-developers.com/showthread.php?p=6710092#post6710092)
+- [forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Apps/Default](http://forum.xda-developers.com/wiki/SE_Xperia_X10_Mini/Apps/Default)

@@ -3,6 +3,7 @@ date: 2012-11-28 14:48:21 +0100
 layout: post
 tags:
   - HTML5
+maturity: draft
 ---
 
 Why the need for WebSockets ?
@@ -29,7 +30,8 @@ VVV
 He also covers passing through proxies and other aspects of WebSockets' ecosystem, which make this presentation a good overview of the topic.
 
 The record's quality is not so good (the sound drops sometimes, the sildes don't stay long enough on screen), so you might as well find another source, maybe of the same author...
-Links
 
-    RFC 6455 "The WebSocket Protocol" - http://tools.ietf.org/html/rfc6455
-    WebSockets on Wikipedia - http://en.wikipedia.org/wiki/WebSocket
+## References
+
+- [RFC 6455 "The WebSocket Protocol"](http://tools.ietf.org/html/rfc6455)
+- [WebSockets on Wikipedia](http://en.wikipedia.org/wiki/WebSocket)
