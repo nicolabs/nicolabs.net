@@ -6,3 +6,8 @@
     margin-top: .5em;
     margin-left: .5em;
 }
+
+/* Figure are printed as a paragraph by default, like images */
+figure {
+    @extend img
+}
