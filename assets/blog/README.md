@@ -15,6 +15,9 @@ The new layout is :
 ## Acknowledgements
 
 - 3rdparty/logos :
+    - Flickr_wordmark.svg
+        - Original file : https://commons.wikimedia.org/wiki/File:Flickr_wordmark.svg
+        - License : public domain
     - google-plus.300x299.gif
         - Original file : https://www.computerhope.com/jargon/g/googlep.htm
         - License : probably © Computer Hope
@@ -23,6 +26,9 @@ The new layout is :
         - License : no clear information, probably © Eclipse Foundation
     - nextcloud.108x72.png
         - Original file : https://github.com/nextcloud/documentation/raw/master/_shared_assets/static/logo-blue.png
+    - Picasa_Logo.svg
+        - Original file : https://commons.wikimedia.org/wiki/File:Picasa_Logo.svg
+        - License : public domain
     - plantuml.116x112.png
         - Original file : http://s.plantuml.com/logoc.png
         - License : [GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version](https://plantuml.com/license)

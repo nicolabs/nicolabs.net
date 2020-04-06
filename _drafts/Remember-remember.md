@@ -3,14 +3,17 @@ date: 2019-09-02 +0100
 title: Remember, remember...
 layout: post
 tags:
+    - blogging
     - cloud
     - flickr
     - gdpr
     - google plus
     - gwt
     - open source
+    - photography
     - picasa
     - privacy
+    - tooling
     - tumblr
 maturity: draft
 ---
@@ -20,6 +23,16 @@ maturity: draft
 > This is an opinionated post based on my own experience.
 >
 > Most services are still alive, yet actually not usable or used anymore from my point of view...
+
+
+## ✝ Flickr
+
+![Wordmark of Flickr](/assets/blog/3rdparty/logos/Flickr_wordmark.svg){:height="92px"}
+
+<figure><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2152_RC02/embed_loader.js"></script>
+<script type="text/javascript">
+  trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"flickr","geo":"","time":"2004-01-01 2020-04-02"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=flickr","guestPath":"https://trends.google.com:443/trends/embed/"});
+</script></figure>
 
 
 ## ✝ Google Plus
@@ -60,6 +73,8 @@ In 2012-2013, [Google actually retired support for it](https://en.wikipedia.org/
 
 ## ✝ Picasa
 
+![Picasa logo](/assets/blog/3rdparty/logos/Picasa_Logo.svg){:height="92px"}
+
 Picasa *was* a visionary photo manager software.
 
 It was acquired in 2004 by Google from Lifescape.
@@ -68,7 +83,7 @@ It had desktop and web applications, even a Linux one.
 It could tag photos, detect people, sort them by date, it had inline photo editing features, it provided a very user-friendly online album sharing platform and could work offline.
 It was "just working" great.
 
-I've been using it for free for a long time.
+I've been using it a long time.
 
 In 2012 the desktop clients started to be retired.
 In 2016 [the service was fully discontinued](https://support.google.com/picasa/answer/6383491?ref_topic=1689652&rd=2), in profit for the cloud-based *Google Photos* service.
@@ -99,14 +114,6 @@ Epilog : Verizon finally left what's remaining of Tumblr to [Automattic (WordPre
 <figure><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2152_RC02/embed_loader.js"></script>
 <script type="text/javascript">
   trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"tumblr","geo":"","time":"2008-01-01 2020-04-02"}],"category":0,"property":""}, {"exploreQuery":"date=2008-01-01%202020-04-02&q=tumblr&hl=en","guestPath":"https://trends.google.com:443/trends/embed/"});
-</script></figure>
-
-
-## ✝ Flickr
-
-<figure><script type="text/javascript" src="https://ssl.gstatic.com/trends_nrtr/2152_RC02/embed_loader.js"></script>
-<script type="text/javascript">
-  trends.embed.renderExploreWidget("TIMESERIES", {"comparisonItem":[{"keyword":"flickr","geo":"","time":"2004-01-01 2020-04-02"}],"category":0,"property":""}, {"exploreQuery":"date=all&q=flickr","guestPath":"https://trends.google.com:443/trends/embed/"});
 </script></figure>
 
 
