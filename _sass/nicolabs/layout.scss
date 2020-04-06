@@ -11,3 +11,35 @@
 figure {
     @extend img
 }
+
+/*
+Unfortunately, <colgroup><col/> cannot be used to apply a given style to a whole column in major browsers.
+This class is the remedy.
+*/
+col.col-header {
+    width: 35pt;
+}
+th.empty, td.empty {
+    border: none;
+}
+th, td {
+    word-break: break-all;
+    padding: $small-spacing;
+}
+th {
+    border: 1px solid shade($base-border-color, 25%);
+    text-align: center;
+}
+td {
+    border: $base-border;
+}
+th.vertical {
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+    span {
+        writing-mode: vertical-rl;
+        white-space: nowrap;
+        transform: rotate(180deg);
+    }
+}
