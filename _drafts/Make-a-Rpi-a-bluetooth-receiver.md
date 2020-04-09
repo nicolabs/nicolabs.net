@@ -14,23 +14,114 @@ In this article I gather the steps I had to take to :
 
 More precisely, the goal is to allow user friendly pairing for anyone in the room with a Bluetooth smartphone, while making sure the neighbors won't be able to connect without approval.
 
-## How BlueZ pairing works
+## How Bluetooth pairing works
 
-Bluetooth is quite a complicated thing. Really. I didn't thought it would be that complicated when I started this mini project.
-Let's dive a little bit into the way it works.
+Bluetooth is quite a complex thing. Really. I didn't thought it would be that complicated when I started this mini project. Beside the original goal to be a wireless cable protocol, Bluetooth actually includes a myriad of features.
+In order to understand how we should connect to our RPi, let's focus on some aspects of Bluetooth.
 
-First, the following pairing workflows (or *association models*) [are available for Bluetooth Low Energy](https://www.bluetooth.com/blog/bluetooth-pairing-part-2-key-generation-methods/) compatible devices :
+### Bluetooth security models
+
+Being tightly coupled with hardware, Bluetooth has evolved a lot since its beginnings, following technical enhancements over the years.
+This is why it has so many *security models* ; let's try to understand how they compare.
+
+ the tradeof between usability and security in Bluetooth leans towards usability...
+
+TODO define *BR/EDR* :
+
+Basic Rate
+Enhanced Data Rate (since 2.0 + EDR)
+
+TODO define *Bluetooth Low Energy (Blueooth LE)*
+
+From a protocol point of view, it's either BR or LE, BR can have EDR. However a Bluetooth controller may implement both, or a device may have several controllers each implementing BR or LE (or even AMP, in a secondary controller, in order to achieve Wi-Fi class transfer rates).
+
+LE was introduced in Bluetooth 4.0.
+
+```plantuml
+@startuml
+
+title
+    Bluetooth association models & security history
+end title
+
+(BR/EDR Legacy Pairing) as bredr_legacy_pairing
+    note right of bredr_legacy_pairing
+        Since the beginning
+
+        Lowest security (based on SAFER+ algorithms)
+        There is only one pairing workflow.
+    end note
+(Secure Simple Pairing) as secure_simple_pairing
+    note right of secure_simple_pairing
+        Since 2.1 + EDR
+
+        Enhances security with stronger (FIPS) algorithms,
+        pasive eavesdropping and MITM protections,
+        and 4 possible pairing workflows.
+        Some security is still at the level of <i>BR/EDR legacy</i>.
+    end note
+(BR/EDR Secure Connections) as bredr_legacy_secure_connections
+    note right of bredr_legacy_secure_connections
+        Since 4.1
+
+        Fills the remaining security gaps.
+    end note
+(LE Legacy Pairing) as le_legacy_pairing
+    note left of le_legacy_pairing
+        Since 4.0
+
+        Similar to BR/EDR's <i>Secure Simple Pairing</i>
+        with 3 pairing workflows (misses <i>Numeric Comparison</i>)
+        but trades some security for usability.
+    end note
+(LE Secure Connections) as le_secure_connections
+    note left of le_secure_connections
+        Since 4.2
+
+        Similar to <i>BR/EDR Secure Connections</i>,
+        with 4 pairing workflow.
+    end note
+
+bredr_legacy_pairing -up-> secure_simple_pairing
+secure_simple_pairing -up-> bredr_legacy_secure_connections : Security upgrade through\n<i>Secure Connections</i>
+le_legacy_pairing -up-> le_secure_connections : Security upgrade through\n<i>Secure Connections</i>
+
+@enduml
+```
+
+Which one to chose ?
+
+The Bluetooth Core Specification v5.2 makes it clear that :
+
+> Secure Connections Only Mode is sometimes called a "FIPS Mode".
+> This mode should be used when it is more important for a device to have high security than it is for it to maintain backwards compatibility with devices that do not support Secure Connections.
+
+From what I've read (and understood) of the security implementation in Bluetooth, it was not made with security in mind from the beginning. There are so many tradeofs towards usability that *Secure Connections*, whether for BR/EDR or LE, looks mandatory to me.
+*BR/EDR Legacy Pairing*'s security for instance *strongly depends* on the length of the PIN (which is often a 4-digit number, or even a fixed value) and provide little-to-none protection against eavesdropping and man-in-the-middle (MITM) attacks.
+*Secure Simple Pairing* on its side only *"protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack"*. It leverages on failure alerts end users would receive to mitigate the risk, but this is anyway a *far lower level of security* than I would expect as of today.
+Not going deeper, I just don't want my neighbors to accidentally connect to my RPi or any passing-by hacker to gather any personal informations about me.
+
+Also, LE is the new BR/EDR. Most efforts seem to be put on Bluetooth LE and Bluetooh BR/EDR suffers from not being up-to-date with today's requirements anymore. For instance : in BR/EDR, cryptographic key generation is being made in lower, often hardware, layers, making it difficult to upgrade the security algorithms.
+This is probably the fate of a very pragmatic specification that didn't intend to foresee the future of technology. Unfortunately this leaves us with a plethora of unsecure devices in the wild.
+
+In the previous diagram, this leaves us with "LE Secure Connections" mode.
+If it happens that some smartphone don't implement BLE, I'll have to make sure my RPi also works with "BR/EDR Secure Connections". Finally, if I'm out of luck and some device doesn't even implement *Secure Connections* I'll have to fallback to less secure pairing wokflows.
+
+But for now let's concentrate on my favorite choice : "LE Secure Connections".
+
+
+### Bluetooth association models
+
+Here are the four pairing workflows (or *association models*) [for Bluetooth Low Energy](https://www.bluetooth.com/blog/bluetooth-pairing-part-2-key-generation-methods/) we've talked about before :
 
 - Just Works
 - Passkey entry
 - Out-of-Band (OOB)
 - Numeric Comparison
 
-*Numeric comparison* exists since Bluetooth 4.2 (as part of *Bluetooth LE Secure Connection* specification) ; the others are available for all devices implementing *Bluetooth LE Legacy Pairing* (Bluetooth 4.0).
+As stated before *Numeric comparison* for BLE exists only since Bluetooth 4.2 (as part of *Bluetooth LE Secure Connection* specification) ; the others are available for all devices implementing *Bluetooth LE Legacy Pairing* (Bluetooth 4.0).
 
-TODO What about the pre BT 4.0 (PIN, etc.)?
-
-Unfortunately, the devices cannot choose the association model by themselves : it is [deduced from the devices *input and output capabilities*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/).
+Unfortunately, we cannot choose the association model by ourselves : it is [deduced from the devices **Input and Output capabilities*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/).
 In order to make sure only workflows compatible with our headless use case are enabled, our RPi device must therefore advertise only the matching *IO capabilites*.
 
 Here is a short description of the available IO capabilities, taken from the core Bluetooth specification (Vol 3, Part C, §5.2.2.4 "IO capabilities").
@@ -44,6 +135,8 @@ Output capabilities :
 - **No output** : Device does not have the ability to display or communicate a
 6 digit decimal number
 - **Numeric output** : Device has the ability to display or communicate a 6 digit decimal number
+
+And here's the mapping to get the matching association models :
 
 <table>
     <caption>IO capability mapping to authentication stage 1</caption>
@@ -93,6 +186,8 @@ Comparison: Both Display, Both Confirm.<br/><br/>Authenticated</td>
         <td>Numeric Comparison with automatic confirmation on both devices.<br/><br/>Unauthenticated</td>
     </tr>
 </table>
+
+### Putting it altogether with BlueZ
 
 Finally, Linux systems have a complex Bluetooth stack, from which we will focus on the following components :
 
