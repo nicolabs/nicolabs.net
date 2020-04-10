@@ -6,6 +6,7 @@
 
     Note : there does not seem to be a 'draft' variable that could indicate if the post is a draft so we use its path.
     See https://github.com/jekyll/jekyll/issues/1470.
+    TODO : Yes it seems that post.draft is available (saw it here : https://github.com/jekyll/jekyll-feed/blob/master/lib/jekyll-feed/feed.xml)
 {% endcomment %}
 {% if include.post %}
     {% assign dir = include.post.path | split: "/" | first %}
