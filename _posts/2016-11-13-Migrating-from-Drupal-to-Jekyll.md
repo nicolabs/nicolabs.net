@@ -65,8 +65,8 @@ Actually I must say that this does not really look like a bad thing : they were 
 - I used to have 2 types of block quotes : *notes* and *warnings*. I am now using markdown quotes (>) for both, emphasizing important words for *warnings* types
 - Pictures and text layout is now only a vertical flow : I don't really care as it's always been for pure visual left/right/center alignment and I used to spend a significant time building it.
 - Most of the visual helps I used to render with CSS are now back as indications in the text. E.g. I could emphasize portions of code to make the reader focus on them ; now I just describe them right before/after the code
-- I was using a *main tag* as a category : android, java, ... I'm now using only one level of tags : all tags are equals !
-- No custom excerpt and picture to advertise an article in the front page (but there is still a short excerpt from the first paragraph)
+- I was using a *main tag* as a category : android, java, ... Although [jekyll supports categories](https://jekyllrb.com/docs/posts/#categories-and-tags), I'm now using only one level of tags for the better : all tags are equals !
+- No custom excerpt and picture to advertise an article in the front page (lately I've noticed [Jekyll has this kind of feature](https://jekyllrb.com/docs/posts/#post-excerpts) but for now there is a short excerpt automatically extracted from the first paragraph)
 - No integrated internationalization (*i18n*) but I have only few articles in french, all others are in English, and I feel it's not going to be a lot of work to add this feature
 
 ## What I like
