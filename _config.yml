@@ -17,6 +17,12 @@ permalink   : /:year/:title
 markdown    : kramdown
 highlighter : rouge
 
+collections:
+  preposts:
+    output: true
+  feedy:
+      output: true
+
 # TODO Test Paginator ; see https://github.com/sverrirs/jekyll-paginate-v2/
 #pagination:
 #    enabled: true
@@ -24,9 +30,13 @@ highlighter : rouge
 #    permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
 #    #locale: en
 
-paginate: 4
-paginate_path: "/page/:num/"
+#paginate: 4
+#paginate_path: "/page/:num/"
 comments: false
+
+pagination:
+    enabled: true
+    permalink: '/page/:num/'
 
 # Sass configuration
 sass:
@@ -53,9 +63,23 @@ og_locale_alternate: [fr_FR]
 # It looks like the following list is totally controlled on github pages : https://help.github.com/articles/configuring-jekyll-plugins/
 # More accurate : https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb
 plugins:
-  - jekyll-feed
-  - jekyll-sitemap
-  - jekyll-redirect-from
+    # Default plugins from github
+    - jekyll-coffeescript
+    - jekyll-commonmark-ghpages
+    - jekyll-gist
+    - jekyll-github-metadata
+    #- jekyll-paginate
+    - jekyll-relative-links
+    - jekyll-optional-front-matter
+    - jekyll-readme-index
+    - jekyll-default-layout
+    - jekyll-titles-from-headings
+    # More plugins for this site
+    # - nicolabs-feed-collection
+    - jekyll-feed
+    - jekyll-paginate-v2
+    - jekyll-redirect-from
+    - jekyll-sitemap
 
 # navbar pages
 navbar:

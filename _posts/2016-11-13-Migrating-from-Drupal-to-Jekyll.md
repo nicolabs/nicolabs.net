@@ -74,7 +74,7 @@ Actually I must say that this does not really look like a bad thing : they were 
 - Simplicity : the default theme, the generation mechanism, the Markdown language, everything is turned towards simplicity, allowing to concentrate on content.
 - This is really close to the ideal blogging platform I was looking for my 'work in progress' blog concept (i.e. even drafts are published and articles are always evolving)
 - Integrates very well with Atom and its *git* & *markdown preview* plugins
-- Last but not least, it is a very portable platform, since it's just offline generation of HTML files and upload. GitHub automates the build so I don't really upload generated files but to go over some limitations they put on *GitHub Pages* I may simply change hosting and then really push offline-generated content. That's [KISS](https://en.wikipedia.org/wiki/KISS_principle). Also static site generation not limited to Jekyll, [there are other very promising engines](https://blog.jim-nielsen.com/2018/choosing-a-static-site-generator/), even distributed ones...
+- Last but not least, it is a very portable platform, since it's just offline generation of HTML files and upload. GitHub automates the build so I don't really upload generated files but to go over some limitations they put on *GitHub Pages* I may simply change hosting and then really push offline-generated content. That's [KISS](https://en.wikipedia.org/wiki/KISS_principle). Also static site generation not limited to Jekyll, [there are other](https://blog.jim-nielsen.com/2018/choosing-a-static-site-generator/) [very promising](https://github.com/myles/awesome-static-generators#photography) engines, even distributed ones...
 
 ## What I don't like
 
