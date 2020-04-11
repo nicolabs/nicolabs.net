@@ -24,7 +24,7 @@ group :jekyll_plugins do
   gem "jekyll-commonmark-ghpages"
   gem "jekyll-gist"
   gem "jekyll-github-metadata"
-  #gem "jekyll-paginate"
+  gem "jekyll-paginate"
   gem "jekyll-relative-links"
   gem "jekyll-optional-front-matter"
   gem "jekyll-readme-index"
@@ -33,7 +33,7 @@ group :jekyll_plugins do
   # More plugins for this site
   # gem "nicolabs-feed-collection"
   gem "jekyll-feed"
-  gem "jekyll-paginate-v2"
+  #gem "jekyll-paginate-v2"
   gem "jekyll-redirect-from"
   gem "jekyll-sitemap"
 end

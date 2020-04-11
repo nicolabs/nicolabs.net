@@ -17,11 +17,11 @@ permalink   : /:year/:title
 markdown    : kramdown
 highlighter : rouge
 
-collections:
-  preposts:
-    output: true
-  feedy:
-      output: true
+# collections:
+#   preposts:
+#     output: true
+#   feedy:
+#       output: true
 
 # TODO Test Paginator ; see https://github.com/sverrirs/jekyll-paginate-v2/
 #pagination:
@@ -30,13 +30,13 @@ collections:
 #    permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
 #    #locale: en
 
-#paginate: 4
-#paginate_path: "/page/:num/"
+paginate: 4
+paginate_path: "/page/:num/"
 comments: false
 
-pagination:
-    enabled: true
-    permalink: '/page/:num/'
+# pagination:
+#     enabled: true
+#     permalink: '/page/:num/'
 
 # Sass configuration
 sass:
@@ -68,7 +68,7 @@ plugins:
     - jekyll-commonmark-ghpages
     - jekyll-gist
     - jekyll-github-metadata
-    #- jekyll-paginate
+    - jekyll-paginate
     - jekyll-relative-links
     - jekyll-optional-front-matter
     - jekyll-readme-index
@@ -77,7 +77,7 @@ plugins:
     # More plugins for this site
     # - nicolabs-feed-collection
     - jekyll-feed
-    - jekyll-paginate-v2
+    #- jekyll-paginate-v2
     - jekyll-redirect-from
     - jekyll-sitemap
 
