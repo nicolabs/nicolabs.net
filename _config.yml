@@ -17,6 +17,7 @@ permalink   : /:year/:title
 markdown    : kramdown
 highlighter : rouge
 
+<<<<<<< HEAD
 # collections:
 #   preposts:
 #     output: true
@@ -37,6 +38,20 @@ comments: false
 # pagination:
 #     enabled: true
 #     permalink: '/page/:num/'
+=======
+collections:
+  preposts:
+    output: true
+    permalink: /:year/:title
+
+# TODO From where does this parameter comes from ?
+comments: false
+
+pagination:
+    enabled: true
+    permalink: '/page/:num/'    # Pages are html files, linked jekyll extensionless permalink style.
+#    #locale: en
+>>>>>>> nicolabs.net/master
 
 # Sass configuration
 sass:

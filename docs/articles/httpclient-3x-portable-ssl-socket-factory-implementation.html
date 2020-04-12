@@ -1,0 +1,331 @@
+<!DOCTYPE html> <html> <head> <meta charset="utf-8"> <meta name="apple-mobile-web-app-capable" content="yes"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title> nicolabs | HttpClient 3.x : a portable SSL Socket Factory implementation </title> <meta name="description" content=" Work in progress. "> <meta name="keywords" content="android, development, java, javascript, python, web"> <meta name="HandheldFriendly" content="True"> <meta name="MobileOptimized" content="320"> <!-- Social: Facebook / Open Graph --> <meta property="og:type" content="article"> <meta property="article:author" content="nicobo"> <meta property="article:section" content=""> <meta property="article:tag" content=""> <meta property="article:published_time" content="2012-01-18 22:13:36 +0100"> <meta property="og:url" content="http://localhost:4000/articles/httpclient-3x-portable-ssl-socket-factory-implementation"> <meta property="og:title" content=" nicolabs | HttpClient 3.x : a portable SSL Socket Factory implementation "> <meta property="og:image" content="http://localhost:4000"> <meta property="og:description" content=" Work in progress. "> <meta property="og:site_name" content="nicobo"> <meta property="og:locale" content="en_US"> <!-- Social: Twitter --> <meta name="twitter:card" content="summary_large_image"> <meta name="twitter:site" content="nic0b0"> <meta name="twitter:title" content=" nicolabs | HttpClient 3.x : a portable SSL Socket Factory implementation "> <meta name="twitter:description" content=" Work in progress. "> <meta name="twitter:image:src" content="http://localhost:4000"> <!-- Social: Google+ / Schema.org --> <meta itemprop="name" content=" nicolabs | HttpClient 3.x : a portable SSL Socket Factory implementation "> <meta itemprop="description" content=" Work in progress. "> <meta itemprop="image" content="http://localhost:4000"> <!-- rel prev and next --> <link rel="stylesheet" href="/assets/css/main.css"> <!-- Canonical link tag --> <link rel="canonical" href="http://localhost:4000/articles/httpclient-3x-portable-ssl-socket-factory-implementation"> <link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="nicolabs" /> <script type="text/javascript"> var disqus_shortname = 'nicolabs'; </script> </head> <body> <main class="wrapper"> <header class="site-header"> <nav class="nav"> <div class="container"> <h1 class="logo"><a href="/">nico<span>labs</span></a></h1> <ul class="navbar"> <li><a href="/about">about</a></li> <li><a href="/feed.xml" target="_blank">feed</a></li> </ul> </div> </nav> </header> <article class="post container" itemscope itemtype="http://schema.org/BlogPosting"> <header class="post-header"> <h1 class="post-title" itemprop="name headline">HttpClient 3.x : a portable SSL Socket Factory implementation</h1> <p class="post-meta"> <a href="https://github.com/nicolabs/nicolabs.github.io/commits/master/_posts/2012-01-18-HttpClient-3.x-a-portable-SSL-Socket-Factory-implementation.md" title="Read full history of this post"> <time class="datePublished" datetime="2012-01-18T22:13:36+01:00" itemprop="datePublished">Jan 18, 2012</time> </a> <span class="post-meta-separator">•</span> <span itemprop="read_time"> 12 minutes read </span> <span class="post-meta-separator">•</span> <span itemprop="maturity"><a href="/2016/Migrating-from-Drupal-to-Jekyll" title="Maturity of this article : draft < good < stable or deprecated&#xa;Click for the explanation.">Maturity : <span class="maturity-label maturity-stable" title="Maturity of this article : draft < good < stable or deprecated">stable</span> </span></a> </p> </header> <div class="post-content" itemprop="articleBody"> <h2 id="im-hell">I*M Hell</h2> <p>I was just trying to implement client and server authentication over SSL on IBM Websphere 6 (JRE 1.4.2)…</p> <p>Problems started to happen with a :</p> <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java.io.IOException: Error in loading the keystore: Private key decryption error: (java.lang.SecurityException: Unsupported keysize or algorithm parameters)
+  at com.ibm.crypto.provider.PKCS12KeyStore.engineLoad(Unknown Source)
+  at java.security.KeyStore.load(KeyStore.java:695)
+  ... 30 more
+</code></pre></div></div> <p>… easily solved by replacing the JRE’s policy files (<code class="highlighter-rouge">local_policy.jar</code> and <code class="highlighter-rouge">US_export_policy.jar</code>) with an unlimited version of them (ah, policy, policy…). <em>If you are looking for this, I used <a href="https://www14.software.ibm.com/webapp/iwm/web/reg/pick.do?source=jcesdk">Websphere ones</a> (you will need an IBM.com account)</em>.</p> <p>I was far from having a working solution (see <a href="https://www.ibm.com/developerworks/forums/thread.jspa?messageID=14778991&amp;#14778991">this thread</a>), but apart from the fact that I would have to provide strong reasons for this change to the architecture and production teams, this led me to another challenge : <strong>I would have to implement HTTPS access with client authentication !</strong></p> <h2 id="a-ssl-socket-factory-implemented-for-you">A SSL socket factory implemented for you</h2> <p>It may sound awkward in 2012, but if you wish the HTTPS server to identify your Java client (versus : only the server is identified), <strong>you will have to write your own implementation of a socket factory</strong>.</p> <p>The Java Runtime Environment doesn’t provide ready-to-use classes to do this. Yes : there is <a href="http://docs.oracle.com/javase/1.4.2/docs/api/javax/net/ssl/SSLSocketFactory.html#getDefault%28%29"><code class="highlighter-rouge">javax.net.ssl.SSLSocketFactory.getDefault()</code></a> but it requires to set some system (therefore global) properties to point to the certificates files !!!</p> <p>Even with Apache’s HttpClient (at least version 3.x), you have to use a custom <a href="http://hc.apache.org/httpclient-3.x/apidocs/org/apache/commons/httpclient/protocol/SSLProtocolSocketFactory.html">SSLProtocolSocketFactory</a>.</p> <p>The <a href="http://hc.apache.org/httpclient-3.x/sslguide.html">HttpClient SSL Guide</a> provides sample code to implement mutual client and server authentication ; unfortunately the latest stable release of it (contrib 3.1) is bound to Sun’s API with imports such as <code class="highlighter-rouge">com.sun.net.ssl.KeyManagerFactory</code>. Needless to say that this will not work on an IBM Websphere JRE…</p> <p><em>Note : There was some change in the latest trunk revisions but it looks like they are made for HttpClient 4.x…</em></p> <p>Well, we finally come to the purpose of this article : <em>a cleaned-up version of a SSLProtocolSocketFactory for HttpClient 3.1 that you can use with any JRE</em>.</p> <p>Just get the 2 classes from the next chapter and use as in the following code. Parameters are self-explanatory : URL, password and type of both the keystore and the truststore (see the Javadoc)…</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">HttpClient</span> <span class="n">hc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpClient</span><span class="o">();</span>
+<span class="nc">SecureProtocolSocketFactory</span> <span class="n">protoSocketFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClientAndServerSSLSocketFactory</span><span class="o">(</span><span class="n">crtClient</span><span class="o">,</span> <span class="n">crtClientPwd</span><span class="o">,</span> <span class="n">crtClientType</span><span class="o">,</span> <span class="n">crtServer</span><span class="o">,</span> <span class="n">crtServerPwd</span><span class="o">,</span> <span class="n">crtServerType</span><span class="o">);</span>
+<span class="nc">Protocol</span> <span class="n">authhttps</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Protocol</span><span class="o">(</span><span class="s">"https"</span><span class="o">,</span> <span class="n">protoSocketFactory</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+<span class="n">hc</span><span class="o">.</span><span class="na">getHostConfiguration</span><span class="o">().</span><span class="na">setHost</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">,</span> <span class="n">authhttps</span><span class="o">);</span>
+</code></pre></div></div> <h2 id="debugging">Debugging</h2> <p>Although IBM now follows the general JSSE rules, you should notice that the previous “IBMJSSE” JSSE implementation (not “IBMJSSE2”) uses <code class="highlighter-rouge">javax.net.debug=true</code> instead of <code class="highlighter-rouge">javax.net.debug=all</code> to display all traces (it took me some time to figure it out).</p> <p>See <a href="http://www.ibm.com/developerworks/java/jdk/security/142/secguides/jsse2docs/JSSE2RefGuide.html#Debug">ibm.com/developerworks/java/jdk/security/142/secguides/jsse2docs/JSSE2RefGuide.html#Debug</a> and <a href="http://docs.oracle.com/javase/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#Debug">docs.oracle.com/javase/1.5.0/docs/guide/security/jsse/JSSERefGuide.html#Debug</a> for more details.</p> <h2 id="source">Source</h2> <p>Get the classes at github :</p> <ul> <li><a href="https://gist.github.com/1625857">ClientAndServerAuthSSLSocketFactory</a></li> <li><a href="https://gist.github.com/1625871">SSLHelper</a></li> </ul> <p>Or here :</p> <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">nicobo.ssl</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.InetAddress</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.Socket</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.UnknownHostException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.KeyStore</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.cert.Certificate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.cert.X509Certificate</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Enumeration</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.net.ssl.KeyManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.SSLContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.TrustManager</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.commons.httpclient.ConnectTimeoutException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.httpclient.params.HttpConnectionParams</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.httpclient.protocol.SecureProtocolSocketFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.LogFactory</span><span class="o">;</span>
+
+<span class="cm">/**
+ * From "Apache commons HttpClient contrib"
+ *
+ * @see &lt;a
+ *      href="http://hc.apache.org/httpclient-3.x/sslguide.html"&gt;http://hc.apache.org/httpclient-3.x/sslguide.html&lt;/a&gt;
+ * @see &lt;a href="http://svn.apache.org/viewvc/httpcomponents/oac.hc3x/trunk/
+ * src/contrib/org/apache/commons/httpclient/contrib/ssl/AuthSSLProtocolSocketFactory.java?
+ * view=markup"&gt;AuthSSLProtocolSocketFactory.java&lt;/a&gt;
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ClientAndServerAuthSSLSocketFactory</span> <span class="kd">implements</span>
+		<span class="nc">SecureProtocolSocketFactory</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Log</span> <span class="no">LOG</span> <span class="o">=</span> <span class="nc">LogFactory</span>
+			<span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="nc">ClientAndServerAuthSSLSocketFactory</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+	<span class="kd">private</span> <span class="no">URL</span> <span class="n">keystoreUrl</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">keystorePassword</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">keystoreType</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="no">URL</span> <span class="n">truststoreUrl</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">truststorePassword</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">truststoreType</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="nc">SSLContext</span> <span class="n">sslcontext</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nc">KeyManager</span><span class="o">[]</span> <span class="n">keymanagers</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="nc">TrustManager</span><span class="o">[]</span> <span class="n">trustmanagers</span><span class="o">;</span>
+
+	<span class="cm">/**
+	 * Either a keystore or truststore file must be given. Otherwise SSL context
+	 * initialization error will result.
+	 *
+	 * @param keystoreUrl
+	 *            URL of the keystore file. May be &lt;tt&gt;null&lt;/tt&gt; if HTTPS client
+	 *            authentication is not to be used.
+	 * @param keystorePassword
+	 *            Password to unlock the keystore. IMPORTANT: this
+	 *            implementation assumes that the same password is used to
+	 *            protect the key and the keystore itself.
+	 * @param keystoreType
+	 *            Keystore type (format) (e.g. : "JKS", "PKCS12")
+	 * @param truststoreUrl
+	 *            URL of the truststore file. May be &lt;tt&gt;null&lt;/tt&gt; if HTTPS
+	 *            server authentication is not to be used.
+	 * @param truststoreType
+	 *            Password to unlock the truststore.
+	 * @param keyStoreType
+	 *            Truststore type (format) (e.g. : "JKS", "PKCS12")
+	 */</span>
+	<span class="kd">public</span> <span class="nf">ClientAndServerAuthSSLSocketFactory</span><span class="o">(</span><span class="kd">final</span> <span class="no">URL</span> <span class="n">keystoreUrl</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">String</span> <span class="n">keystorePassword</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">keystoreType</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="no">URL</span> <span class="n">truststoreUrl</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">truststorePassword</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">String</span> <span class="n">truststoreType</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kd">super</span><span class="o">();</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">keystoreUrl</span> <span class="o">=</span> <span class="n">keystoreUrl</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">keystorePassword</span> <span class="o">=</span> <span class="n">keystorePassword</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">keystoreType</span> <span class="o">=</span> <span class="n">keystoreType</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">truststoreUrl</span> <span class="o">=</span> <span class="n">truststoreUrl</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">truststorePassword</span> <span class="o">=</span> <span class="n">truststorePassword</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">truststoreType</span> <span class="o">=</span> <span class="n">truststoreType</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">private</span> <span class="nc">SSLContext</span> <span class="nf">getSSLContext</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span>
+			<span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">sslcontext</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">this</span><span class="o">.</span><span class="na">sslcontext</span> <span class="o">=</span> <span class="n">createSSLContext</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">sslcontext</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">private</span> <span class="nc">SSLContext</span> <span class="nf">createSSLContext</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span>
+			<span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="nc">KeyManager</span><span class="o">[]</span> <span class="n">keymanagers</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="nc">TrustManager</span><span class="o">[]</span> <span class="n">trustmanagers</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+			<span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">keystoreUrl</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">KeyStore</span> <span class="n">keystore</span> <span class="o">=</span> <span class="nc">SSLHelper</span><span class="o">.</span><span class="na">createKeyStore</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">keystoreUrl</span><span class="o">,</span>
+						<span class="k">this</span><span class="o">.</span><span class="na">keystorePassword</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">keystoreType</span><span class="o">);</span>
+				<span class="k">if</span> <span class="o">(</span><span class="no">LOG</span><span class="o">.</span><span class="na">isDebugEnabled</span><span class="o">())</span> <span class="o">{</span>
+					<span class="nc">Enumeration</span> <span class="n">aliases</span> <span class="o">=</span> <span class="n">keystore</span><span class="o">.</span><span class="na">aliases</span><span class="o">();</span>
+					<span class="k">while</span> <span class="o">(</span><span class="n">aliases</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+						<span class="nc">String</span> <span class="n">alias</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">aliases</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+						<span class="nc">Certificate</span><span class="o">[]</span> <span class="n">certs</span> <span class="o">=</span> <span class="n">keystore</span>
+								<span class="o">.</span><span class="na">getCertificateChain</span><span class="o">(</span><span class="n">alias</span><span class="o">);</span>
+						<span class="k">if</span> <span class="o">(</span><span class="n">certs</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Certificate chain '"</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> <span class="s">"':"</span><span class="o">);</span>
+							<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">certs</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">c</span><span class="o">++)</span> <span class="o">{</span>
+								<span class="k">if</span> <span class="o">(</span><span class="n">certs</span><span class="o">[</span><span class="n">c</span><span class="o">]</span> <span class="k">instanceof</span> <span class="nc">X509Certificate</span><span class="o">)</span> <span class="o">{</span>
+									<span class="nc">X509Certificate</span> <span class="n">cert</span> <span class="o">=</span> <span class="o">(</span><span class="nc">X509Certificate</span><span class="o">)</span> <span class="n">certs</span><span class="o">[</span><span class="n">c</span><span class="o">];</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">" Certificate "</span> <span class="o">+</span> <span class="o">(</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="s">":"</span><span class="o">);</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Subject DN: "</span>
+											<span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getSubjectDN</span><span class="o">());</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Signature Algorithm: "</span>
+											<span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getSigAlgName</span><span class="o">());</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Valid from: "</span>
+											<span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getNotBefore</span><span class="o">());</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Valid until: "</span>
+											<span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getNotAfter</span><span class="o">());</span>
+									<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Issuer: "</span> <span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getIssuerDN</span><span class="o">());</span>
+								<span class="o">}</span>
+							<span class="o">}</span>
+						<span class="o">}</span>
+					<span class="o">}</span>
+				<span class="o">}</span>
+				<span class="n">keymanagers</span> <span class="o">=</span> <span class="nc">SSLHelper</span><span class="o">.</span><span class="na">createKeyManagers</span><span class="o">(</span><span class="n">keystore</span><span class="o">,</span>
+						<span class="k">this</span><span class="o">.</span><span class="na">keystorePassword</span><span class="o">);</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">keymanagers</span> <span class="o">=</span> <span class="n">keymanagers</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">truststoreUrl</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+				<span class="nc">KeyStore</span> <span class="n">keystore</span> <span class="o">=</span> <span class="nc">SSLHelper</span><span class="o">.</span><span class="na">createKeyStore</span><span class="o">(</span>
+						<span class="k">this</span><span class="o">.</span><span class="na">truststoreUrl</span><span class="o">,</span> <span class="k">this</span><span class="o">.</span><span class="na">truststorePassword</span><span class="o">,</span>
+						<span class="k">this</span><span class="o">.</span><span class="na">truststoreType</span><span class="o">);</span>
+				<span class="k">if</span> <span class="o">(</span><span class="no">LOG</span><span class="o">.</span><span class="na">isDebugEnabled</span><span class="o">())</span> <span class="o">{</span>
+					<span class="nc">Enumeration</span> <span class="n">aliases</span> <span class="o">=</span> <span class="n">keystore</span><span class="o">.</span><span class="na">aliases</span><span class="o">();</span>
+					<span class="k">while</span> <span class="o">(</span><span class="n">aliases</span><span class="o">.</span><span class="na">hasMoreElements</span><span class="o">())</span> <span class="o">{</span>
+						<span class="nc">String</span> <span class="n">alias</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="n">aliases</span><span class="o">.</span><span class="na">nextElement</span><span class="o">();</span>
+						<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Trusted certificate '"</span> <span class="o">+</span> <span class="n">alias</span> <span class="o">+</span> <span class="s">"':"</span><span class="o">);</span>
+						<span class="nc">Certificate</span> <span class="n">trustedcert</span> <span class="o">=</span> <span class="n">keystore</span>
+								<span class="o">.</span><span class="na">getCertificate</span><span class="o">(</span><span class="n">alias</span><span class="o">);</span>
+						<span class="k">if</span> <span class="o">(</span><span class="n">trustedcert</span> <span class="o">!=</span> <span class="kc">null</span>
+								<span class="o">&amp;&amp;</span> <span class="n">trustedcert</span> <span class="k">instanceof</span> <span class="nc">X509Certificate</span><span class="o">)</span> <span class="o">{</span>
+							<span class="nc">X509Certificate</span> <span class="n">cert</span> <span class="o">=</span> <span class="o">(</span><span class="nc">X509Certificate</span><span class="o">)</span> <span class="n">trustedcert</span><span class="o">;</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Subject DN: "</span> <span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getSubjectDN</span><span class="o">());</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Signature Algorithm: "</span>
+									<span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getSigAlgName</span><span class="o">());</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Valid from: "</span> <span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getNotBefore</span><span class="o">());</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Valid until: "</span> <span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getNotAfter</span><span class="o">());</span>
+							<span class="no">LOG</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"  Issuer: "</span> <span class="o">+</span> <span class="n">cert</span><span class="o">.</span><span class="na">getIssuerDN</span><span class="o">());</span>
+						<span class="o">}</span>
+					<span class="o">}</span>
+				<span class="o">}</span>
+				<span class="n">trustmanagers</span> <span class="o">=</span> <span class="nc">SSLHelper</span><span class="o">.</span><span class="na">createTrustManagers</span><span class="o">(</span><span class="n">keystore</span><span class="o">);</span>
+				<span class="k">this</span><span class="o">.</span><span class="na">trustmanagers</span> <span class="o">=</span> <span class="n">trustmanagers</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="nc">SSLContext</span> <span class="n">sslcontext</span> <span class="o">=</span> <span class="nc">SSLContext</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"TLS"</span><span class="o">);</span>
+			<span class="n">sslcontext</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">keymanagers</span><span class="o">,</span> <span class="n">trustmanagers</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+			<span class="k">return</span> <span class="n">sslcontext</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="no">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"An I/O error occured while reading a keystore"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+			<span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="no">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Could not initialize a SSL context"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">UnsupportedOperationException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * @see SecureProtocolSocketFactory#createSocket(java.lang.String,int,java.net.InetAddress,int)
+	 */</span>
+	<span class="kd">public</span> <span class="nc">Socket</span> <span class="nf">createSocket</span><span class="o">(</span><span class="nc">String</span> <span class="n">host</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">,</span> <span class="nc">InetAddress</span> <span class="n">clientHost</span><span class="o">,</span>
+			<span class="kt">int</span> <span class="n">clientPort</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">UnknownHostException</span><span class="o">,</span>
+			<span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">getSSLContext</span><span class="o">().</span><span class="na">getSocketFactory</span><span class="o">().</span><span class="na">createSocket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">,</span>
+				<span class="n">clientHost</span><span class="o">,</span> <span class="n">clientPort</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * @see SecureProtocolSocketFactory#createSocket(java.lang.String,int)
+	 */</span>
+	<span class="kd">public</span> <span class="nc">Socket</span> <span class="nf">createSocket</span><span class="o">(</span><span class="nc">String</span> <span class="n">host</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span>
+			<span class="nc">UnknownHostException</span><span class="o">,</span> <span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">getSSLContext</span><span class="o">().</span><span class="na">getSocketFactory</span><span class="o">().</span><span class="na">createSocket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * @see SecureProtocolSocketFactory#createSocket(java.net.Socket,java.lang.String,int,boolean)
+	 */</span>
+	<span class="kd">public</span> <span class="nc">Socket</span> <span class="nf">createSocket</span><span class="o">(</span><span class="nc">Socket</span> <span class="n">socket</span><span class="o">,</span> <span class="nc">String</span> <span class="n">host</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">,</span>
+			<span class="kt">boolean</span> <span class="n">autoClose</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span> <span class="nc">UnknownHostException</span><span class="o">,</span>
+			<span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="nf">getSSLContext</span><span class="o">().</span><span class="na">getSocketFactory</span><span class="o">().</span><span class="na">createSocket</span><span class="o">(</span><span class="n">socket</span><span class="o">,</span> <span class="n">host</span><span class="o">,</span>
+				<span class="n">port</span><span class="o">,</span> <span class="n">autoClose</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nc">Socket</span> <span class="nf">createSocket</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">host</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">port</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">InetAddress</span> <span class="n">localAddress</span><span class="o">,</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">localPort</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">HttpConnectionParams</span> <span class="n">params</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span><span class="o">,</span>
+			<span class="nc">UnknownHostException</span><span class="o">,</span> <span class="nc">ConnectTimeoutException</span><span class="o">,</span>
+			<span class="nc">UnsupportedOperationException</span> <span class="o">{</span>
+		<span class="c1">// TODO ? use HttpConnectionParams ?</span>
+		<span class="k">return</span> <span class="nf">getSSLContext</span><span class="o">().</span><span class="na">getSocketFactory</span><span class="o">().</span><span class="na">createSocket</span><span class="o">(</span><span class="n">host</span><span class="o">,</span> <span class="n">port</span><span class="o">,</span>
+				<span class="n">localAddress</span><span class="o">,</span> <span class="n">localPort</span><span class="o">);</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+
+
+
+<span class="kn">package</span> <span class="nn">nicobo.ssl</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.KeyStore</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.KeyStoreException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.NoSuchAlgorithmException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.UnrecoverableKeyException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.security.cert.CertificateException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.net.ssl.KeyManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.KeyManagerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.TrustManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.TrustManagerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javax.net.ssl.X509TrustManager</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.Log</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.logging.LogFactory</span><span class="o">;</span>
+
+<span class="cm">/**
+ * SSL connections utilities
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SSLHelper</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Log</span> <span class="n">log</span> <span class="o">=</span> <span class="nc">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="nc">SSLHelper</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+	<span class="cm">/**
+	 * Builds a keystore from a file.
+	 *
+	 * @param url
+	 *            URL to the keystore file
+	 * @param password
+	 *            Keystore password
+	 * @param keystoreType
+	 *            Keystore type (cf &lt;a href=
+	 *            "http://docs.oracle.com/javase/1.4.2/docs/guide/security/CryptoSpec.html#AppA"
+	 *            &gt;Appendix A in the Java Cryptography Architecture API
+	 *            Specification &amp; Reference&lt;/a&gt;)
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">KeyStore</span> <span class="nf">createKeyStore</span><span class="o">(</span><span class="kd">final</span> <span class="no">URL</span> <span class="n">url</span><span class="o">,</span> <span class="kd">final</span> <span class="nc">String</span> <span class="n">password</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">String</span> <span class="n">keystoreType</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">KeyStoreException</span><span class="o">,</span>
+			<span class="nc">NoSuchAlgorithmException</span><span class="o">,</span> <span class="nc">CertificateException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">url</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Keystore url may not be null"</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Initializing key store : "</span> <span class="o">+</span> <span class="n">url</span> <span class="o">+</span> <span class="s">" (type "</span> <span class="o">+</span> <span class="n">keystoreType</span>
+				<span class="o">+</span> <span class="s">")"</span><span class="o">);</span>
+		<span class="nc">KeyStore</span> <span class="n">keystore</span> <span class="o">=</span> <span class="nc">KeyStore</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">keystoreType</span><span class="o">);</span>
+		<span class="n">keystore</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">url</span><span class="o">.</span><span class="na">openStream</span><span class="o">(),</span>
+				<span class="n">password</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">password</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">()</span> <span class="o">:</span> <span class="kc">null</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">keystore</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * Builds a list of {@link KeyManager} from the default
+	 * {@link KeyManagerFactory}.
+	 *
+	 * @param keystore
+	 *            The keystore that holds certificats
+	 * @param password
+	 *            Keystore password
+	 * @see KeyManagerFactory#getKeyManagers()
+	 * @see KeyManagerFactory#getInstance(String)
+	 * @see KeyManagerFactory#getDefaultAlgorithm()
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">KeyManager</span><span class="o">[]</span> <span class="nf">createKeyManagers</span><span class="o">(</span><span class="kd">final</span> <span class="nc">KeyStore</span> <span class="n">keystore</span><span class="o">,</span>
+			<span class="kd">final</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">KeyStoreException</span><span class="o">,</span>
+			<span class="nc">NoSuchAlgorithmException</span><span class="o">,</span> <span class="nc">UnrecoverableKeyException</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">keystore</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Keystore may not be null"</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Initializing key manager"</span><span class="o">);</span>
+		<span class="nc">KeyManagerFactory</span> <span class="n">kmfactory</span> <span class="o">=</span> <span class="nc">KeyManagerFactory</span>
+				<span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="nc">KeyManagerFactory</span><span class="o">.</span><span class="na">getDefaultAlgorithm</span><span class="o">());</span>
+		<span class="n">kmfactory</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">keystore</span><span class="o">,</span> <span class="n">password</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">password</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">()</span>
+				<span class="o">:</span> <span class="kc">null</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">kmfactory</span><span class="o">.</span><span class="na">getKeyManagers</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * Builds a list of {@link TrustManager} from the default
+	 * {@link TrustManagerFactory}.
+	 *
+	 * @param keystore
+	 *            Le keystore contenant les certificats
+	 * @see TrustManagerFactory#getInstance(String)
+	 * @see TrustManagerFactory#getTrustManagers()
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">TrustManager</span><span class="o">[]</span> <span class="nf">createTrustManagers</span><span class="o">(</span><span class="kd">final</span> <span class="nc">KeyStore</span> <span class="n">keystore</span><span class="o">)</span>
+			<span class="kd">throws</span> <span class="nc">KeyStoreException</span><span class="o">,</span> <span class="nc">NoSuchAlgorithmException</span> <span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">keystore</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Keystore may not be null"</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"Initializing trust manager"</span><span class="o">);</span>
+		<span class="nc">TrustManagerFactory</span> <span class="n">tmfactory</span> <span class="o">=</span> <span class="nc">TrustManagerFactory</span>
+				<span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="nc">TrustManagerFactory</span><span class="o">.</span><span class="na">getDefaultAlgorithm</span><span class="o">());</span>
+		<span class="n">tmfactory</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">keystore</span><span class="o">);</span>
+		<span class="nc">TrustManager</span><span class="o">[]</span> <span class="n">trustmanagers</span> <span class="o">=</span> <span class="n">tmfactory</span><span class="o">.</span><span class="na">getTrustManagers</span><span class="o">();</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">trustmanagers</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">trustmanagers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="k">instanceof</span> <span class="nc">X509TrustManager</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">trustmanagers</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="o">(</span><span class="nc">X509TrustManager</span><span class="o">)</span> <span class="n">trustmanagers</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">trustmanagers</span><span class="o">;</span>
+	<span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div> <h2 id="related-links">Related links</h2> <ul> <li><a href="http://www.ibm.com/developerworks/java/jdk/security/142/secguides/securityguide.win32.html">IBM 32-bit SDK for Windows, Java 2 Technology Edition, Version 1.4.2 - Security Guide</a></li> <li><a href="http://www.ibm.com/developerworks/java/library/j-ibmsecurity/index.html">IBM security providers: An overview</a></li> <li><a href="https://www.ibm.com/developerworks/forums/thread.jspa?messageID=14778991&amp;#14778991">SSL handshake problems at developerWorks</a></li> <li><a href="http://hc.apache.org/httpclient-3.x/sslguide.html">HttpClient SSL Guide</a></li> <li><a href="http://www.lazgosoftware.com/kse/">Keystore Explorer</a> (helped me a lot)</li> </ul> <aside class="tags"> <ul class="tags"> <li class="tag"><a href="/tags#cryptography">#cryptography</a></li> <li class="tag"><a href="/tags#https">#https</a></li> <li class="tag"><a href="/tags#java">#java</a></li> <li class="tag"><a href="/tags#ssl">#ssl</a></li> <li class="tag"><a href="/tags#websphere">#WebSphere</a></li> </ul> </aside> <aside class="share"> <strong>Share this :</strong> <a href="http://twitter.com/share?text=HttpClient 3.x : a portable SSL Socket Factory implementation&amp;url=http://localhost:4000/articles/httpclient-3x-portable-ssl-socket-factory-implementation&amp;hashtags=web,dev,blog,soudev&amp;via=nic0b0" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">Twitter</a> <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/articles/httpclient-3x-portable-ssl-socket-factory-implementation" onclick="window.open(this.href, 'facebook-share', 'width=550,height=235');return false;">Facebook</a> </aside> </div> </article> <footer class="site-footer"> <div class="container"> <small class="pull-left">&copy;2020 All rights reserved.</small> <small class="pull-right">by <a rel="me" href="https://mastodon.social/@nicobo" target="_blank">@nicobo</a></small> </div> </footer> </main> </body> </html>
