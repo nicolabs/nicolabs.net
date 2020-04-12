@@ -17,28 +17,6 @@ permalink   : /:year/:title
 markdown    : kramdown
 highlighter : rouge
 
-<<<<<<< HEAD
-# collections:
-#   preposts:
-#     output: true
-#   feedy:
-#       output: true
-
-# TODO Test Paginator ; see https://github.com/sverrirs/jekyll-paginate-v2/
-#pagination:
-#    enabled: true
-#    per_page: 6
-#    permalink: '/page/:num' # Pages are html files, linked jekyll extensionless permalink style.
-#    #locale: en
-
-paginate: 4
-paginate_path: "/page/:num/"
-comments: false
-
-# pagination:
-#     enabled: true
-#     permalink: '/page/:num/'
-=======
 collections:
   preposts:
     output: true
@@ -51,7 +29,6 @@ pagination:
     enabled: true
     permalink: '/page/:num/'    # Pages are html files, linked jekyll extensionless permalink style.
 #    #locale: en
->>>>>>> nicolabs.net/master
 
 # Sass configuration
 sass:
