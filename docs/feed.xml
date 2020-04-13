@@ -1,71 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2020-04-13T15:26:08+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress.</subtitle><author><name>nicobo</name></author><entry><title type="html">Bypassing GitHub’s Jekyll limitations</title><link href="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations" rel="alternate" type="text/html" title="Bypassing GitHub's Jekyll limitations" /><published>2020-04-13T00:00:00+02:00</published><updated>2020-04-13T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations</id><content type="html" xml:base="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations">As I feared when I [migrated to GitHub's hosting]({% post_url 2016-11-13-Migrating-from-Drupal-to-Jekyll %}), it has become too complicated to overcome GitHub's limitations on Jekyll plugins and features.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-13T22:51:21+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress.</subtitle><author><name>nicobo</name></author><entry><title type="html">Bypassing GitHub’s Jekyll limitations</title><link href="http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations" rel="alternate" type="text/html" title="Bypassing GitHub's Jekyll limitations" /><published>2020-04-13T00:00:00+02:00</published><updated>2020-04-13T00:00:00+02:00</updated><id>http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations</id><content type="html" xml:base="http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations">&lt;p&gt;As I feared when I &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;migrated to GitHub’s hosting&lt;/a&gt;, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.&lt;/p&gt;
 
-I just needed to create a [*collection*](https://jekyllrb.com/docs/collections/) to put my [&quot;live drafts&quot;]({% post_url 2016-11-13-Migrating-from-Drupal-to-Jekyll %}) into it, but the deprecated *jekyll-paginate* plugin provided with GitHub pages didn't support collections.
+&lt;p&gt;I just needed to create a &lt;a href=&quot;https://jekyllrb.com/docs/collections/&quot;&gt;&lt;em&gt;collection&lt;/em&gt;&lt;/a&gt; to put my &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;“live drafts”&lt;/a&gt; into it, but the deprecated &lt;em&gt;jekyll-paginate&lt;/em&gt; plugin provided with GitHub pages didn’t support collections.&lt;/p&gt;
 
-I therefore switched to offline-building my site and pushing the generated static files to GitHub, which now serves them without Jekyll processing. I still use Jekyll to generate the final static files, which is perfectly ok.
+&lt;p&gt;I therefore switched to offline-building my site and pushing the generated static files to GitHub, which now serves them without Jekyll processing. I still use Jekyll to generate the final static files, which is perfectly ok.&lt;/p&gt;
 
-[GitHub's documentation about this](https://help.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators) is not very clear on the way one can still use *an autonomous* Jekyll installation to build offline, without them building the site with **their** locked-down Jekyll pipeline.
-I assumed that I had to consider the procedure that applied to other tools. I had to :
+&lt;p&gt;&lt;a href=&quot;https://help.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators&quot;&gt;GitHub’s documentation about this&lt;/a&gt; is not very clear on the way one can still use &lt;em&gt;an autonomous&lt;/em&gt; Jekyll installation to build offline, without them building the site with &lt;strong&gt;their&lt;/strong&gt; locked-down Jekyll pipeline.
+I assumed that I had to consider the procedure that applied to other tools. I had to :&lt;/p&gt;
 
-- create a `.nojekyll` file in the root of the repo
-- change [Jekyll's output directory](https://jekyllrb.com/docs/configuration/options/) from `_site` to `docs`
-- use the standard Jekyll dependencies in my *Gemfile* and specify the full [list of plugins previously overwritten by github-pages](https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb) in `Gemfile` &amp; `_config.yml`
-- import and commit the code for the submodule *mastodon-timeline-widget* inside this repo, not only leaving the `.gitmodules` file (static Javascript files that are used in the site, which were pulled automatically during GitHub's processing)
-- make sure a `docs/CNAME` text file containing the domain to serve is present after each build (I discovered [it is created when the custom domain is enabled on GitHub](https://github.com/mkdocs/mkdocs/pull/1497/commits) ; unfortunately it is in the output `docs/` directory, which may legitimately be deleted with a simple `jekyll clean`)
-- I also had to change the name of the repo from *nicolabs.github.io* to *nicolabs.net* so it is not recognized as a user/organization repo, which was preventing me to put the code in a `docs` subdirectory (I already had an `index.html` which had to be processed by Jekyll in the repo's root, and therefore the website's root could not be placed here)
+&lt;ul&gt;
+  &lt;li&gt;create a &lt;code class=&quot;highlighter-rouge&quot;&gt;.nojekyll&lt;/code&gt; file in the root of the repo&lt;/li&gt;
+  &lt;li&gt;change &lt;a href=&quot;https://jekyllrb.com/docs/configuration/options/&quot;&gt;Jekyll’s output directory&lt;/a&gt; from &lt;code class=&quot;highlighter-rouge&quot;&gt;_site&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;docs&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;use the standard Jekyll dependencies in my &lt;em&gt;Gemfile&lt;/em&gt; and specify the full &lt;a href=&quot;https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb&quot;&gt;list of plugins previously overwritten by github-pages&lt;/a&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt; &amp;amp; &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;import and commit the code for the submodule &lt;em&gt;mastodon-timeline-widget&lt;/em&gt; inside this repo, not only leaving the &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitmodules&lt;/code&gt; file (static Javascript files that are used in the site, which were pulled automatically during GitHub’s processing)&lt;/li&gt;
+  &lt;li&gt;make sure a &lt;code class=&quot;highlighter-rouge&quot;&gt;docs/CNAME&lt;/code&gt; text file containing the domain to serve is present after each build (I discovered &lt;a href=&quot;https://github.com/mkdocs/mkdocs/pull/1497/commits&quot;&gt;it is created when the custom domain is enabled on GitHub&lt;/a&gt; ; unfortunately it is in the output &lt;code class=&quot;highlighter-rouge&quot;&gt;docs/&lt;/code&gt; directory, which may legitimately be deleted with a simple &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll clean&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;I also had to change the name of the repo from &lt;em&gt;nicolabs.github.io&lt;/em&gt; to &lt;em&gt;nicolabs.net&lt;/em&gt; so it is not recognized as a user/organization repo, which was preventing me to put the code in a &lt;code class=&quot;highlighter-rouge&quot;&gt;docs&lt;/code&gt; subdirectory (I already had an &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; which had to be processed by Jekyll in the repo’s root, and therefore the website’s root could not be placed here)&lt;/li&gt;
+&lt;/ul&gt;
 
-Overall it was very easy and quick to migrate !</content><author><name>nicobo</name></author><category term="blogging" /><category term="jekyll" /><category term="github" /><summary type="html">As I feared when I migrated to GitHub’s hosting, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.</summary></entry><entry><title type="html">Docker on Raspberry Pi 3 &amp;amp; 4</title><link href="https://www.nicolabs.net/2020/Docker-on-raspberry-pi-3-4" rel="alternate" type="text/html" title="Docker on Raspberry Pi 3 &amp; 4" /><published>2020-03-26T00:00:00+01:00</published><updated>2020-03-26T00:00:00+01:00</updated><id>https://www.nicolabs.net/2020/Docker-on-raspberry-pi-3-4</id><content type="html" xml:base="https://www.nicolabs.net/2020/Docker-on-raspberry-pi-3-4">## Why Docker is not working out-of-the-box on Raspberry Pi 3 &amp; 4
-
-Docker is a virtualization technology, made to allow applications to be independent from the underlying system.
-However because it is not a full-fledge virtual machine but rather a proxy to system resources leveraging on Linux kernel's virtualization features, it does not provide a total independance from the system's CPU architecture.
-
-This is a problem with Raspberry Pi because most of the Docker images around are built for *amd64* architectures (x86 64 bits) and therefore will not run as-is on a RPi, which is *armhf*.
-
-There are some registries providing Raspberry Pi Docker images (e.g. [linuxserver.io](https://www.linuxserver.io/)) but there are not plenty.
-For instance, you will not find an XMPP server (*ejabberd* or *Prosody*) image on *linuxserver.io*.
-
-https://hub.docker.com/u/balenalib/ : images balena.io (ex resin.io), surtout des images de base ?
-
-
-## Raspberry Pi 3 &amp; 4 CPU architecture
-
-Raspberry Pi 3 and [4 have a 64 bits CPU (ARM v8)](https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/) **but** there is no official OS with 64 bits support.
-
-For instance the default *Raspbian* flavor is based on Debian *armhf*, which has a 32 bits kernel enhanced with Hardware Floating point ('hf' in 'armhf') support.
-When running `cat /proc/cpuinfo` on a RPi 4 you get `armv71` and `BCM2835`, where you should get `armv8` and `BCM2711`, according to the specs. Therefore I assume this is because the *BMC2835* driver is used, with *armhf* kernel supporting only for *armv71*.
-
-Fortunately it seems that recent versions can be tweaked to enable 64 bits support :
-
-https://github.com/raspberrypi/firmware/issues/550#issuecomment-536453126 :
-
-&gt; Recent kernel releases include a trial 64-bit build. It hasn't made its way into the Raspbian kernel package yet, but you can install using `sudo rpi-update`. You will need to add `arm_64bit=1` to config.txt because the firmware prefers the 32-bit build.
-&gt;
-&gt; A 64-bit userland is not currently planned.
-
-Questions :
-
-- what is the level of compatibility of this 64 bits flavor ?
-- would the effort to get a full 64 bits OS be worth it on the RPi ?
-
-
-## So what ?
-
-There are two alternatives I can think of :
-
-1. Only run 32 bits images.
-As I understand this means running **armhf**/[arm32v7](https://hub.docker.com/u/arm32v7/) images : this does not solve my problem because those images are not widely seen on the net. I would have to build my own images, which sometimes can become cumbersome because of build dependencies not compiled for the host OS (Raspbian).
-
-2. Use a 64 bits OS.
-This is risky as it may not be stable and many applications / libraries may not work yet. Docker would probably work since it mainly needs the kernel but that might mean running applications only as Docker containers, which is sometimes a lot of work...
-
-
-
-## References
-
-- [What is difference between arm64 and armhf? @ stackoverflow](https://stackoverflow.com/questions/37790029/what-is-difference-between-arm64-and-armhf)
-- [AArch64 support #550 @ github.com/raspberrypi/firmware](https://github.com/raspberrypi/firmware/issues/550)
-- [Operating System for Raspberry pi 4 (32/64 bit)](https://www.techiebouncer.com/2019/08/operating-system-for-raspberry-pi-4.html)
-- [64-bit OS on Raspberry Pi 4](https://raspberrypi.stackexchange.com/questions/100926/64-bit-os-on-raspberry-pi-4)</content><author><name>nicobo</name></author><category term="docker" /><category term="raspberry pi" /><summary type="html">Why Docker is not working out-of-the-box on Raspberry Pi 3 &amp;amp; 4</summary></entry><entry><title type="html">My favorite tools I want to tell the world about</title><link href="https://www.nicolabs.net/2019/My-favorite-tools-I-want-to-tell-the-world" rel="alternate" type="text/html" title="My favorite tools I want to tell the world about" /><published>2019-04-27T00:00:00+02:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>https://www.nicolabs.net/2019/My-favorite-tools-I-want-to-tell-the-world</id><content type="html" xml:base="https://www.nicolabs.net/2019/My-favorite-tools-I-want-to-tell-the-world">This page lists some tools I've been using with success for a while : they may fit your needs as well !
+&lt;p&gt;Overall it was very easy and quick to migrate !&lt;/p&gt;</content><author><name>nicobo</name></author><category term="blogging" /><category term="jekyll" /><category term="github" /><summary type="html">As I feared when I migrated to GitHub’s hosting, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.</summary></entry><entry><title type="html">My favorite tools I want to tell the world about</title><link href="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world" rel="alternate" type="text/html" title="My favorite tools I want to tell the world about" /><published>2019-04-27T00:00:00+02:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world</id><content type="html" xml:base="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world">This page lists some tools I've been using with success for a while : they may fit your needs as well !
 
 
 ## NextCloud
@@ -132,7 +83,7 @@ The following ones are part of my toolbox, they will get a small description eac
 - FastHub-Libre
 - RadioDroid
 - AntennaPod
-- F-Droid</content><author><name>nicobo</name></author><category term="android" /><category term="cloud" /><category term="diagrams" /><category term="mastodon" /><category term="uml" /><category term="social" /><category term="tooling" /><category term="twitter" /><summary type="html">This page lists some tools I’ve been using with success for a while : they may fit your needs as well !</summary></entry><entry><title type="html">Migrating from Drupal to Jekyll</title><link href="https://www.nicolabs.net/2016/Migrating-from-Drupal-to-Jekyll" rel="alternate" type="text/html" title="Migrating from Drupal to Jekyll" /><published>2016-11-13T00:00:00+01:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>https://www.nicolabs.net/2016/Migrating-from-Drupal-to-Jekyll</id><content type="html" xml:base="https://www.nicolabs.net/2016/Migrating-from-Drupal-to-Jekyll">![Previous blog's banner background](/assets/blog/nicobo-landscape.png)
+- F-Droid</content><author><name>nicobo</name></author><category term="android" /><category term="cloud" /><category term="diagrams" /><category term="mastodon" /><category term="uml" /><category term="social" /><category term="tooling" /><category term="twitter" /><summary type="html">This page lists some tools I’ve been using with success for a while : they may fit your needs as well !</summary></entry><entry><title type="html">Migrating from Drupal to Jekyll</title><link href="http://localhost:4000/2016/Migrating-from-Drupal-to-Jekyll" rel="alternate" type="text/html" title="Migrating from Drupal to Jekyll" /><published>2016-11-13T00:00:00+01:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>http://localhost:4000/2016/Migrating-from-Drupal-to-Jekyll</id><content type="html" xml:base="http://localhost:4000/2016/Migrating-from-Drupal-to-Jekyll">![Previous blog's banner background](/assets/blog/nicobo-landscape.png)
 
 ## New blog concept ?
 
@@ -199,7 +150,7 @@ Actually I must say that this does not really look like a bad thing : they were 
 ## What I don't like
 
 - On GitHub Pages there is *only one* theme, *only one* markdown engine : GitHub surely needs to rationalize services it provides but on my side I hope it will not lead to dead ends and migration to another host...
-- No *autolink* feature for `kramdown`, the only supported markdown engine on GitHub Pages, which would have saved me from rewriting all links that had just their own URL as text. By the way I therefore rewrote the links' text trimming the redundant &quot;http://&quot; or &quot;www&quot; parts, making the text more readable. For the record, I was able to do this with this single *regular expression* : `s/(https?:\/\/)(www\.)?([^\s$]+)/[$3]($1$2$3)/g`</content><author><name>nicobo</name></author><category term="blogging" /><category term="drupal" /><category term="github" /><category term="jekyll" /><category term="web design" /><summary type="html"></summary></entry><entry><title type="html">Python versus Shell scripting : from experience</title><link href="https://www.nicolabs.net/articles/python-versus-shell-scripting-experience" rel="alternate" type="text/html" title="Python versus Shell scripting : from experience" /><published>2015-11-08T14:24:13+01:00</published><updated>2015-11-08T14:24:13+01:00</updated><id>https://www.nicolabs.net/articles/Python-versus-Shell-scripting-from-experience</id><content type="html" xml:base="https://www.nicolabs.net/articles/python-versus-shell-scripting-experience">![Python vs Shell](/assets/blog/Selection_008.png)
+- No *autolink* feature for `kramdown`, the only supported markdown engine on GitHub Pages, which would have saved me from rewriting all links that had just their own URL as text. By the way I therefore rewrote the links' text trimming the redundant &quot;http://&quot; or &quot;www&quot; parts, making the text more readable. For the record, I was able to do this with this single *regular expression* : `s/(https?:\/\/)(www\.)?([^\s$]+)/[$3]($1$2$3)/g`</content><author><name>nicobo</name></author><category term="blogging" /><category term="drupal" /><category term="github" /><category term="jekyll" /><category term="web design" /><summary type="html"></summary></entry><entry><title type="html">Python versus Shell scripting : from experience</title><link href="http://localhost:4000/articles/python-versus-shell-scripting-experience" rel="alternate" type="text/html" title="Python versus Shell scripting : from experience" /><published>2015-11-08T14:24:13+01:00</published><updated>2015-11-08T14:24:13+01:00</updated><id>http://localhost:4000/articles/Python-versus-Shell-scripting-from-experience</id><content type="html" xml:base="http://localhost:4000/articles/python-versus-shell-scripting-experience">![Python vs Shell](/assets/blog/Selection_008.png)
 
 A quick &quot;pros &amp; cons&quot; to choose between Python or Shell scripting, from what I've observed through the years.
 
@@ -215,7 +166,7 @@ This could probably apply to other high level script languages* vs shell.
 ## Choose Shell for :
 
 - **speed** : except in case of bad code logic, shell scripts are usually a lot faster than Python's equivalents.
-- **its ease to deal with external programs and system** : shell's syntax is already made to test/pipe/chain easily existing programs, whereas Python requires some extra boilerplate. Shell also has built-in functions to deal directly with files and the system, whereas Python uses an object-oriented model, which may not be as handy.</content><author><name>nicobo</name></author><category term="python" /><category term="scripting" /><category term="shell" /><summary type="html"></summary></entry><entry><title type="html">Sass is a CSS compiler</title><link href="https://www.nicolabs.net/2015/Sass-is-a-CSS-compiler" rel="alternate" type="text/html" title="Sass is a CSS compiler" /><published>2015-03-28T17:18:57+01:00</published><updated>2019-04-26T00:00:00+02:00</updated><id>https://www.nicolabs.net/2015/Sass-is-a-CSS-compiler</id><content type="html" xml:base="https://www.nicolabs.net/2015/Sass-is-a-CSS-compiler">![Sass logo](/assets/blog/sass-color-1c4aab2b.png)
+- **its ease to deal with external programs and system** : shell's syntax is already made to test/pipe/chain easily existing programs, whereas Python requires some extra boilerplate. Shell also has built-in functions to deal directly with files and the system, whereas Python uses an object-oriented model, which may not be as handy.</content><author><name>nicobo</name></author><category term="python" /><category term="scripting" /><category term="shell" /><summary type="html"></summary></entry><entry><title type="html">Sass is a CSS compiler</title><link href="http://localhost:4000/2015/Sass-is-a-CSS-compiler" rel="alternate" type="text/html" title="Sass is a CSS compiler" /><published>2015-03-28T17:18:57+01:00</published><updated>2019-04-26T00:00:00+02:00</updated><id>http://localhost:4000/2015/Sass-is-a-CSS-compiler</id><content type="html" xml:base="http://localhost:4000/2015/Sass-is-a-CSS-compiler">![Sass logo](/assets/blog/sass-color-1c4aab2b.png)
 
 A year ago I was very excited to get my hands at _Sass_.
 
@@ -242,7 +193,7 @@ Make no mistake : Sass is a very helpful evolution for CSS, **use it**, but **kn
 ## References
 
 - [designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do](http://designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do/)
-- [thesassway.com/intermediate/responsive-web-design-part-2](http://www.thesassway.com/intermediate/responsive-web-design-part-2)</content><author><name>nicobo</name></author><category term="css" /><category term="graphism" /><category term="media queries" /><category term="sass" /><category term="web design" /><summary type="html"></summary></entry><entry><title type="html">Scaffolding the Web 2.0</title><link href="https://www.nicolabs.net/articles/scaffolding-web-20" rel="alternate" type="text/html" title="Scaffolding the Web 2.0" /><published>2015-01-29T23:52:38+01:00</published><updated>2015-01-29T23:52:38+01:00</updated><id>https://www.nicolabs.net/articles/Scaffolding-the-Web-2.0</id><content type="html" xml:base="https://www.nicolabs.net/articles/scaffolding-web-20">## Starting up with Web 2.0 development ?
+- [thesassway.com/intermediate/responsive-web-design-part-2](http://www.thesassway.com/intermediate/responsive-web-design-part-2)</content><author><name>nicobo</name></author><category term="css" /><category term="graphism" /><category term="media queries" /><category term="sass" /><category term="web design" /><summary type="html"></summary></entry><entry><title type="html">Scaffolding the Web 2.0</title><link href="http://localhost:4000/articles/scaffolding-web-20" rel="alternate" type="text/html" title="Scaffolding the Web 2.0" /><published>2015-01-29T23:52:38+01:00</published><updated>2015-01-29T23:52:38+01:00</updated><id>http://localhost:4000/articles/Scaffolding-the-Web-2.0</id><content type="html" xml:base="http://localhost:4000/articles/scaffolding-web-20">## Starting up with Web 2.0 development ?
 
 Let's choose between three essentials tools to begin a new project !
 
@@ -298,7 +249,7 @@ Those tools bring the features you usually want on any project :
 
 In short, Yeoman is the **standard**, complete tool suite for Web 2.0 developers like Maven is for Java developers.
 
-Find it at [yeoman.io](http://yeoman.io)</content><author><name>nicobo</name></author><category term="ant" /><category term="bower" /><category term="grunt" /><category term="gulp" /><category term="h5bp" /><category term="HTML5" /><category term="initializr" /><category term="java" /><category term="maven" /><category term="npm" /><category term="sass" /><category term="scaffolding" /><category term="web design" /><category term="yeoman" /><category term="yo" /><summary type="html">Starting up with Web 2.0 development ?</summary></entry><entry><title type="html">Pinned PortableApps on Windows 7</title><link href="https://www.nicolabs.net/articles/pinned-portableapps-windows-7" rel="alternate" type="text/html" title="Pinned PortableApps on Windows 7" /><published>2014-05-20T09:10:45+02:00</published><updated>2014-05-20T09:10:45+02:00</updated><id>https://www.nicolabs.net/articles/Pinned-PortableApps-on-Windows-7</id><content type="html" xml:base="https://www.nicolabs.net/articles/pinned-portableapps-windows-7">If you are using _PortableApps_, you might have noticed that some programs like _Firefox_ or _PuTTY_ launched from Windows 7's task bar starts the system wide installation instead of the PortableApps's one.
+Find it at [yeoman.io](http://yeoman.io)</content><author><name>nicobo</name></author><category term="ant" /><category term="bower" /><category term="grunt" /><category term="gulp" /><category term="h5bp" /><category term="HTML5" /><category term="initializr" /><category term="java" /><category term="maven" /><category term="npm" /><category term="sass" /><category term="scaffolding" /><category term="web design" /><category term="yeoman" /><category term="yo" /><summary type="html">Starting up with Web 2.0 development ?</summary></entry><entry><title type="html">Pinned PortableApps on Windows 7</title><link href="http://localhost:4000/articles/pinned-portableapps-windows-7" rel="alternate" type="text/html" title="Pinned PortableApps on Windows 7" /><published>2014-05-20T09:10:45+02:00</published><updated>2014-05-20T09:10:45+02:00</updated><id>http://localhost:4000/articles/Pinned-PortableApps-on-Windows-7</id><content type="html" xml:base="http://localhost:4000/articles/pinned-portableapps-windows-7">If you are using _PortableApps_, you might have noticed that some programs like _Firefox_ or _PuTTY_ launched from Windows 7's task bar starts the system wide installation instead of the PortableApps's one.
 
 This is because when you pin a program to the task bar, it uses the executable of the current process, and with _PortableApps_ this executable is not the same as the launcher, which takes care of loading the portable configuration.
 
@@ -306,7 +257,7 @@ This is because when you pin a program to the task bar, it uses the executable o
 
 =&gt; edit the shortcut to use the parent executable, like `C:\Tools\PortablePuTTY\PortablePuTTY.exe` for instance.
 
-See [answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00](http://answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00)</content><author><name>nicobo</name></author><category term="portable" /><category term="PortableApps" /><category term="tooling" /><category term="Windows" /><summary type="html">If you are using PortableApps, you might have noticed that some programs like Firefox or PuTTY launched from Windows 7’s task bar starts the system wide installation instead of the PortableApps’s one.</summary></entry><entry><title type="html">How to cook an egg with a Gimp</title><link href="https://www.nicolabs.net/articles/how-cook-egg-gimp" rel="alternate" type="text/html" title="How to cook an egg with a Gimp" /><published>2013-06-15T13:44:22+02:00</published><updated>2013-06-15T13:44:22+02:00</updated><id>https://www.nicolabs.net/articles/How-to-cook-an-egg-with-a-Gimp</id><content type="html" xml:base="https://www.nicolabs.net/articles/how-cook-egg-gimp">![The egg evolves !](/assets/blog/egg-evolution_0.png)
+See [answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00](http://answers.microsoft.com/en-us/windows/forum/windows_7-desktop/windows-7-taskbar-pinned-items-have-disappeared/a978bf01-e4ce-4a53-ac42-cfcef1aca00)</content><author><name>nicobo</name></author><category term="portable" /><category term="PortableApps" /><category term="tooling" /><category term="Windows" /><summary type="html">If you are using PortableApps, you might have noticed that some programs like Firefox or PuTTY launched from Windows 7’s task bar starts the system wide installation instead of the PortableApps’s one.</summary></entry><entry><title type="html">How to cook an egg with a Gimp</title><link href="http://localhost:4000/articles/how-cook-egg-gimp" rel="alternate" type="text/html" title="How to cook an egg with a Gimp" /><published>2013-06-15T13:44:22+02:00</published><updated>2013-06-15T13:44:22+02:00</updated><id>http://localhost:4000/articles/How-to-cook-an-egg-with-a-Gimp</id><content type="html" xml:base="http://localhost:4000/articles/how-cook-egg-gimp">![The egg evolves !](/assets/blog/egg-evolution_0.png)
 
 Here is a tutorial to draw an egg with [Gimp](http://www.gimp.org/).
 
@@ -412,7 +363,7 @@ _Download the source : [egg.xcf](/assets/blog/egg.xcf)_
 - French tutorials and shape template - [elledemai.blogspot.fr/2009/03/tutoriel-uf-et-cu-happy-eggs.html](http://elledemai.blogspot.fr/2009/03/tutoriel-uf-et-cu-happy-eggs.html)
 - Eggs icons - [softicons.com/search?search=egg](http://www.softicons.com/search?search=egg)
 - Video tutorial - [youtube.com/watch?v=0c-hMz2XpP8](https://www.youtube.com/watch?v=0c-hMz2XpP8)
-- Great tutorial to texturing an egg - [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry><entry><title type="html">Comment préparer un oeuf avec Gimp</title><link href="https://www.nicolabs.net/fr/articles/un-oeuf-avec-gimp" rel="alternate" type="text/html" title="Comment préparer un oeuf avec Gimp" /><published>2013-06-15T13:44:22+02:00</published><updated>2013-06-15T13:44:22+02:00</updated><id>https://www.nicolabs.net/fr/articles/How-to-cook-an-egg-with-a-Gimp</id><content type="html" xml:base="https://www.nicolabs.net/fr/articles/un-oeuf-avec-gimp">![L'oeuf évolue !](/assets/blog/egg-evolution_0.png)
+- Great tutorial to texturing an egg - [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry><entry><title type="html">Comment préparer un oeuf avec Gimp</title><link href="http://localhost:4000/fr/articles/un-oeuf-avec-gimp" rel="alternate" type="text/html" title="Comment préparer un oeuf avec Gimp" /><published>2013-06-15T13:44:22+02:00</published><updated>2013-06-15T13:44:22+02:00</updated><id>http://localhost:4000/fr/articles/How-to-cook-an-egg-with-a-Gimp</id><content type="html" xml:base="http://localhost:4000/fr/articles/un-oeuf-avec-gimp">![L'oeuf évolue !](/assets/blog/egg-evolution_0.png)
 
 Voici un petit guide pour dessiner un oeuf avec [Gimp](http://www.gimp.org/).
 
@@ -528,4 +479,31 @@ _Télécharger le fichier source : [egg.xcf](/assets/blog/egg.xcf)_
 - Tutoriels en français et modèle de forme - [elledemai.blogspot.fr/2009/03/tutoriel-uf-et-cu-happy-eggs.html](http://elledemai.blogspot.fr/2009/03/tutoriel-uf-et-cu-happy-eggs.html)
 - Icônes d'oeuf - [softicons.com/search?search=egg](http://www.softicons.com/search?search=egg)
 - Tutoriel vidéo - [youtube.com/watch?v=0c-hMz2XpP8](https://www.youtube.com/watch?v=0c-hMz2XpP8)
-- Super guide pour plaquer une texture - [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry></feed>
+- Super guide pour plaquer une texture - [gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp](http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/)</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry><entry><title type="html">Version control integration for Ubuntu 12.04</title><link href="http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04" rel="alternate" type="text/html" title="Version control integration for Ubuntu 12.04" /><published>2012-09-22T14:28:15+02:00</published><updated>2012-09-22T14:28:15+02:00</updated><id>http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04</id><content type="html" xml:base="http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04">I've been used to great *Eclipse* plugins to deal with SVN-versionned projects for a long time.
+
+Nowadays I'm using **Mercurial** (a.k.a. *Hg*) a lot and it became more handy to me to use *Tortoise*-like products, which integrate directly into the OS' file manager.
+
+I've come to use the following solutions for the different platforms I'm working with (on Ubuntu 12.04).
+
+
+### Mercurial for Nautilus
+
+*TortoiseHg* works fine, but I had to add a script to have the corresponding &quot;Actions&quot; menu with a right click on a file : [hg.ice-os.com/nautilus_mercurial_scripts](http://hg.ice-os.com/nautilus_mercurial_scripts/)
+
+
+### Mercurial for Dolphin
+
+After some problems copying big files through USB and others, I realized that Nautilus was prone to copy errors so I decided to get back to Konqueror / Dolphin.
+
+Unfortunately, Dolphin is not as much advanced as Konqueror was in KDE 3.x, so I also had to find a way to add a &quot;Service Menu&quot; for TortoiseHg : [bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4](https://bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4)
+
+
+### Git for Nautilus
+
+*RabbitVCS* looks nice, but I've not tested it a lot : [www.rabbitvcs.org](http://www.rabbitvcs.org/)
+
+
+## Links
+
+- Dolphin service menu for Tortoise HG - [gist.github.com/3765877](https://gist.github.com/3765877)
+- Nautilus actions menu for Tortoise HG - [hg.ice-os.com/nautilus_mercurial_scripts/](http://hg.ice-os.com/nautilus_mercurial_scripts/)</content><author><name>nicobo</name></author><category term="hg" /><category term="Ubuntu" /><category term="eclipse" /><summary type="html">I’ve been used to great Eclipse plugins to deal with SVN-versionned projects for a long time.</summary></entry></feed>

@@ -8,9 +8,9 @@ tags:
 maturity: good
 ---
 
-As I feared when I [migrated to GitHub's hosting]({% post_url 2016-11-13-Migrating-from-Drupal-to-Jekyll %}), it has become too complicated to overcome GitHub's limitations on Jekyll plugins and features.
+As I feared when I [migrated to GitHub's hosting](/2016/Migrating-from-Drupal-to-Jekyll), it has become too complicated to overcome GitHub's limitations on Jekyll plugins and features.
 
-I just needed to create a [*collection*](https://jekyllrb.com/docs/collections/) to put my ["live drafts"]({% post_url 2016-11-13-Migrating-from-Drupal-to-Jekyll %}) into it, but the deprecated *jekyll-paginate* plugin provided with GitHub pages didn't support collections.
+I just needed to create a [*collection*](https://jekyllrb.com/docs/collections/) to put my ["live drafts"](/2016/Migrating-from-Drupal-to-Jekyll) into it, but the deprecated *jekyll-paginate* plugin provided with GitHub pages didn't support collections.
 
 I therefore switched to offline-building my site and pushing the generated static files to GitHub, which now serves them without Jekyll processing. I still use Jekyll to generate the final static files, which is perfectly ok.
 
