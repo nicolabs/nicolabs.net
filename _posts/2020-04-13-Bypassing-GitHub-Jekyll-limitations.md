@@ -22,6 +22,7 @@ For the record, I had to :
 - change Jekyll generation directory from `_site` to `docs`
 - use the standard Jekyll dependencies in my *Gemfile* and specify the full [list of plugins previously overwritten by github-pages](https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb) in `Gemfile`, `_config.yml`
 - import and commit the code for the submodule *mastodon-timeline-widget* inside this repo (static Javascript files that are used in the site, which were pulled automatically during GitHub's processing)
+- make sure a `docs/CNAME` text file containing the domain to serve is present after each build (I discovered [it is created when the custom domain is enabled on GitHub](https://github.com/mkdocs/mkdocs/pull/1497/commits) ; unfortunately it is created in the output `docs/` directory, which may ligitimately be deleted by a simple `jekyll clean`)
 - I also had to change the name of the repo from *nicolabs.github.io* to *nicolabs.net* so it is not recognized as a user/organization repo, which was preventing me to put the code in a `docs` subdirectory (I already had an `index.html` which had to be processed by Jekyll in the repo's root)
 
 In the end I'm very happy that it was so easy to migrate !
