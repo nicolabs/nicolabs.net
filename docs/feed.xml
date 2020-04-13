@@ -1,4 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-12T08:09:50+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress.</subtitle><author><name>nicobo</name></author><entry><title type="html">My favorite tools I want to tell the world about</title><link href="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world" rel="alternate" type="text/html" title="My favorite tools I want to tell the world about" /><published>2019-04-27T00:00:00+02:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world</id><content type="html" xml:base="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world">&lt;p&gt;This page lists some tools I’ve been using with success for a while : they may fit your needs as well !&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-04-13T08:06:40+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress.</subtitle><author><name>nicobo</name></author><entry><title type="html">Bypassing GitHub’s Jekyll limitations</title><link href="http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations" rel="alternate" type="text/html" title="Bypassing GitHub's Jekyll limitations" /><published>2020-04-13T00:00:00+02:00</published><updated>2020-04-13T00:00:00+02:00</updated><id>http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations</id><content type="html" xml:base="http://localhost:4000/2020/Bypassing-GitHub-Jekyll-limitations">&lt;p&gt;As I fear when I &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;migrated to GitHub’s hosting&lt;/a&gt;, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.&lt;/p&gt;
+
+&lt;p&gt;I just needed to create a &lt;em&gt;collection&lt;/em&gt; to put my “live drafts” into it, but the deprecated &lt;em&gt;jekyll-paginate&lt;/em&gt; plugin provided with GitHub pages didn’t support collections.&lt;/p&gt;
+
+&lt;p&gt;I therefore switched to offline-building my site and pushing the generated static files to GitHub, which now serves them without Jekyll processing. I still use Jekyll to generate the final static files, which is perfectly ok.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://help.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators&quot;&gt;GitHub’s documentation about this&lt;/a&gt; is not very clear on the way one can still use Jekyll to build offline, but without them building the site with &lt;strong&gt;their&lt;/strong&gt; locked-down Jekyll pipeline. I assumed that I had to consider the procedure that applied to other tools.&lt;/p&gt;
+
+&lt;p&gt;For the record, I had to :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;create a &lt;code class=&quot;highlighter-rouge&quot;&gt;.nojekyll&lt;/code&gt; file in the root of the repo&lt;/li&gt;
+  &lt;li&gt;change Jekyll generation directory from &lt;code class=&quot;highlighter-rouge&quot;&gt;_site&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;docs&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;use the standard Jekyll dependencies in my &lt;em&gt;Gemfile&lt;/em&gt; and specify the full &lt;a href=&quot;https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb&quot;&gt;list of plugins previously overwritten by github-pages&lt;/a&gt; in &lt;code class=&quot;highlighter-rouge&quot;&gt;Gemfile&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;_config.yml&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;import and commit the code for the submodule &lt;em&gt;mastodon-timeline-widget&lt;/em&gt; inside this repo (static Javascript files that are used in the site, which were pulled automatically during GitHub’s processing)&lt;/li&gt;
+  &lt;li&gt;I also had to change the name of the repo from &lt;em&gt;nicolabs.github.io&lt;/em&gt; to &lt;em&gt;nicolabs.net&lt;/em&gt; so it is not recognized as a user/organization repo, which was preventing me to put the code in a &lt;code class=&quot;highlighter-rouge&quot;&gt;docs&lt;/code&gt; subdirectory (I already had an &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; which had to be processed by Jekyll in the repo’s root)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the end I’m very happy that it was so easy to migrate !&lt;/p&gt;</content><author><name>nicobo</name></author><category term="blogging" /><category term="jekyll" /><category term="github" /><summary type="html">As I fear when I migrated to GitHub’s hosting, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.</summary></entry><entry><title type="html">Docker on Raspberry Pi 3 &amp;amp; 4</title><link href="http://localhost:4000/2020/Docker-on-raspberry-pi-3-4" rel="alternate" type="text/html" title="Docker on Raspberry Pi 3 &amp; 4" /><published>2020-03-26T00:00:00+01:00</published><updated>2020-03-26T00:00:00+01:00</updated><id>http://localhost:4000/2020/Docker-on-raspberry-pi-3-4</id><content type="html" xml:base="http://localhost:4000/2020/Docker-on-raspberry-pi-3-4">&lt;h2 id=&quot;why-docker-is-not-working-out-of-the-box-on-raspberry-pi-3--4&quot;&gt;Why Docker is not working out-of-the-box on Raspberry Pi 3 &amp;amp; 4&lt;/h2&gt;
+
+&lt;p&gt;Docker is a virtualization technology, made to allow applications to be independent from the underlying system.
+However because it is not a full-fledge virtual machine but rather a proxy to system resources leveraging on Linux kernel’s virtualization features, it does not provide a total independance from the system’s CPU architecture.&lt;/p&gt;
+
+&lt;p&gt;This is a problem with Raspberry Pi because most of the Docker images around are built for &lt;em&gt;amd64&lt;/em&gt; architectures (x86 64 bits) and therefore will not run as-is on a RPi, which is &lt;em&gt;armhf&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are some registries providing Raspberry Pi Docker images (e.g. &lt;a href=&quot;https://www.linuxserver.io/&quot;&gt;linuxserver.io&lt;/a&gt;) but there are not plenty.
+For instance, you will not find an XMPP server (&lt;em&gt;ejabberd&lt;/em&gt; or &lt;em&gt;Prosody&lt;/em&gt;) image on &lt;em&gt;linuxserver.io&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;https://hub.docker.com/u/balenalib/ : images balena.io (ex resin.io), surtout des images de base ?&lt;/p&gt;
+
+&lt;h2 id=&quot;raspberry-pi-3--4-cpu-architecture&quot;&gt;Raspberry Pi 3 &amp;amp; 4 CPU architecture&lt;/h2&gt;
+
+&lt;p&gt;Raspberry Pi 3 and &lt;a href=&quot;https://www.raspberrypi.org/products/raspberry-pi-4-model-b/specifications/&quot;&gt;4 have a 64 bits CPU (ARM v8)&lt;/a&gt; &lt;strong&gt;but&lt;/strong&gt; there is no official OS with 64 bits support.&lt;/p&gt;
+
+&lt;p&gt;For instance the default &lt;em&gt;Raspbian&lt;/em&gt; flavor is based on Debian &lt;em&gt;armhf&lt;/em&gt;, which has a 32 bits kernel enhanced with Hardware Floating point (‘hf’ in ‘armhf’) support.
+When running &lt;code class=&quot;highlighter-rouge&quot;&gt;cat /proc/cpuinfo&lt;/code&gt; on a RPi 4 you get &lt;code class=&quot;highlighter-rouge&quot;&gt;armv71&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;BCM2835&lt;/code&gt;, where you should get &lt;code class=&quot;highlighter-rouge&quot;&gt;armv8&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;BCM2711&lt;/code&gt;, according to the specs. Therefore I assume this is because the &lt;em&gt;BMC2835&lt;/em&gt; driver is used, with &lt;em&gt;armhf&lt;/em&gt; kernel supporting only for &lt;em&gt;armv71&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Fortunately it seems that recent versions can be tweaked to enable 64 bits support :&lt;/p&gt;
+
+&lt;p&gt;https://github.com/raspberrypi/firmware/issues/550#issuecomment-536453126 :&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Recent kernel releases include a trial 64-bit build. It hasn’t made its way into the Raspbian kernel package yet, but you can install using &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo rpi-update&lt;/code&gt;. You will need to add &lt;code class=&quot;highlighter-rouge&quot;&gt;arm_64bit=1&lt;/code&gt; to config.txt because the firmware prefers the 32-bit build.&lt;/p&gt;
+
+  &lt;p&gt;A 64-bit userland is not currently planned.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Questions :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;what is the level of compatibility of this 64 bits flavor ?&lt;/li&gt;
+  &lt;li&gt;would the effort to get a full 64 bits OS be worth it on the RPi ?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;so-what-&quot;&gt;So what ?&lt;/h2&gt;
+
+&lt;p&gt;There are two alternatives I can think of :&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Only run 32 bits images.
+As I understand this means running &lt;strong&gt;armhf&lt;/strong&gt;/&lt;a href=&quot;https://hub.docker.com/u/arm32v7/&quot;&gt;arm32v7&lt;/a&gt; images : this does not solve my problem because those images are not widely seen on the net. I would have to build my own images, which sometimes can become cumbersome because of build dependencies not compiled for the host OS (Raspbian).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Use a 64 bits OS.
+This is risky as it may not be stable and many applications / libraries may not work yet. Docker would probably work since it mainly needs the kernel but that might mean running applications only as Docker containers, which is sometimes a lot of work…&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/questions/37790029/what-is-difference-between-arm64-and-armhf&quot;&gt;What is difference between arm64 and armhf? @ stackoverflow&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/raspberrypi/firmware/issues/550&quot;&gt;AArch64 support #550 @ github.com/raspberrypi/firmware&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.techiebouncer.com/2019/08/operating-system-for-raspberry-pi-4.html&quot;&gt;Operating System for Raspberry pi 4 (32/64 bit)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://raspberrypi.stackexchange.com/questions/100926/64-bit-os-on-raspberry-pi-4&quot;&gt;64-bit OS on Raspberry Pi 4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="docker" /><category term="raspberry pi" /><summary type="html">Why Docker is not working out-of-the-box on Raspberry Pi 3 &amp;amp; 4</summary></entry><entry><title type="html">My favorite tools I want to tell the world about</title><link href="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world" rel="alternate" type="text/html" title="My favorite tools I want to tell the world about" /><published>2019-04-27T00:00:00+02:00</published><updated>2020-03-31T00:00:00+02:00</updated><id>http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world</id><content type="html" xml:base="http://localhost:4000/2019/My-favorite-tools-I-want-to-tell-the-world">&lt;p&gt;This page lists some tools I’ve been using with success for a while : they may fit your needs as well !&lt;/p&gt;
 
 &lt;h2 id=&quot;nextcloud&quot;&gt;NextCloud&lt;/h2&gt;
 
@@ -487,162 +563,4 @@ Bien que cet effet ne déforme pas l’image exactement selon la forme d’un oe
   &lt;li&gt;Icônes d’oeuf - &lt;a href=&quot;http://www.softicons.com/search?search=egg&quot;&gt;softicons.com/search?search=egg&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Tutoriel vidéo - &lt;a href=&quot;https://www.youtube.com/watch?v=0c-hMz2XpP8&quot;&gt;youtube.com/watch?v=0c-hMz2XpP8&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Super guide pour plaquer une texture - &lt;a href=&quot;http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/&quot;&gt;gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry><entry><title type="html">SimpleDateFormat versus xsd:dateTime</title><link href="http://localhost:4000/articles/simpledateformat-versus-xsddatetime" rel="alternate" type="text/html" title="SimpleDateFormat versus xsd:dateTime" /><published>2012-10-24T18:47:21+02:00</published><updated>2012-10-24T18:47:21+02:00</updated><id>http://localhost:4000/articles/SimpleDateFormat-versus-xsd-dateTime</id><content type="html" xml:base="http://localhost:4000/articles/simpledateformat-versus-xsddatetime">&lt;h2 id=&quot;time-zones-in-xml-schema-and-java&quot;&gt;Time zones in XML Schema and Java&lt;/h2&gt;
-
-&lt;p&gt;For interoperability reasons, it often makes sense for applications to transmit dates and times as &lt;strong&gt;xsd:dateTime&lt;/strong&gt; strings, as this standard should serve all common cases.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;XML Schema&lt;/em&gt;’s &lt;em&gt;dateString&lt;/em&gt; type was inspired by the extended syntax of &lt;em&gt;ISO 8601&lt;/em&gt; : a sample string would be &lt;code class=&quot;highlighter-rouge&quot;&gt;2000-03-04T23:00:00.000+03:00&lt;/code&gt; (March 4th, 2000, 11:00:00 PM in a time zone that’s 3 hours after UTC).&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;ISO 8601 also defines another (more compact) syntax : &lt;code class=&quot;highlighter-rouge&quot;&gt;aaaammqqThhmissnzzzzz&lt;/code&gt; (e.g. “19970716T1920304+0100”) and other options like the week number and comma instead of dot, but they are not used in XML Schema.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;dealing-with-xsd-datetime-in-java&quot;&gt;Dealing with XSD dateTime in Java&lt;/h2&gt;
-
-&lt;p&gt;In Java, there are several ways to deal with an &lt;em&gt;XML Schema dateTime&lt;/em&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;jdk-6&quot;&gt;JDK 6&lt;/h3&gt;
-
-&lt;p&gt;Since JDK 6 (JAXB 1.0), the preferred way is to use &lt;em&gt;DatatypeConverter&lt;/em&gt; :&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;Calendar&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DatatypeConverter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parseDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1997-07-16T19:20:30.447+01:00&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// reads from an XSD string&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xsdDateStringAgain&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DatatypeConverter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;// transforms back into an XSD string&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;jdk-5-and-less&quot;&gt;JDK 5 and less&lt;/h3&gt;
-
-&lt;p&gt;Before JDK 6, one would be tempted to use &lt;em&gt;SimpleDateFormat&lt;/em&gt; :&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;DateFormat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// attempts to defines my date in an XSD-compatible format&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myDate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1997-07-16T19:20:30.447+01:00&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;// reads from an XSD string&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myDateString&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myDate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;                               &lt;span class=&quot;c1&quot;&gt;// transforms back into an XSD string&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Unfortunately, this code doesn’t work because the &lt;code class=&quot;highlighter-rouge&quot;&gt;Z&lt;/code&gt; pattern generates time zones in &lt;em&gt;RFC 822&lt;/em&gt;’s format (&lt;code class=&quot;highlighter-rouge&quot;&gt;+HHMM&lt;/code&gt;).
-So parsing the generated string (&lt;code class=&quot;highlighter-rouge&quot;&gt;1997-07-16T19:20:30,4+0100&lt;/code&gt;) would trigger an error because there is a colon missing in the timezone to conform to the &lt;em&gt;xsd:dateTime&lt;/em&gt; syntax.&lt;/p&gt;
-
-&lt;p&gt;One may notice that JDK 7’s &lt;em&gt;SimpleDateFormat&lt;/em&gt; has a new &lt;code class=&quot;highlighter-rouge&quot;&gt;X&lt;/code&gt; pattern for time zones in ISO 8601’s extended syntax, so we might use the following format :&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;DateFormat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;yyyy-MM-dd'T'HH:mm:ss.SSSX&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// an XSD-compatible format&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;But as said in the previous chapter, since JDK 6 there is already a better alternative for &lt;em&gt;xsd:dateTime&lt;/em&gt; : &lt;em&gt;DatatypeConverter&lt;/em&gt;.&lt;/p&gt;
-
-&lt;p&gt;If you really have to deal with pre-JDK 6 date strings formats (for instance with Logback’s &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;timestamp&amp;gt;&lt;/code&gt;) you may use a combination of custom &lt;em&gt;SimpleDateFormat&lt;/em&gt; formats and &lt;em&gt;DatatypeConverter&lt;/em&gt; if available, but be aware that the time zone often gets simplified in the operation.&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nc&quot;&gt;DateFormat&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SimpleDateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;1997-07-16T19:20:30.447+0100&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dateFormat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;format&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;                   &lt;span class=&quot;c1&quot;&gt;// prints &quot;1997-07-16T18:20:30.447+0000&quot;&lt;/span&gt;
-
-&lt;span class=&quot;nc&quot;&gt;Calendar&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cal&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Calendar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;DatatypeConverter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// prints &quot;1997-07-16T18:20:30.447Z&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So finally, if you want to keep as close as possible as the original string, you might draw inspiration from the following regular expression : &lt;code class=&quot;highlighter-rouge&quot;&gt;(.{19}(?:\.\d+)?[+-])(\d{2})(\d{2})&lt;/code&gt;. It matches 3 groups :&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;the beginning of the string up to milliseconds (19 first chars = yyyy-MM-dd’T’HH:mm:ss + milliseconds if present)&lt;/li&gt;
-  &lt;li&gt;time zone’s hours&lt;/li&gt;
-  &lt;li&gt;time zone’s minutes&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;The following code snippet shows a sample usage of this pattern by transforming a string with a RFC 822 time zone into an XSD-compatible one :&lt;/p&gt;
-
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.regex.Matcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.regex.Pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;cm&quot;&gt;/**
-* Transforms the time zone generated with a 'Z' pattern from JDK 6 and older into an &amp;lt;tt&amp;gt;xsd:dateTime&amp;lt;/tt&amp;gt; time
-* zone.
-*
-* &amp;lt;p&amp;gt;
-* For instance :
-* &amp;lt;code&amp;gt;fixRfc822TimeZone(&quot;1997-07-16T19:20:30.447+0100&quot;) = &quot;1997-07-16T19:20:30.447+01&amp;lt;em&amp;gt;:&amp;lt;/em&amp;gt;00&quot;&amp;lt;/code&amp;gt;
-* &amp;lt;/p&amp;gt;
-*
-* @param rfc822
-* A date/time string that matches {@link SimpleDateFormat}'s format &quot;yyyy-MM-dd'T'HH:mm:ss.SSSZ&quot;
-* @return A new string that matches &amp;lt;a href=&quot;http://www.w3.org/TR/xmlschema-2/#dateTime-timezones&quot;&amp;gt;XML Schema
-* dateTime&amp;lt;/a&amp;gt; syntax
-*/&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fixRfc822TimeZone&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rfc822&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;// This pattern extracts 3 groups :&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 1. the beginning of the string up to milliseconds (19 first chars = yyyy-MM-dd'T'HH:mm:ss + milliseconds if present)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 2. time zone's hours&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// 3. time zone's minutes&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;Pattern&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compile&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;(.{19}(?:\\.\\d+)?[+-])(\\d{2})(\\d{2})&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;Matcher&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;matcher&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rfc822&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;matches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;groupCount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tzh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;nc&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tzm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;group&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;// we simply add the missing colon ':' to comply to XSD&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tzh&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;:&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tzm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Input string does not match '&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pattern&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;' pattern&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Here is a recap of the different standards used by XSD and Java :&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;XML Schema 2.0 was inspired by &lt;em&gt;ISO 8601:2000 Second Edition&lt;/em&gt;’s extended syntax (e.g. “-08:00”)&lt;/li&gt;
-  &lt;li&gt;&lt;em&gt;SimpleDateFormat&lt;/em&gt;’s &lt;code class=&quot;highlighter-rouge&quot;&gt;Z&lt;/code&gt; pattern refers to RFC 822 (e.g. “-0800”)&lt;/li&gt;
-  &lt;li&gt;since JDK 7, &lt;em&gt;SimpleDateFormat&lt;/em&gt; has also an &lt;code class=&quot;highlighter-rouge&quot;&gt;X&lt;/code&gt; pattern for &lt;em&gt;ISO 8601&lt;/em&gt; (e.g. “-08:00”, “-0800”, “-08”)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In practice, there is just a dash more in ISO 8601 than in RFC 822, but before JDK 7 the programmer had to deal with it.&lt;/p&gt;
-
-&lt;p&gt;There is also a possible confusion because ISO 8601 allows the use of &lt;code class=&quot;highlighter-rouge&quot;&gt;Z&lt;/code&gt; as a replacement for &lt;code class=&quot;highlighter-rouge&quot;&gt;+00:00&lt;/code&gt;, whereas the same &lt;code class=&quot;highlighter-rouge&quot;&gt;Z&lt;/code&gt; has a different meaning in &lt;em&gt;SimpleDateFormat&lt;/em&gt; : it matches &lt;em&gt;RFC 822&lt;/em&gt; time zone syntax (&lt;code class=&quot;highlighter-rouge&quot;&gt;+0000&lt;/code&gt; without colon).&lt;/p&gt;
-
-&lt;p&gt;To generate an XSD String in UTC with the symbolic &lt;code class=&quot;highlighter-rouge&quot;&gt;Z&lt;/code&gt; time zone, simply quote it : &lt;code class=&quot;highlighter-rouge&quot;&gt;new SimpleDateFormat(&quot;yyyy-MM-dd'T'HH:mm:ss.SSS'Z'&quot;)&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;another-example--logback&quot;&gt;Another example : Logback&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;Logback&lt;/em&gt; uses &lt;em&gt;SimpleDateFormat&lt;/em&gt; to format dates, so the pattern &lt;code class=&quot;highlighter-rouge&quot;&gt;%d{yyyy-MM-dd'T'HH:mm:ss.SSSX}&lt;/code&gt; will only work on JDK7 and fail on JDK6 :&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;09:58:31,716 |-WARN in ch.qos.logback.classic.pattern.DateConverter@1878144
-  - Could not instantiate SimpleDateFormat with pattern yyyy-MM-dd'T'HH:mm:ss.SSSX
-  java.lang.IllegalArgumentException: Illegal pattern character 'X'
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;SimpleDateFormat (JDK 6) - &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html&quot;&gt;docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;SimpleDateFormat (JDK 7) - &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html&quot;&gt;docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;DatatypeConverter - &lt;a href=&quot;http://docs.oracle.com/javase/6/docs/api/javax/xml/bind/DatatypeConverter.html&quot;&gt;docs.oracle.com/javase/6/docs/api/javax/xml/bind/DatatypeConverter.html&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;RFC 822 time zone - &lt;a href=&quot;http://www.ietf.org/rfc/rfc0822.txt&quot;&gt;ietf.org/rfc/rfc0822.txt&lt;/a&gt; (see the syntax for “zone” in chapter “date and time specification”)&lt;/li&gt;
-  &lt;li&gt;ISO 8601 time zone - &lt;a href=&quot;http://www.w3.org/TR/NOTE-datetime&quot;&gt;w3.org/TR/NOTE-datetime&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;ISO 8601 (Wikipedia[fr] article) - &lt;a href=&quot;http://fr.wikipedia.org/wiki/ISO_8601&quot;&gt;fr.wikipedia.org/wiki/ISO_8601&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;XML Schema (timezones) - &lt;a href=&quot;http://www.w3.org/TR/xmlschema-2/#dateTime-timezones&quot;&gt;w3.org/TR/xmlschema-2/#dateTime-timezones&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Logback Uniquely named files (by timestamp) - &lt;a href=&quot;http://logback.qos.ch/manual/appenders.html#uniquelyNamed&quot;&gt;logback.qos.ch/manual/appenders.html#uniquelyNamed&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="dates" /><category term="java" /><category term="XML" /><summary type="html">Time zones in XML Schema and Java</summary></entry><entry><title type="html">Version control integration for Ubuntu 12.04</title><link href="http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04" rel="alternate" type="text/html" title="Version control integration for Ubuntu 12.04" /><published>2012-09-22T14:28:15+02:00</published><updated>2012-09-22T14:28:15+02:00</updated><id>http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04</id><content type="html" xml:base="http://localhost:4000/2012/Version-control-integration-for-Ubuntu-12.04">&lt;p&gt;I’ve been used to great &lt;em&gt;Eclipse&lt;/em&gt; plugins to deal with SVN-versionned projects for a long time.&lt;/p&gt;
-
-&lt;p&gt;Nowadays I’m using &lt;strong&gt;Mercurial&lt;/strong&gt; (a.k.a. &lt;em&gt;Hg&lt;/em&gt;) a lot and it became more handy to me to use &lt;em&gt;Tortoise&lt;/em&gt;-like products, which integrate directly into the OS’ file manager.&lt;/p&gt;
-
-&lt;p&gt;I’ve come to use the following solutions for the different platforms I’m working with (on Ubuntu 12.04).&lt;/p&gt;
-
-&lt;h3 id=&quot;mercurial-for-nautilus&quot;&gt;Mercurial for Nautilus&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;TortoiseHg&lt;/em&gt; works fine, but I had to add a script to have the corresponding “Actions” menu with a right click on a file : &lt;a href=&quot;http://hg.ice-os.com/nautilus_mercurial_scripts/&quot;&gt;hg.ice-os.com/nautilus_mercurial_scripts&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;mercurial-for-dolphin&quot;&gt;Mercurial for Dolphin&lt;/h3&gt;
-
-&lt;p&gt;After some problems copying big files through USB and others, I realized that Nautilus was prone to copy errors so I decided to get back to Konqueror / Dolphin.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately, Dolphin is not as much advanced as Konqueror was in KDE 3.x, so I also had to find a way to add a “Service Menu” for TortoiseHg : &lt;a href=&quot;https://bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4&quot;&gt;bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;git-for-nautilus&quot;&gt;Git for Nautilus&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;RabbitVCS&lt;/em&gt; looks nice, but I’ve not tested it a lot : &lt;a href=&quot;http://www.rabbitvcs.org/&quot;&gt;www.rabbitvcs.org&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dolphin service menu for Tortoise HG - &lt;a href=&quot;https://gist.github.com/3765877&quot;&gt;gist.github.com/3765877&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Nautilus actions menu for Tortoise HG - &lt;a href=&quot;http://hg.ice-os.com/nautilus_mercurial_scripts/&quot;&gt;hg.ice-os.com/nautilus_mercurial_scripts/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="hg" /><category term="Ubuntu" /><category term="eclipse" /><summary type="html">I’ve been used to great Eclipse plugins to deal with SVN-versionned projects for a long time.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry></feed>
