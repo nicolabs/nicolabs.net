@@ -62,7 +62,6 @@ plugins:
     - jekyll-commonmark-ghpages
     - jekyll-gist
     - jekyll-github-metadata
-    - jekyll-paginate
     - jekyll-relative-links
     - jekyll-optional-front-matter
     - jekyll-readme-index
@@ -71,7 +70,7 @@ plugins:
     # More plugins for this site
     # - nicolabs-feed-collection
     - jekyll-feed
-    #- jekyll-paginate-v2
+    - jekyll-paginate-v2
     - jekyll-redirect-from
     - jekyll-sitemap
 
