@@ -2,7 +2,7 @@ Source code for https://www.nicolabs.net
 
 ## Previewing locally
 
-Run `bundle exec jekyll serve --livereload --drafts` to start a local server with live reload and drafts preview.
+Run `bundle exec jekyll serve -I --livereload --drafts` to start a local server with live reload and drafts preview.
 
 ### Drafts
 
