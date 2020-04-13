@@ -21,7 +21,7 @@ Most of the code lies in `_includes/maturity.html` and `_sass/nicolabs/*.scss` i
 1. Update Ruby gems & build the final site without drafts :
 
     sudo bundle update
-    bundle exec jekyll build
+    bundle exec jekyll build -I
 
 2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (same as Jekyll's `_site` directory, but renamed for github pages)
 
