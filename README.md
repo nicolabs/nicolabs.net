@@ -2,7 +2,7 @@ Source code for https://www.nicolabs.net
 
 ## Previewing locally
 
-Run `bundle exec jekyll serve -d docs --livereload --drafts` to start a local server with live reload and drafts preview.
+Run `bundle exec jekyll serve --livereload --drafts` to start a local server with live reload and drafts preview.
 
 ### Drafts
 
@@ -21,8 +21,8 @@ Most of the code lies in `_includes/maturity.html` and `_sass/nicolabs/*.scss` i
 1. Update Ruby gems & build the final site without drafts :
 
     sudo bundle update
-    bundle exec jekyll serve -d docs
+    bundle exec jekyll serve
 
-2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (`_site` directory renamed for github pages)
+2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (same as Jekyll's `_site` directory, but renamed for github pages)
 
-See [help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages](https://help.github.com/articles/using-jekyll-as-a-static-site-generator-with-github-pages/) for more detailed instructions, including installation of prerequisites.
+See [Bypassing GitHub's Jekyll limitations](_posts/2020-04-13-Bypassing-GitHub-Jekyll-limitations.md) for more informations.
