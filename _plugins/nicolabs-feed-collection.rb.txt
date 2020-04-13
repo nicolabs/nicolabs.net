@@ -1,0 +1,20 @@
+# FIXME This plugin does not work because I can't code in Ruby
+# It should dynamically create the 'feed' collection,
+# which would filter posts to include in the RSS/Atom feed.
+# This would allow me to put all posts into the `_posts/` directory
+# and simply filter on their `maturity` level or other parameter.
+# Currently I have to put "live drafts" in a separate directory (_preposts)
+
+require "jekyll"
+
+module Nicolabs
+    class FeedCollectionGenerator < Jekyll::Generator
+        safe true
+        def generate(site)
+            #site.collections << Jekyll::Collection.new(site, 'feed')
+            site.pages.each do |post|
+                site.collections['feedy'] << post
+            end
+        end
+    end # class FeedCollectionGenerator
+end # module Nicolabs
