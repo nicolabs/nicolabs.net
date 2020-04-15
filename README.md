@@ -16,7 +16,7 @@ The new layout is :
 
 ## Previewing locally
 
-Run `bundle exec jekyll serve -I --livereload --drafts` to start a local server with automatic reload and drafts preview.
+Run `bundle exec jekyll serve --livereload -I -H '*' --drafts` to start a local server with automatic reload and drafts preview.
 
 
 ### Drafts
