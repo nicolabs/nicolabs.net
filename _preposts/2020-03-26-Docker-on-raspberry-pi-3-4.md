@@ -23,6 +23,10 @@ For instance, [try to run OpenEats](https://github.com/open-eats/OpenEats/blob/m
     5.5.64: Pulling from library/mariadb
     ERROR: no matching manifest for linux/arm/v7 in the manifest list entries
 
+And when you managed to run it by replacing the *mariadb* image with *linuxserver/mariabdb* :
+
+    standard_init_linux.go:211: exec user process caused "exec format error"
+
 Very frustrating...
 
 https://hub.docker.com/u/balenalib/ : images balena.io (ex resin.io), surtout des images de base ?
