@@ -1,0 +1,9 @@
+{% comment %}
+Creates the 'allposts' array with posts from all collections (preposts & posts actually).
+TODO Make it a plugin (cleaner)
+{% endcomment %}
+
+{% assign allposts = "" | split: "" %}
+{% for collection in site.collections %}
+    {% assign allposts = allposts | concat: collection.docs %}
+{% endfor %}

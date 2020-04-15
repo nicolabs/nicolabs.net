@@ -4,9 +4,22 @@ title: All articles
 ---
 
 {% comment %}
-See https://jekyllrb.com/docs/posts/#displaying-an-index-of-posts
+See https://jekyllrb.com/docs/posts/#displaying-an-index-of-posts.
 {% endcomment %}
 
-{% for post in site.posts %}
+<h2 class="chapter-links">
+    <a href="{{ '/tags' | prepend: site.baseurl }}">by tag</a>
+</h2>
+
+{% comment %}
+Sort posts in the order than in the index's pagination.
+{% endcomment %}
+{% include allposts.liquid %}
+{% assign posts = allposts | sort: "date" | reverse %}
+
+{% comment %}
+Finally iterate on them.
+{% endcomment %}
+{% for post in posts %}
     {% include article-preview.html %}
 {% endfor %}
