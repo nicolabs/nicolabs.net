@@ -16,7 +16,7 @@ The new layout is :
 
 ## Previewing locally
 
-Run `bundle exec jekyll serve --livereload -I -H '*' --drafts` to start a local server with automatic reload and drafts preview.
+Run `bundle exec jekyll serve --livereload -H '*' --drafts` to start a local server with automatic reload and drafts preview.
 
 
 ### Drafts
@@ -37,7 +37,7 @@ Most of the code lies in `_includes/maturity.html` and `_sass/nicolabs/*.scss` i
 1. Update Ruby gems & build the final site without drafts :
 
     sudo bundle update
-    bundle exec jekyll build -I
+    bundle exec jekyll build
 
 2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (same as Jekyll's `_site` directory, but renamed for github pages)
 
