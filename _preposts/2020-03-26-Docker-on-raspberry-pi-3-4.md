@@ -17,6 +17,14 @@ This is a problem with Raspberry Pi because most of the Docker images around are
 There are some registries providing Raspberry Pi Docker images (e.g. [linuxserver.io](https://www.linuxserver.io/)) but there are not plenty.
 For instance, you will not find an XMPP server (*ejabberd* or *Prosody*) image on *linuxserver.io*.
 
+For instance, [try to run OpenEats](https://github.com/open-eats/OpenEats/blob/master/docs/Running_the_App.md) (which provides a user-friendly script that pulls then runs a few docker images using *docker-compose*), on a Raspberry Pi :
+
+    Pulling db (mariadb:5.5.64)...
+    5.5.64: Pulling from library/mariadb
+    ERROR: no matching manifest for linux/arm/v7 in the manifest list entries
+
+Very frustrating...
+
 https://hub.docker.com/u/balenalib/ : images balena.io (ex resin.io), surtout des images de base ?
 
 
