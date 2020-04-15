@@ -39,16 +39,9 @@ The [tags page](/tags) has been possible thanks to [this blog article](https://c
 
 ## License
 
-**The editorial content** on this website is licensed under the [Attribution 4.0 International Creative Commons license (CC BY 4.0)](http://creativecommons.org/licenses/by/4.0/).
-This includes all visible content at *\*.nicolabs.net*, files under the `_posts`, `_preposts`, `_drafts` directories, any text file that has visible content like : `index.html`, `about.md`, ...
-This also includes files under the `assets/about` and `assets/blog` directories, with the exception of files under the `assets/blog/3rdparty` directory.
+This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
 
-**The underlying source code** used to format and display that content is licensed under the [MIT license](/LICENSES).
-This includes everything else, like : files under other directories, `articles.html`, `tags.html`, `_plugins/*`, ...
-
-**Generated files** under the `docs` directory (previously `_site`) are of no interest and are not reusable without my explicit permission.
-
-More acknowledgments for **third-party assets** can be found in [LICENSES](/LICENSES).
+More details as well as acknowledgments for third-party assets can be found in [LICENSE](/LICENSE).
 
 
 ## Privacy policy
