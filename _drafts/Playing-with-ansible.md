@@ -1,5 +1,5 @@
 ---
-title: Make a Raspberry Pi a A2DP Bluetooth receiver
+title: Playing with ansible
 layout: post
 tags:
   - raspberry pi
