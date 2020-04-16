@@ -101,4 +101,28 @@
   var disqus_shortname = '{{ site.disqus_shortname }}';
   </script>
 
+  <!-- Enable displaying pictures in full size using the Fullscreen API -->
+  <!-- A polyfill that also simplifies the API.
+    TODO maybe there are others closer to the norm and with more features.
+    Still chances are this will not work on iPhone without using a full-fledged Js library.
+    -->
+  <script src="/assets/lib/screenfull.js/dist/screenfull.min.js"></script>
+  <!-- This code selects which elements and how fullscreen is triggered -->
+  <script>
+        document.addEventListener("DOMContentLoaded", function(event) {
+            var els = document.getElementsByClassName("plantuml");
+            for ( var e=0 ; e<els.length ; e++ ) {
+                var el = els[e];
+                el.addEventListener('click', function() {
+                	if (screenfull.isEnabled) {
+                		screenfull.toggle(el);
+                        el.classList.toggle("fullscreen");
+                	} else {
+                        console.log("Fullscreen not supported");
+                    }
+                });
+            }
+        });
+</script>
+
 </head>

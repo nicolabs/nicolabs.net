@@ -8,13 +8,19 @@ tags:
   - "Series : Make a Raspberry Pi a A2DP Bluetooth receiver"
 ---
 
-In this two-part article I describe the steps I had to take to make a *Raspberry Pi 4* play music as a Bluetooh AD2P receiver without a GUI (it's a headless RPi with only SSH access).
+![Raspberry Pi 4 - https://www.raspberrypi.org / CC BY-SA (https://creativecommons.org/licenses/by-sa/4.0)](/assets/blog/3rdparty/pictures/800px-Raspberry_Pi_4.jpg)
 
-More precisely, the goal is to allow user friendly pairing for anyone in the room with a Bluetooth smartphone, while making sure the neighbors won't be able to connect without approval.
+In this two-part article I describe the steps I had to take to make a *headless Raspberry Pi 4* a Bluetooth A2DP speaker.
+
+More precisely, the goal was to allow a user-friendly way for anyone in the room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
+
+---
 
 *This is a two-part article :*
 1. *[How Bluetooth pairing works](Make-RPi-bluetooth-receiver-part-1) (part 1)*
 2. *Raspberry Pi as a Bluetooth A2DP receiver (this part)*
+
+---
 
 ## The basis
 
@@ -47,6 +53,7 @@ Why turning discovery off while a device is already connected ?
 
 ## References
 
+- Top illustration : [Raspberry Pi 4 by https://www.raspberrypi.org/](https://commons.wikimedia.org/wiki/File:Raspberry_Pi_4.jpg) / [CC BY-SA](https://creativecommons.org/licenses/by-sa/4.0)
 - [nicokaiser/rpi-audio-receiver @ github](https://github.com/nicokaiser/rpi-audio-receiver/blob/master/README.md) : I've tried it on my RPi 4 : althought it looks promising it doesn't work ootb
 - [Turn Your Raspberry Pi Into a Wireless Portable Bluetooth Audio System A2DP](https://www.instructables.com/id/Turn-your-Raspberry-Pi-into-a-Portable-Bluetooth-A/)
 - [How To Connect Bluetooth Headset Or Speaker To Raspberry Pi 3](http://youness.net/raspberry-pi/how-to-connect-bluetooth-headset-or-speaker-to-raspberry-pi-3)

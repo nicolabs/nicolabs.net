@@ -1,3 +1,6 @@
 [submodule "assets/mastodon-timeline-widget"]
-	path = assets/mastodon-timeline-widget
+	path = assets/lib/mastodon-timeline-widget
 	url = https://github.com/nicolabs/mastodon-timeline-widget.git
+[submodule "screenfull.js"]
+	path = assets/lib/screenfull.js
+	url = https://github.com/sindresorhus/screenfull.js.git

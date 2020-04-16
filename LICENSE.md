@@ -13,6 +13,8 @@ It is licensed under the [Creative Commons Attribution 4.0 International License
 
 ## Third-party licenses
 
+License for pictures used in articles are usually included within the article itself. If not, look below.
+
 Theme based on *nandomoreirame's* ["simplest" theme](https://github.com/nandomoreirame/simplest).
 
 The code for estimating and displaying the time to read an article comes from [atekihcan.github.io](http://atekihcan.github.io/blog/2014/reading-time-estimate-in-jekyll) and [github.com/renyuanz/leonids](https://github.com/renyuanz/leonids).
@@ -22,6 +24,10 @@ The *mastodon* widget on the front page is from [mastodon-timeline-widget](https
 The [tags page](/tags) has been possible thanks to [this blog article](https://codinfox.github.io/dev/2015/03/06/use-tags-and-categories-in-your-jekyll-based-github-pages/).
 
 The main font 'Open Sans' is [Apache-licensed](/assets/fonts/opensans/Apache License.txt).
+
+[jekyll-plantuml](https://github.com/yegor256/jekyll-plantuml) is used to generate inline PlantUML diagrams. It has been slightly modified to fit my needs (look at [_plugins/jekyll-plantuml.rb](_plugins/jekyll-plantuml.rb)).
+
+[screenfull.js polyfill](https://github.com/sindresorhus/screenfull.js) is used to enhance compatibility with the fullscreen DOM API (displaying PlantUML diagrams at full size).
 
 Third-party logos :
 

@@ -1,3 +1,7 @@
+h3 {
+    margin-bottom: 1em;
+}
+
 /* Links below chapter titles in the front page */
 .chapter-links {
     font-size: 1rem;
@@ -7,9 +11,21 @@
     margin-left: .5em;
 }
 
-/* Figure are printed as a paragraph by default, like images */
-figure {
+/* All sorts of figures that are printed as a paragraph by default, like images */
+figure,
+object.plantuml {
     @extend img
+}
+
+/* White background is assumed to bring the best readability for transparent images displayed in fullscreen */
+/* Note : the :fullscreen pseudo-class did not work in my tests */
+.fullscreen {
+    background-color: white;
+}
+/* Recommended by https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API/Guide ; although I cannot test... */
+*:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
 }
 
 /*

@@ -13,6 +13,9 @@ gem "jekyll", "~> 3.8.6"
 # This is the default theme for new Jekyll sites. You may change this to anything you like.
 gem "minima", "~> 2.0"
 
+# Dependency for jekyll-plantuml_hook
+#gem "nokogiri"
+
 # If you want to use GitHub Pageuse s, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
 # gem "github-pages", group: :jekyll_plugins
@@ -36,6 +39,8 @@ group :jekyll_plugins do
   gem "jekyll-paginate-v2"
   gem "jekyll-redirect-from"
   gem "jekyll-sitemap"
+  # Looks like the ideal solution but does not work
+  #gem 'jekyll-plantuml_hook', git: 'https://github.com/chulkilee/jekyll-plantuml_hook.git', ref: 'master'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

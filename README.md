@@ -1,5 +1,12 @@
 Source code for https://www.nicolabs.net
 
+## Setup
+
+- Install jekyll
+- [Install plantuml and a `plantuml` command in the PATH](https://github.com/yegor256/jekyll-plantuml#install-plantumljar) (requirement of *jekyll-plantuml*) (and probably *dot* : `apt install graphviz`)
+- Run `bundle install`
+
+
 ## Assets/blog folder
 
 The [assets/blog](assets/blog) folder gathers asset files used in articles.
@@ -19,7 +26,7 @@ The new layout is :
 Run `bundle exec jekyll serve --livereload -H '*' --drafts` to start a local server with automatic reload and drafts preview.
 
 
-### Drafts
+## Drafts
 
 **Jekyll drafts** (articles in `_drafts/`) are *absolutely not ready* for publication. Some of them are *still* old documents I've never finished...
 On the other hand, **articles tagged with _draft_** (in `_posts/`) are published with a special mention so that they hopefully can be useful to anybody : old drafts are slowly being published with this *draft* mention.
@@ -32,11 +39,31 @@ Most of the code lies in `_includes/maturity.html` and `_sass/nicolabs/*.scss` i
 - remove drafts from the default feed
 
 
+## Fullscreen pictures & PlantUML diagrams
+
+I found it to be necessary to better display PlantUML diagrams.
+
+This is implemented with :
+- a [modified version](_plugins/jekyll-plantuml.rb) of [jekyll-plantuml](https://github.com/yegor256/jekyll-plantuml)
+    - because it is the Jekyll integration advertized on plantuml.com
+    - however it generates only `<svg>` inside `<object>`, which is not fullscreen-compatible OOTB => I replaced with `<img>` using the generated SVG as source
+    - and it generated files in the root of the project
+    - TODO anyway a replacement that uses Markdown standard ` ```plantuml` rather than Jekyll-specific `{% plantuml %}` syntax should be found
+- assets/lib/[screenfull.js polyfill](https://github.com/sindresorhus/screenfull.js) (seen at *Modernizr*) and [a few lines of code](/_includes/head.html) to activate it
+- [very few CSS](_sass/nicolabs/layout.css)
+
+Based on :
+- https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
+- https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API/Guide
+- https://caniuse.com/#feat=fullscreen
+- https://developer.mozilla.org/fr/docs/Apprendre/HTML/Comment/Ajouter_des_images_vectorielles_%C3%A0_une_page_web
+
+
 ## Publishing
 
 1. Update Ruby gems & build the final site without drafts :
 
-    sudo bundle update
+    bundle update
     bundle exec jekyll build
 
 2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (same as Jekyll's `_site` directory, but renamed for github pages)

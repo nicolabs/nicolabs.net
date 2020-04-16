@@ -74,6 +74,14 @@ plugins:
     - jekyll-redirect-from
     - jekyll-sitemap
 
+# Looks like the ideal solution but does not work
+# plantuml_hook:
+#     parser: nokogiri
+#     # to render with plantuml server
+#     #plantuml_url: www.plantuml.com/plantuml
+#     # to render with jar
+#     plantuml_jar_path: /opt/plantuml/plantuml.jar
+
 # navbar pages
 navbar:
   - slug : about
