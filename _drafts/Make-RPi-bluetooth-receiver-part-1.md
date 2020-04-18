@@ -119,27 +119,41 @@ If it happens that some smartphone don't implement BLE, then I'll have to make s
 
 ### Bluetooth association models
 
-Here is the detailed list of the existing pairing workflows (or *association models*) we've just talked about :
+Here are the four existing pairing workflows (or *association models*) that apply to *Bluetooth Low Energy* :
 
-- Legacy pairing (only for BR/EDR)
-- Just Works
-- Passkey entry
-- Out-of-Band (OOB)
-- Numeric Comparison (only since Bluetooth 4.2 for BLE)
+- **Just Works**
+- **Passkey entry**
+- **Out-of-Band (OOB)**
+- **Numeric Comparison** (only since Bluetooth 4.2 for BLE)
 
-*BR/EDR Legacy pairing* was the only association model before Bluetooth 2.1. It requires the two devices to enter the same, 16-character maximum, PIN code.
+Let's see how they work.
 
-As seen before *Numeric comparison* for BLE exists only since Bluetooth 4.2 (as part of *Bluetooth LE Secure Connection* specification).
+#### Just works
 
-The 3 other ones are available for all devices implementing at least [*Bluetooth LE Legacy Pairing*](https://www.bluetooth.com/blog/bluetooth-pairing-part-2-key-generation-methods/) (Bluetooth 4.0).
+This association model has been thought for the case where at least one device in the pair has no human interface.
+Therefore, it does not enforce any confirmation whatsoever.
 
-Unfortunately, we cannot choose the association model ourselves : it is asserted from the devices' capabilities, called [**Input and Output capabilities for LE*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/).
+The Bluetooth Core Specification has a very neat way to describe it :
+
+> The Just Works association model uses the Numeric Comparison protocol but
+the user is never shown a number and the application may simply ask the user
+to accept the connection (exact implementation is up to the end product
+manufacturer).
+
+#### BR/EDR models
+
+The same four models apply to the BR/EDR side but they have some subtle differences in their implementation, which we will not cover.
+
+There is also one more model that apply only to this family : **BR/EDR Legacy pairing**, which was the only association model before Bluetooth 2.1 (see the diagram above).
+It requires the two devices to enter the same, 16-character maximum, PIN code ; so, depending on their physical capabilities, they may allow a user to enter a fully UTF-8 text, only a numeric code or just use a fixed (usually hard-coded) PIN.
+
+### Choosing the right association model
+
+Except for *BR/EDR Legacy Pairing* one cannot *chose* an association model : it is asserted from the devices' capabilities, called [*Input and Output capabilities*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/).
 
 In order to make sure only workflows compatible with our headless use case are enabled, our RPi device must therefore advertise only the matching capabilites.
 
-With *BR/EDR legacy pairing*, both devices have no other choice than dealing with a PIN code. So, depending on their physical capabilities, they may allow a user to enter a fully UTF-8 text, only a numeric code or just use a fixed (usually hard-coded) PIN.
-
-With other pairing workflows, there are full-blown tables describing the available IO capabilities and the mapping to the matching association models [Bluetooth Core specification (Vol 3, Part C, §5.2.2.4 "IO capabilities")].
+How ? There are full-blown tables [^1] describing the available IO capabilities and the mapping to the matching association models.
 
 Here are the **input capabilites** :
 - **No input** : Device does not have the ability to indicate 'yes' or 'no'
@@ -202,6 +216,7 @@ Comparison: Both Display, Both Confirm.<br/><br/>Authenticated</td>
     </tr>
 </table>
 
+
 ### Putting it altogether with BlueZ
 
 Finally, Linux systems have a complex Bluetooth stack, from which we will focus on the following components :
@@ -215,24 +230,15 @@ However I could not find a bluetooth agent matching my use case : the default ag
 
 Now let's identify which association model(s) fits our use case.
 
-### Association models
-
-#### Just works
-
-This association mode has been thought when at least one device in the pair has no human interface.
-Therefore, it does not enforce any confirmation whatsoever.
-
-The Bluetooth Core Specification has a very neat way to describe it :
-> The Just Works association model uses the Numeric Comparison protocol but
-the user is never shown a number and the application may simply ask the user
-to accept the connection (exact implementation is up to the end product
-manufacturer).
+#### Just works with BlueZ
 
 If a *Just Works* model is triggered, the bluetooth agent may automatically pair with devices without a confirmation, or it may ask by some "headless" way a confirmation.
 In the first case, although data exchange can be strongly secured, it cannot prevent an unknown device to pair.
 In the latter case, it may require a fair amount of work to build such a confirmation mechanism.
 
-Depending on the capabilities the *agent* declared, it may never be called in this association model.
+Depending on the capabilities the *agent* advertised, it may never be called in this association model.
+
+
 
 #### Conclusion
 
@@ -258,3 +264,5 @@ A headless device may then adopt one of the following options :
 - [Bluetooth Pairing Part 4: Bluetooth Low Energy Secure Connections – Numeric Comparison](https://www.bluetooth.com/blog/bluetooth-pairing-part-4/?utm_campaign=developer&utm_source=internal&utm_medium=blog&utm_content=bluetooth-pairing-part-3-low-energy-legacy-pairing-passkey-entry)
 - [Bluetooth Core Specification v5.2](https://www.bluetooth.com/specifications/bluetooth-core-specification/)
 - [en.wikipedia.org/wiki/Bluetooth](https://en.wikipedia.org/wiki/Bluetooth#Pairing_and_bonding), 2020-04-10
+
+[^1]: Bluetooth Core specification Vol 3, Part C, §5.2.2.4 "IO capabilities
