@@ -1,0 +1,54 @@
+@startuml
+
+@startuml
+
+title
+    Bluetooth association models & security history
+end title
+
+(BR/EDR Legacy Pairing) as bredr_legacy_pairing
+    note right of bredr_legacy_pairing
+        Since the beginning
+
+        Lowest security (based on SAFER+ algorithms)
+        There is only **one pairing workflow**.
+    end note
+(Secure Simple Pairing) as secure_simple_pairing
+    note right of secure_simple_pairing
+        Since 2.1 + EDR
+
+        Enhances security with stronger (FIPS) algorithms,
+        passive eavesdropping and MITM protections,
+        and **4 possible pairing workflows**.
+        Some security is still at the level of <i>BR/EDR legacy</i>.
+    end note
+(BR/EDR Secure Connections) as bredr_legacy_secure_connections
+    note right of bredr_legacy_secure_connections
+        Since 4.1
+
+        Fills the remaining security gaps.
+    end note
+(LE Legacy Pairing) as le_legacy_pairing
+    note left of le_legacy_pairing
+        Since 4.0
+
+        Similar to BR/EDR's <i>Secure Simple Pairing</i>
+        but with only **3 pairing workflows**
+        (misses <i>Numeric Comparison</i>)
+        and trades some security for usability.
+    end note
+(LE Secure Connections) as le_secure_connections
+    note left of le_secure_connections
+        Since 4.2
+
+        Similar to <i>BR/EDR Secure Connections</i>,
+        also with **4 pairing workflow**.
+    end note
+
+bredr_legacy_pairing -up-> secure_simple_pairing
+secure_simple_pairing -up-> bredr_legacy_secure_connections : Security upgrade through\n<i>Secure Connections</i>
+le_legacy_pairing -up-> le_secure_connections : Security upgrade through\n<i>Secure Connections</i>
+
+@enduml
+
+@enduml
