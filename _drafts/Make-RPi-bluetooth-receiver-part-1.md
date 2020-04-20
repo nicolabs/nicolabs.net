@@ -95,6 +95,7 @@ le_legacy_pairing -up-> le_secure_connections : Security upgrade through\n<i>Sec
 @enduml
 {% endplantuml %}
 
+
 #### Which security level to chose ?
 
 First, the Bluetooth Core Specification v5.2 makes it clear that :
@@ -121,35 +122,114 @@ If it happens that some smartphone don't implement BLE, then I'll have to make s
 
 Here are the four existing pairing workflows (or *association models*) that apply to *Bluetooth Low Energy* :
 
+- **Numeric Comparison** (only since Bluetooth 4.2 for BLE)
 - **Just Works**
 - **Passkey entry**
 - **Out-of-Band (OOB)**
-- **Numeric Comparison** (only since Bluetooth 4.2 for BLE)
 
 Let's see how they work.
 
+
+#### Numeric comparison
+
+The Bluetooth Core Specification [^1] has a very neat way to describe it :
+
+> The user is shown a six digit number (from "000000" to "999999") on both
+displays and then asked whether the numbers are the same on both devices. If
+"yes" is entered on both devices, the pairing is successful.
+
+It is important to understand that *this number is not chosen* by any party : it is randomly calculated as part of the pairing algorithm. It changes on every pairing attempt and cannot be set by one device ; so we will not be able to set it by static configuration on a headless Raspbery Pi, for instance, as a passcode to secretly give to whoever is authorized to connect. This is not the intended use case with this association model.
+
+Regarding our use case :
+
+- No user interaction on the Raspberry Pi's side : *no ❌*
+- Raspberry Pi has control on who can connect    : *no ❌*
+- Secure                                         : *yes ✅*
+
 #### Just works
 
-This association model has been thought for the case where at least one device in the pair has no human interface.
+This association model has been made for the case where at least one device in the pair has no human interface.
 Therefore, it does not enforce any confirmation whatsoever.
 
-The Bluetooth Core Specification has a very neat way to describe it :
+Here is an excerpt from the specifications [^1] :
 
 > The Just Works association model uses the Numeric Comparison protocol but
 the user is never shown a number and the application may simply ask the user
 to accept the connection (exact implementation is up to the end product
 manufacturer).
 
+Does it fits our use case :
+
+- No user interaction on the Raspberry Pi's side : *yes ✅*
+- Raspberry Pi has control on who can connect    : *yes ✅*
+- Secure                                         : *only with additional authorization step*
+
+
+#### Passkey Entry
+
+This is a variant of *Numeric Comparison* used when a device has only input capabilities but no display (e.g. a keyboard).
+
+The six digit number is displayed on one device, and must be entered on the device with no display for the pairing to be successful.
+
+In our use case, this would require user interaction on the Raspberry Pi's side, which is made complicated because of its headless nature...
+
+Assuming the Raspberry Pi would be the *input-only* device :
+
+- No user interaction on the Raspberry Pi's side : *no ❌*
+- Raspberry Pi has control on who can connect    : *yes ✅*
+- Secure                                         : *yes ✅*
+
+
+#### Out of Band (OOB)
+
+With *Out of Band*, the devices first discover (and optionally authenticate) together with another mechanism. It can be any protocol, like NFC or Wi-Fi for instance.
+
+This fits well when both devices are known to share a common mechanism and are explicitly set up to work in this way. For instance a camera and its manufacturer's mobile application will both be programmed to connect with NFC first, then share their "services" through Bluetooth.
+
+But how can a Raspberry Pi and the smartphone of some friend with only standard applications may know how to proceed ? This part *does not seem* to be specified at all so, as a matter of fact, it's going to be hard to find standard applications for that case...
+
+Also, in my use case I don't wish to add another mechanism as a requirement : Bluetooth is enough.
+
+TODO Does Bluetooth specifies a standard set of OOB protocols ? Are there standard applications/programs out there that implement OOB ?
+
+Assuming the Raspberry Pi would be the *input-only* device :
+
+- No user interaction on the Raspberry Pi's side : *requires custom protocol*
+- Raspberry Pi has control on who can connect    : *assumed yes ✅*
+- Secure                                         : *assumed yes ✅*
+
+
 #### BR/EDR models
 
-The same four models apply to the BR/EDR side but they have some subtle differences in their implementation, which we will not cover.
+The same four models above apply to the BR/EDR side but they have some subtle differences in their implementation, which we will not cover.
 
-There is also one more model that apply only to this family : **BR/EDR Legacy pairing**, which was the only association model before Bluetooth 2.1 (see the diagram above).
+There is also one more model that apply only to the BR/EDR family : **BR/EDR Legacy pairing**, which was the only association model before Bluetooth 2.1 (see the diagram above).
+
 It requires the two devices to enter the same, 16-character maximum, PIN code ; so, depending on their physical capabilities, they may allow a user to enter a fully UTF-8 text, only a numeric code or just use a fixed (usually hard-coded) PIN.
+
+Althought it seems to fulfill our use case by allowing a PIN code to be set in the headless device, it is far less secure than other models and is therefore not considered a potential solution in this article.
+
+TODO Compare the security of a really long PIN code in this model and other models
+
+>Legacy pairing compared to our use case :
+>
+>- No user interaction on the Raspberry Pi's side : *yes ✅*
+>- Raspberry Pi has control on who can connect    : *yes ✅*
+>- Secure                                         : *no ❌*
+
 
 ### Choosing the right association model
 
-Except for *BR/EDR Legacy Pairing* one cannot *chose* an association model : it is asserted from the devices' capabilities, called [*Input and Output capabilities*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/).
+Let's draw a comparison table regarding our use case requirements :
+
+|                                               |  Numeric comparison |  Just Works                        |  Passkey Entry |  Out of Band             	     |  Legacy Pairing |
+|-----------------------------------------------|---------------------|------------------------------------|----------------|--------------------------------|-----------------|
+| No user interaction on RPi side               | no ❌                | yes ✅                              | no ❌          | requires custom protocol       | yes ✅           |
+| Raspberry Pi has control over who can connect | no ❌                | yes ✅                              | yes ✅         | assumed yes ✅            	   | yes ✅           |
+| Secure                                        | yes ✅               | only with additional authorization | yes ✅         | yes (even more than others) [^3] ✅ | no ❌            |
+
+
+Unfortunately, except for *BR/EDR Legacy Pairing* one cannot *chose* an association model : it is asserted from the devices' capabilities, called [*Input and Output capabilities*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/) [^2].
 
 In order to make sure only workflows compatible with our headless use case are enabled, our RPi device must therefore advertise only the matching capabilites.
 
@@ -185,7 +265,7 @@ And the **mapping to get the matching association models** :
         <th>NoInputNoOutput</th>
     </tr>
     <tr>
-        <th class="vertical" rowspan="4"><span>Device B (Responder)</span></th>
+        <th class="vertical" rowspan="5"><span>Device B (Responder)</span></th>
         <th class="vertical"><span>DisplayOnly</span></th>
         <td>Numeric Comparison with automatic confirmation on both devices.<br/><br/>Unauthenticated</td>
         <td>Numeric Comparison with automatic confirmation on device B only.<br/><br/>Unauthenticated</td>
@@ -213,6 +293,13 @@ Comparison: Both Display, Both Confirm.<br/><br/>Authenticated</td>
         <td>Numeric Comparison with automatic confirmation on device B only and Yes/No confirmation on whether to pair on device A.<br/>Device A does not show the confirmation value.<br/><br/>Unauthenticated</td>
         <td>Numeric Comparison with automatic confirmation on both devices.<br/><br/>Unauthenticated</td>
         <td>Numeric Comparison with automatic confirmation on both devices.<br/><br/>Unauthenticated</td>
+    </tr>
+    <tr>
+        <th class="vertical"><span>KeyboardDisplay</span></th>
+        <td>TODO</td>
+        <td>TODO</td>
+        <td>TODO</td>
+        <td>TODO</td>
     </tr>
 </table>
 
@@ -265,4 +352,6 @@ A headless device may then adopt one of the following options :
 - [Bluetooth Core Specification v5.2](https://www.bluetooth.com/specifications/bluetooth-core-specification/)
 - [en.wikipedia.org/wiki/Bluetooth](https://en.wikipedia.org/wiki/Bluetooth#Pairing_and_bonding), 2020-04-10
 
-[^1]: Bluetooth Core specification Vol 3, Part C, §5.2.2.4 "IO capabilities
+[^1]: Bluetooth Core specification Vol 3, Part C, §5.2.2.4 "IO capabilities"
+[^2]: Bluetooth Core specification Vol 3, Part H, §2.3.2 "IO capabilities"
+[^3]: Bluetooth Core specification Vol 3, Part H, §2.3.5.4 "Out of band"
