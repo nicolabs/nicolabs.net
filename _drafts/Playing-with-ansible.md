@@ -26,11 +26,24 @@ What happens with `--all,never` ? Are tasks tagged with *never* run since they *
 No user-friendly way to run only a (set of) role(s) in a playbook. The official recommended way is to use tags. One can run [`ansible localhost -m include_role -a name=<role_name>`](https://stackoverflow.com/questions/38350674/ansible-can-i-execute-role-from-command-line) but the syntax is not appealing... Maybe [ansible-toolbox](https://github.com/larsks/ansible-toolbox) ?
 
 Let's now say that you have tagged all the tasks of a role "myrole" inside the `myrole/tasks/main.yml` using inheritance.
-If you use `--tags myrole` in order to run only the tasks related to this role within a playbook, be aware that it will still run tasks tagged with **always**, which you probably didn't want to enable under such circumstances ! You would have to use `--tags myrole --skip-tags always`, which is counter-intuitive ! =>  cannot use a tag for selecting a role if others contain 'always' tags
+If you use `--tags myrole` in order to run only the tasks related to this role within a playbook, be aware that it will still run tasks tagged with **always**, which you probably didn't want to enable under such circumstances ! You would have to use `--tags myrole --skip-tags always`, which is counter-intuitive ! =>  cannot use a tag for selecting a role if others contain 'always' tags (which is often the case in third-party roles).
 This can also be counter-intuitive with **never** : if you tagged all steps of your role with *myrole* and some of them with *never* so they should only be called with `--tags never`, then you can only achieve this with `--tags myrole --skip-tags never` ! But this is incompatible with the previous behaviour described with *always* !!! =>  cannot use a tag for selecting a role if it contains also 'never' tags
 
 What if you want to run only the tasks that have several tags at the same time (e.g. *nextcloud* AND *docker*, which together designates the 'docker' version of the 'nextcloud' task/role) ? I could not find a way other than creating a third *nextcloud-docker* tag... Ansible misses here *operations* on tags (basic boolean operations would be great although many similar systems have also complex *glob* or *regex* filtering)
 
+I've run into the following problem : if you include a third-party role that does not use the same tagging conventions, then you can just forget about using tags to select which roles to run...
+
+## TODO
+
+Nom des variables avec underscore.
+
+Impossible de définir des structures yaml à spécialiser dans les variables des rôles : il faut mettre une liste de variables à plat.
+
+Je regarde presque à chaque fois le manuel des tâches => prouve que ce n'est pas intuitif ; ou encore copier-coller
+
+Avantage : force à bien découper et dissocier les dépendances
+
+Inconvénient : parfois force à trop découper (difficile de trouver le juste milieu entre le découpage absolu qui est incompréhensible, complexe et du coup difficile à maintenir alors que c'est censé aider à la maintenance et trop de duplications / parties en dur)
 
 ## Passwordstore integration
 
