@@ -1,4 +1,397 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2020-05-04T22:57:58+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">Bypassing GitHub’s Jekyll limitations</title><link href="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations" rel="alternate" type="text/html" title="Bypassing GitHub's Jekyll limitations" /><published>2020-04-13T00:00:00+02:00</published><updated>2020-04-13T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations</id><content type="html" xml:base="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations">&lt;p&gt;As I feared when I &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;migrated to GitHub’s hosting&lt;/a&gt;, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2020-05-04T23:01:01+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">Make a Raspberry Pi a Bluetooth speaker (part 1)</title><link href="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1" rel="alternate" type="text/html" title="Make a Raspberry Pi a Bluetooth speaker (part 1)" /><published>2020-05-04T00:00:00+02:00</published><updated>2020-05-04T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1</id><content type="html" xml:base="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1">&lt;p&gt;&lt;img src=&quot;/assets/blog/3rdparty/logos/Bluetooth_FM_Color.png&quot; alt=&quot;Bluetooth logo&quot; height=&quot;128px&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;In this two-part article I describe the steps I had to take to make a &lt;em&gt;headless Raspberry Pi 4&lt;/em&gt; a Bluetooth &lt;a href=&quot;https://www.howtogeek.com/338750/whats-the-difference-between-bluetooth-a2dp-and-aptx/&quot;&gt;A2DP&lt;/a&gt; speaker.&lt;/p&gt;
+
+&lt;p&gt;My goal was to offer a user-friendly way for anyone in the room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won’t be able to connect without approval.&lt;/p&gt;
+
+&lt;p&gt;First let’s dive into how Bluetooth works.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;em&gt;This is a two-part article :&lt;/em&gt;&lt;/p&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;em&gt;How Bluetooth pairing works (this part)&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;&lt;a href=&quot;Make-RPi-bluetooth-speaker-part-2&quot;&gt;Raspberry Pi as a Bluetooth A2DP receiver&lt;/a&gt; (part 2)&lt;/em&gt;&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;how-bluetooth-pairing-works&quot;&gt;How Bluetooth pairing works&lt;/h2&gt;
+
+&lt;p&gt;Bluetooth is quite a complex thing. Really. I didn’t thought it was that much complicated before I started this mini project. Beside the original goal to be a wireless replacement for cables, Bluetooth actually includes &lt;a href=&quot;https://en.wikipedia.org/wiki/Bluetooth#List_of_applications&quot;&gt;a myriad of features&lt;/a&gt;.
+In order to understand how we should connect to our Raspberry Pi (abbreviated &lt;em&gt;RPi&lt;/em&gt;), let’s focus on some core aspects of Bluetooth.&lt;/p&gt;
+
+&lt;h3 id=&quot;bluetooth-security-models&quot;&gt;Bluetooth security models&lt;/h3&gt;
+
+&lt;p&gt;Being tightly coupled with hardware, Bluetooth has evolved a lot since its beginnings, following industry’s technical enhancements over the years.
+This is why it has so many &lt;em&gt;security models&lt;/em&gt; ; let’s try to understand how they compare.&lt;/p&gt;
+
+&lt;h4 id=&quot;there-are-two-distinct-families-of-bluetooth&quot;&gt;There are two distinct “families” of Bluetooth.&lt;/h4&gt;
+
+&lt;p&gt;The legacy, &lt;strong&gt;Basic Rate (BR)&lt;/strong&gt; was the first and only protocol in the beginning. It was quickly complemented with &lt;em&gt;EDR (Enhanced Data Rate)&lt;/em&gt; in Bluetooth 2.0, hence the name &lt;strong&gt;BR/EDR&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Bluetooth 4.0 came with another protocol, with no backward compatibility : &lt;strong&gt;Bluetooth Low Energy (abbreviated LE, or BLE)&lt;/strong&gt;. This new Bluetooth “family” requires less energy and fits better to smartphones and &lt;em&gt;IoT&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Althought &lt;em&gt;BR/EDR&lt;/em&gt; and &lt;em&gt;BLE&lt;/em&gt; are not compatible, Bluetooth devices can implement one or the other, or even both. For the record there is also an &lt;em&gt;AMP&lt;/em&gt; specification, usually implemented in a secondary controller, in order to achieve Wi-Fi class transfer rates.&lt;/p&gt;
+
+&lt;p&gt;Each protocol “family” have their own security and association models, even though they follow the same logic :&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;plantuml&quot; id=&quot;0533bf1650411364e155eb045e537c98&quot; alt=&quot;PlantUML diagram&quot; src=&quot;/assets/uml/0533bf1650411364e155eb045e537c98.svg&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;which-security-level-to-chose-&quot;&gt;Which security level to chose ?&lt;/h4&gt;
+
+&lt;p&gt;The Bluetooth Core Specification&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; makes it clear that :&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Secure Connections Only Mode is sometimes called a “FIPS Mode”.
+This mode should be used when it is more important for a device to have high security than it is for it to maintain backwards compatibility with devices that do not support Secure Connections.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;My feeling reading the specifications is that Bluetooth was not made with high expectations on security from the beginning. It has so many trade-offs at the benefit of usability that &lt;em&gt;Secure Connections&lt;/em&gt;, whether for BR/EDR or LE, just looks to me like the bare minimum to have.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;BR/EDR Legacy Pairing&lt;/em&gt;’s security for instance &lt;em&gt;unavoidably depends&lt;/em&gt; on the length of the PIN (which is often a small four-digit number, or even a fixed value) and provide little-to-none protection against eavesdropping or man-in-the-middle (MITM) attacks.
+&lt;em&gt;Secure Simple Pairing&lt;/em&gt; for its part only &lt;em&gt;“protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;“&lt;/em&gt;. It leverages the failure alerts end users would receive to mitigate the risk and allows for configurations that &lt;em&gt;may&lt;/em&gt; make it unsecure.
+Without going on with further examples : I just don’t want my neighbors to accidentally connect to my RPi or any passing-by hacker to gather any personal information.&lt;/p&gt;
+
+&lt;p&gt;Also, “LE is the new BR/EDR”. Most efforts seem to be put on Bluetooth LE and Bluetooh BR/EDR suffers from not being up-to-date with today’s requirements. For instance : in BR/EDR, cryptographic key generation is being made in lower, often hardware, layers, making it difficult to upgrade security algorithms.
+This is probably the fate of a very pragmatic specification that didn’t intend to foresee the future of technology ; unfortunately this leaves us with a plethora of unsecure devices in the wild.&lt;/p&gt;
+
+&lt;p&gt;Wrapping up, this gives the “LE Secure Connections” mode my preference and I will try to make it rule my configuration.&lt;/p&gt;
+
+&lt;h3 id=&quot;bluetooth-association-models&quot;&gt;Bluetooth association models&lt;/h3&gt;
+
+&lt;p&gt;The above diagram states that there are several &lt;em&gt;association models&lt;/em&gt; ; here are the four ones that apply to &lt;em&gt;Bluetooth Low Energy&lt;/em&gt; :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Numeric Comparison&lt;/strong&gt; (only since Bluetooth 4.2 for BLE)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Just Works&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Passkey entry&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Out-of-Band (OOB)&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For the sake of completeness we will also talk about :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;BR/EDR Legacy pairing&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let’s see how they work, and how well they would fit our use case.&lt;/p&gt;
+
+&lt;h4 id=&quot;numeric-comparison&quot;&gt;Numeric comparison&lt;/h4&gt;
+
+&lt;p&gt;The Bluetooth Core Specification&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; has a very neat way to describe the &lt;em&gt;Numeric Comparison&lt;/em&gt; model :&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The user is shown a six digit number (from “000000” to “999999”) on both
+displays and then asked whether the numbers are the same on both devices. If
+“yes” is entered on both devices, the pairing is successful.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;It is important to understand that &lt;em&gt;this number is not chosen&lt;/em&gt; by any party : it is randomly computed on each connection attempt, as part of the pairing algorithm&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;. &lt;em&gt;It is not a passcode&lt;/em&gt; either : it just helps users check that they pair to the expected device by showing the same value on both sides. If a malicious user were trying to penetrate our home he would just have to hit “Yes” on its side, whatever the value of this 6-digit number.&lt;/p&gt;
+
+&lt;p&gt;The &lt;em&gt;Numeric Comparison&lt;/em&gt; protocol also allows devices to skip this user confirmation&lt;sup id=&quot;fnref:4:1&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; to automatically pair, but in order to preserve control over who can connect, we should not make this possible and enforce a confirmation on the RPi side.&lt;/p&gt;
+
+&lt;h4 id=&quot;just-works&quot;&gt;Just works&lt;/h4&gt;
+
+&lt;p&gt;The &lt;em&gt;Just Works&lt;/em&gt; model is a specific case of &lt;em&gt;Numeric Comparison&lt;/em&gt; designed for the case where at least one device in the pair has no human interface at all.
+Therefore, it does not enforce any confirmation whatsoever.&lt;/p&gt;
+
+&lt;p&gt;Here is an excerpt from the specifications&lt;sup id=&quot;fnref:3:1&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; :&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The Just Works association model uses the Numeric Comparison protocol but
+the user is never shown a number and the application may simply ask the user
+to accept the connection (exact implementation is up to the end product
+manufacturer).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;As for &lt;em&gt;Numeric Comparison&lt;/em&gt;, it looks like a good candidate for our use case, provided that we add a confirmation step as allowed.&lt;/p&gt;
+
+&lt;h4 id=&quot;passkey-entry&quot;&gt;Passkey Entry&lt;/h4&gt;
+
+&lt;p&gt;&lt;em&gt;Passkey Entry&lt;/em&gt; is used when one of the devices has input capabilities but no display (e.g. a keyboard).&lt;/p&gt;
+
+&lt;p&gt;A six-digit number is displayed on the device that can display and must be entered on the other one for the pairing to be successful.&lt;/p&gt;
+
+&lt;p&gt;At the difference of &lt;em&gt;Numeric Comparison&lt;/em&gt;, this number is not only here to check that the devices are the ones we intend to pair, but it also serves as an input data &lt;em&gt;required&lt;/em&gt; to authenticate and validate the association&lt;sup id=&quot;fnref:4:2&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; &lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; class=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;In contrast with &lt;em&gt;Numeric Comparison&lt;/em&gt;, this model does not allow automatic connection because each side has to prove they know the &lt;em&gt;passkey&lt;/em&gt; :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;em&gt;display device&lt;/em&gt; is the only one to know the number in the beginning ; it decides the way the &lt;em&gt;passkey&lt;/em&gt; is revealed to the other one&lt;/li&gt;
+  &lt;li&gt;the &lt;em&gt;input-only device&lt;/em&gt; must enter the (supposedly secret) &lt;em&gt;passkey&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;With some tweaks, a headless Raspberry Pi might be on one side or the other :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;if it were the &lt;em&gt;display device&lt;/em&gt;, we should replace the display step with an equivalent, headless mechanism that allows the other user to obtain the number&lt;/li&gt;
+  &lt;li&gt;if it were the &lt;em&gt;input-only device&lt;/em&gt;, we should find a way to get the number displayed on the other device entered into the RPi&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This may not look trivial ; we’ll see what can be done later on…&lt;/p&gt;
+
+&lt;h4 id=&quot;out-of-band-oob&quot;&gt;Out of Band (OOB)&lt;/h4&gt;
+
+&lt;p&gt;With &lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-part-5-legacy-pairing-out-of-band/&quot;&gt;Out of Band&lt;/a&gt;, the devices first discover (and optionally authenticate) themselves with a different mechanism than Bluetooth. It can be any protocol, like NFC or Wi-Fi for instance.&lt;/p&gt;
+
+&lt;p&gt;This fits well when both devices are known to share a common mechanism and are explicitly set up to work in this way. For instance a camera and its manufacturer’s mobile application will both be programmed to connect with NFC first, then share their “services” through Bluetooth.&lt;/p&gt;
+
+&lt;p&gt;But this seemingly won’t work for us, as we want to allow common smartphones - with only standard applications - to connect.
+Furthermore, adding another mechanism than Bluetooth as a requirement looks superfluous…&lt;/p&gt;
+
+&lt;h4 id=&quot;bredr-models&quot;&gt;BR/EDR models&lt;/h4&gt;
+
+&lt;p&gt;The four previous models also apply to the BR/EDR side but with some subtle differences in their implementation, which we will not cover…&lt;/p&gt;
+
+&lt;p&gt;Finally, there is one more model that apply only to the BR/EDR family : &lt;strong&gt;BR/EDR Legacy pairing&lt;/strong&gt;, which was the only association model before Bluetooth 2.1 (see the diagram above).&lt;/p&gt;
+
+&lt;p&gt;It requires the two devices to enter the same, 16-character maximum, secret PIN code.&lt;/p&gt;
+
+&lt;p&gt;Although it looks similar to &lt;em&gt;Passkey Entry&lt;/em&gt;, it is far less secure because, here, the connection’s encryption directly depends on the complexity of the PIN code.&lt;/p&gt;
+
+&lt;p&gt;What sounds like a practical idea that could be easily implemented on headless devices by simply setting up a static PIN code, unfortunately reveals to be largely unsecure, because the underlying cryptography is not strong enough to compensate weak/short/static/numeric only PIN codes that can be seen on many devices in the wild…&lt;/p&gt;
+
+&lt;p&gt;It is therefore not considered a potential solution in this article.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;TODO Compare the security of a four-digit vs a really long PIN code in this model vs in other models&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;choosing-the-right-association-model&quot;&gt;Choosing the right association model&lt;/h3&gt;
+
+&lt;p&gt;I’ve chosen the three following factors to compare BLE association models regarding my use case :&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Should not require complex user interaction on the Raspberry Pi’s side (e.g. no SSH login to type a passkey)&lt;/li&gt;
+  &lt;li&gt;Must be able to control who can connect to the Raspberry Pi (i.e. only known device or manually approved ones)&lt;/li&gt;
+  &lt;li&gt;Secure enough (as much as Bluetooth can)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Let’s summarize what we’ve asserted in the previous chapter :&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt; &lt;/th&gt;
+      &lt;th&gt;Numeric comparison*&lt;/th&gt;
+      &lt;th&gt;Just Works&lt;/th&gt;
+      &lt;th&gt;Passkey Entry&lt;/th&gt;
+      &lt;th&gt;Out of Band&lt;/th&gt;
+      &lt;th&gt;BR/EDR Legacy Pairing&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;No user interaction&lt;/td&gt;
+      &lt;td&gt;no ❌&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+      &lt;td&gt;no ❌&lt;/td&gt;
+      &lt;td&gt;assumed yes ✅&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Control who can connect&lt;/td&gt;
+      &lt;td&gt;no ❌&lt;/td&gt;
+      &lt;td&gt;no ❌&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+      &lt;td&gt;assumed yes ✅&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Secure&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+      &lt;td&gt;yes ✅&lt;/td&gt;
+      &lt;td&gt;yes** ✅&lt;/td&gt;
+      &lt;td&gt;no ❌&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;em&gt;* without automatic pairing&lt;/em&gt;
+&lt;em&gt;** even more than others&lt;sup id=&quot;fnref:6&quot;&gt;&lt;a href=&quot;#fn:6&quot; class=&quot;footnote&quot;&gt;6&lt;/a&gt;&lt;/sup&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This table shows, in a way, that authorization in Bluetooth expects either no approval or a manual one, which makes it hard to get good security with headless devices…&lt;/p&gt;
+
+&lt;p&gt;As discussed before, &lt;em&gt;Out of Band&lt;/em&gt; is eliminated because it requires another protocol and &lt;em&gt;BR/EDR Legacy Pairing&lt;/em&gt; is irrelevant for security reasons.&lt;/p&gt;
+
+&lt;p&gt;In order to get all three requirements met we therefore may use :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Just Works&lt;/strong&gt; with additional authorization&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Numeric Comparison&lt;/strong&gt; with a headless validation step&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Passkey Entry&lt;/strong&gt; with a headless mechanism to display and validate a 6-digit number&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Unfortunately, except for &lt;em&gt;BR/EDR Legacy Pairing&lt;/em&gt; &lt;strong&gt;one cannot &lt;em&gt;choose&lt;/em&gt; the association model : it is asserted from the devices’ capabilities&lt;/strong&gt;, called &lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/&quot;&gt;&lt;em&gt;Input and Output capabilities (IO capabilities)&lt;/em&gt;&lt;/a&gt;&lt;sup id=&quot;fnref:7&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;In order to make sure only approved workflows can be selected, our RPi device must therefore advertise only the matching IO capabilites.&lt;/p&gt;
+
+&lt;p&gt;How ? There are full-blown tables&lt;sup id=&quot;fnref:3:2&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt; describing the available IO capabilities and the mapping to the matching association models.&lt;/p&gt;
+
+&lt;p&gt;The &lt;strong&gt;input capabilites&lt;/strong&gt; are :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;No input&lt;/strong&gt; : Device does not have the ability to indicate ‘yes’ or ‘no’&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Yes / No&lt;/strong&gt; : Device provides the user a way to indicate either ‘yes’ or ‘no’&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Keyboard&lt;/strong&gt; : Device allows the user to input numbers &lt;em&gt;and&lt;/em&gt; to indicate ‘yes’ or ‘no’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;And the &lt;strong&gt;output capabilities&lt;/strong&gt; are :&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;No output&lt;/strong&gt; : Device does not have the ability to display or communicate a
+6 digit decimal number&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Numeric output&lt;/strong&gt; : Device has the ability to display or communicate a 6 digit decimal number&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an overview of the &lt;strong&gt;IO capabilities mapping to the matching association models&lt;/strong&gt; :&lt;/p&gt;
+
+&lt;table&gt;
+    &lt;caption&gt;Mapping of IO capabilities to key generation method (simplified)&lt;/caption&gt;
+    &lt;colgroup&gt;
+        &lt;col class=&quot;col-header&quot; /&gt;
+        &lt;col class=&quot;col-header&quot; /&gt;
+    &lt;/colgroup&gt;
+    &lt;tr&gt;
+        &lt;td colspan=&quot;2&quot; class=&quot;empty&quot; /&gt;
+        &lt;th colspan=&quot;5&quot;&gt;Device A (Initiator)&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+        &lt;td colspan=&quot;2&quot; class=&quot;empty&quot; /&gt;
+        &lt;th&gt;
+            Display Only                        &lt;br /&gt;&lt;span class=&quot;small&quot;&gt;
+            (No input + Numeric output)         &lt;/span&gt;&lt;/th&gt;
+        &lt;th class=&quot;cell-selected&quot;&gt;
+            Display YesNo                        &lt;br /&gt;&lt;span class=&quot;small&quot;&gt;
+            (Yes/No + Numeric output)           &lt;/span&gt;&lt;/th&gt;
+        &lt;th&gt;
+            Keyboard Only                        &lt;br /&gt;&lt;span class=&quot;small&quot;&gt;
+            (Keyboard + No output)              &lt;/span&gt;&lt;/th&gt;
+        &lt;th class=&quot;cell-noinputnooutput&quot;&gt;
+            NoInput NoOutput                     &lt;br /&gt;&lt;span class=&quot;small&quot;&gt;
+            (No input or Yes/No + No output)       &lt;/span&gt;&lt;/th&gt;
+        &lt;th class=&quot;cell-selected&quot;&gt;
+            Keyboard Display                     &lt;br /&gt;&lt;span class=&quot;small&quot;&gt;
+            (Keyboard + Numeric output)         &lt;/span&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;!-- Row for DisplayOnly --&gt;
+    &lt;tr&gt;
+        &lt;th class=&quot;vertical&quot; rowspan=&quot;5&quot;&gt;&lt;span&gt;Device B (Responder)&lt;/span&gt;&lt;/th&gt;
+        &lt;th class=&quot;vertical&quot;&gt;&lt;span&gt;Display Only&lt;/span&gt;&lt;/th&gt;
+        &lt;td&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td&gt;Passkey Entry : responder displays, initiator inputs&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Passkey Entry : responder displays, initiator inputs&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- Row for DisplayYesNo --&gt;
+    &lt;tr&gt;
+        &lt;th class=&quot;vertical&quot;&gt;&lt;span&gt;Display YesNo&lt;/span&gt;&lt;/th&gt;
+        &lt;td&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Numeric Comparison&lt;/td&gt;
+        &lt;td&gt;Passkey Entry : responder displays, initiator inputs&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Numeric Comparison&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- Row for KeyboardOnly --&gt;
+    &lt;tr&gt;
+        &lt;th class=&quot;vertical&quot;&gt;&lt;span&gt;Keyboard Only&lt;/span&gt;&lt;/th&gt;
+        &lt;td&gt;Passkey Entry: initiator displays, responder inputs&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Passkey Entry: initiator displays, responder inputs&lt;/td&gt;
+        &lt;td&gt;Passkey Entry: both input&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Passkey Entry: initiator displays, responder inputs&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- Row for NoInputNoOutput --&gt;
+    &lt;tr&gt;
+        &lt;th class=&quot;vertical&quot;&gt;&lt;span&gt;NoInput NoOutput&lt;/span&gt;&lt;/th&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;!-- Row for KeyboardDisplay --&gt;
+    &lt;tr&gt;
+        &lt;th class=&quot;vertical&quot;&gt;&lt;span&gt;Keyboard Display&lt;/span&gt;&lt;/th&gt;
+        &lt;td&gt;Passkey Entry: initiator displays, responder inputs&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Numeric Comparison&lt;/td&gt;
+        &lt;td&gt;Passkey Entry: responder displays, initiator inputs&lt;/td&gt;
+        &lt;td class=&quot;cell-noinputnooutput&quot;&gt;Just Works&lt;/td&gt;
+        &lt;td class=&quot;cell-selected&quot;&gt;Numeric Comparison&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;em&gt;Source : Mapping of IO capabilities to key generation method&lt;sup id=&quot;fnref:7:1&quot;&gt;&lt;a href=&quot;#fn:7&quot; class=&quot;footnote&quot;&gt;7&lt;/a&gt;&lt;/sup&gt; (without OOB nor LE Legacy Pairing)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Assuming smartphones would advertise themselves either as &lt;em&gt;DisplayYesNo&lt;/em&gt; or &lt;em&gt;KeyboardDisplay&lt;/em&gt; (highlighted cells), the above matrix shows that we should prepare to connect using any association model.&lt;/p&gt;
+
+&lt;p&gt;Additionally, this table emphasizes that &lt;strong&gt;a device may enforce the &lt;em&gt;Just Works&lt;/em&gt; model&lt;/strong&gt; simply by advertising itself as &lt;em&gt;NoInputNoOutput&lt;/em&gt;. Although this makes it easier for the Industry to build devices with limited or no interface, this is also a leverage for pirates to force our system into a lower security.&lt;/p&gt;
+
+&lt;p&gt;We have the possibility to deny any pairing with the &lt;em&gt;Just Works&lt;/em&gt; workflow, but this may prevent some genuine devices to connect : we should rather enforce a validation step. The main difference between “Just Works + validation” and other workflows would be the use of a custom authentication mechanism instead of a six-digit number verification.&lt;/p&gt;
+
+&lt;h3 id=&quot;putting-it-altogether-with-bluez&quot;&gt;Putting it altogether with BlueZ&lt;/h3&gt;
+
+&lt;p&gt;Now that we know &lt;em&gt;what&lt;/em&gt; we should do in our solution, let’s have an overiew of &lt;em&gt;how&lt;/em&gt; to implement it.&lt;/p&gt;
+
+&lt;p&gt;Linux systems (which we will use for our Raspberry Pi) have a complex Bluetooth stack, but we will only need to focus on the following parts :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;the &lt;a href=&quot;http://www.bluez.org/&quot;&gt;BlueZ&lt;/a&gt; system daemon will handle core Bluetooth features&lt;/li&gt;
+  &lt;li&gt;modules will allow us to connect with specialized services : ALSA/PulseAudio in our case in order to receive and play sound from paired devices&lt;/li&gt;
+  &lt;li&gt;a registration &lt;strong&gt;agent&lt;/strong&gt; will handle the pairing part as we like&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Having the Bluez daemon and the audio modules work together is only a matter of configuration (which is already not trivial).&lt;/p&gt;
+
+&lt;p&gt;However I could not find a bluetooth agent matching my use case : the default agent &lt;a href=&quot;https://unix.stackexchange.com/questions/352494/alternative-to-the-now-deprecated-rfcomm-binary-in-bluez#463502&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;bt-agent&lt;/code&gt; has been deprecated&lt;/a&gt; ; the &lt;code class=&quot;highlighter-rouge&quot;&gt;bluetoothctl&lt;/code&gt; command is not really scriptable ; the quite common &lt;code class=&quot;highlighter-rouge&quot;&gt;simple-agent&lt;/code&gt; sample script does not implement the right features.&lt;/p&gt;
+
+&lt;h4 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;Bluetooth does not provide a secure and automatic way to pair with headless devices out of the box.&lt;/p&gt;
+
+&lt;p&gt;The existence of several association models with complex selection rules make it easy to get it wrong.&lt;/p&gt;
+
+&lt;p&gt;We will use the &lt;em&gt;bluez&lt;/em&gt; Linux stack to implement the basis of our solution and will need to create a custom agent to handle pairing in the exact way we want.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Part 1 is over, let’s see how to set up the whole thing in &lt;a href=&quot;Make-RPi-bluetooth-speaker-part-2&quot;&gt;part 2 : “Raspberry Pi as a Bluetooth A2DP receiver”&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Top illustration : &lt;a href=&quot;https://commons.wikimedia.org/wiki/File:Bluetooth_FM_Color.png&quot;&gt;Bluetooth.svg by Skarr21&lt;/a&gt; / &lt;a href=&quot;https://creativecommons.org/licenses/by-sa/4.0&quot;&gt;CC BY-SA&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/&quot;&gt;Bluetooth Pairing Part 1 – Pairing Feature Exchange&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-part-2-key-generation-methods/&quot;&gt;Bluetooth Pairing Part 2 Key Generation Methods&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-passkey-entry/?utm_campaign=developer&amp;amp;utm_source=internal&amp;amp;utm_medium=blog&amp;amp;utm_content=bluetooth-pairing-part-4-LE-secure-connections-numeric-comparison&quot;&gt;Bluetooth Pairing Part 3 – Low Energy Legacy Pairing Passkey Entry&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bluetooth.com/blog/bluetooth-pairing-part-4/?utm_campaign=developer&amp;amp;utm_source=internal&amp;amp;utm_medium=blog&amp;amp;utm_content=bluetooth-pairing-part-3-low-energy-legacy-pairing-passkey-entry&quot;&gt;Bluetooth Pairing Part 4: Bluetooth Low Energy Secure Connections – Numeric Comparison&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.bluetooth.com/specifications/bluetooth-core-specification/&quot;&gt;Bluetooth Core Specification v5.2&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Bluetooth#Pairing_and_bonding&quot;&gt;en.wikipedia.org/wiki/Bluetooth&lt;/a&gt;, 2020-04-10&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;bluetooth-core-specification-inline-references&quot;&gt;Bluetooth Core specification inline references&lt;/h3&gt;
+
+&lt;div class=&quot;footnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 1, Part A, §5.3 “SECURE CONNECTIONS ONLY MODE” &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 1, Part A, §5.2 “BR/EDR SECURE SIMPLE PAIRING” &lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 3, Part C, §5.2.2.4 “IO capabilities” &lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:3:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:3:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 2, Part F, §4.2 “SIMPLE PAIRING MESSAGE SEQUENCE CHARTS” &lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:4:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; &lt;a href=&quot;#fnref:4:2&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:5&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 2, Part H, §7.2.3 “Authentication stage 1: Passkey Entry protocol” &lt;a href=&quot;#fnref:5&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:6&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 3, Part H, §2.3.5.4 “Out of band” &lt;a href=&quot;#fnref:6&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:7&quot;&gt;
+      &lt;p&gt;Bluetooth Core specification Vol 3, Part H, §2.3.2 “IO capabilities” &lt;a href=&quot;#fnref:7&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;/a&gt; &lt;a href=&quot;#fnref:7:1&quot; class=&quot;reversefootnote&quot;&gt;&amp;#8617;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;</content><author><name>nicobo</name></author><category term="raspberry pi" /><category term="bluetooth" /><category term="Series : Make a Raspberry Pi a Bluetooth speaker" /><summary type="html"></summary></entry><entry><title type="html">Bypassing GitHub’s Jekyll limitations</title><link href="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations" rel="alternate" type="text/html" title="Bypassing GitHub's Jekyll limitations" /><published>2020-04-13T00:00:00+02:00</published><updated>2020-04-13T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations</id><content type="html" xml:base="https://www.nicolabs.net/2020/Bypassing-GitHub-Jekyll-limitations">&lt;p&gt;As I feared when I &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;migrated to GitHub’s hosting&lt;/a&gt;, it has become too complicated to overcome GitHub’s limitations on Jekyll plugins and features.&lt;/p&gt;
 
 &lt;p&gt;I just needed to create a &lt;a href=&quot;https://jekyllrb.com/docs/collections/&quot;&gt;&lt;em&gt;collection&lt;/em&gt;&lt;/a&gt; to put my &lt;a href=&quot;/2016/Migrating-from-Drupal-to-Jekyll&quot;&gt;“live drafts”&lt;/a&gt; into it, but the deprecated &lt;em&gt;jekyll-paginate&lt;/em&gt; plugin provided with GitHub pages didn’t support collections.&lt;/p&gt;
 
@@ -505,29 +898,4 @@ Bien que cet effet ne déforme pas l’image exactement selon la forme d’un oe
   &lt;li&gt;Icônes d’oeuf - &lt;a href=&quot;http://www.softicons.com/search?search=egg&quot;&gt;softicons.com/search?search=egg&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Tutoriel vidéo - &lt;a href=&quot;https://www.youtube.com/watch?v=0c-hMz2XpP8&quot;&gt;youtube.com/watch?v=0c-hMz2XpP8&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Super guide pour plaquer une texture - &lt;a href=&quot;http://www.gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp/&quot;&gt;gimptalk.com/index.php?/topic/1659-making-empty-broken-egg-shell-in-gimp&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry><entry><title type="html">Version control integration for Ubuntu 12.04</title><link href="https://www.nicolabs.net/2012/Version-control-integration-for-Ubuntu-12.04" rel="alternate" type="text/html" title="Version control integration for Ubuntu 12.04" /><published>2012-09-22T14:28:15+02:00</published><updated>2012-09-22T14:28:15+02:00</updated><id>https://www.nicolabs.net/2012/Version-control-integration-for-Ubuntu-12.04</id><content type="html" xml:base="https://www.nicolabs.net/2012/Version-control-integration-for-Ubuntu-12.04">&lt;p&gt;I’ve been used to great &lt;em&gt;Eclipse&lt;/em&gt; plugins to deal with SVN-versionned projects for a long time.&lt;/p&gt;
-
-&lt;p&gt;Nowadays I’m using &lt;strong&gt;Mercurial&lt;/strong&gt; (a.k.a. &lt;em&gt;Hg&lt;/em&gt;) a lot and it became more handy to me to use &lt;em&gt;Tortoise&lt;/em&gt;-like products, which integrate directly into the OS’ file manager.&lt;/p&gt;
-
-&lt;p&gt;I’ve come to use the following solutions for the different platforms I’m working with (on Ubuntu 12.04).&lt;/p&gt;
-
-&lt;h3 id=&quot;mercurial-for-nautilus&quot;&gt;Mercurial for Nautilus&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;TortoiseHg&lt;/em&gt; works fine, but I had to add a script to have the corresponding “Actions” menu with a right click on a file : &lt;a href=&quot;http://hg.ice-os.com/nautilus_mercurial_scripts/&quot;&gt;hg.ice-os.com/nautilus_mercurial_scripts&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;mercurial-for-dolphin&quot;&gt;Mercurial for Dolphin&lt;/h3&gt;
-
-&lt;p&gt;After some problems copying big files through USB and others, I realized that Nautilus was prone to copy errors so I decided to get back to Konqueror / Dolphin.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately, Dolphin is not as much advanced as Konqueror was in KDE 3.x, so I also had to find a way to add a “Service Menu” for TortoiseHg : &lt;a href=&quot;https://bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4&quot;&gt;bitbucket.org/tortoisehg/hgtk/issue/1270/better-integration-in-kde4&lt;/a&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;git-for-nautilus&quot;&gt;Git for Nautilus&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;RabbitVCS&lt;/em&gt; looks nice, but I’ve not tested it a lot : &lt;a href=&quot;http://www.rabbitvcs.org/&quot;&gt;www.rabbitvcs.org&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;links&quot;&gt;Links&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dolphin service menu for Tortoise HG - &lt;a href=&quot;https://gist.github.com/3765877&quot;&gt;gist.github.com/3765877&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Nautilus actions menu for Tortoise HG - &lt;a href=&quot;http://hg.ice-os.com/nautilus_mercurial_scripts/&quot;&gt;hg.ice-os.com/nautilus_mercurial_scripts/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="hg" /><category term="Ubuntu" /><category term="eclipse" /><summary type="html">I’ve been used to great Eclipse plugins to deal with SVN-versionned projects for a long time.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>nicobo</name></author><category term="absync" /><category term="gimp" /><category term="graphism" /><summary type="html"></summary></entry></feed>
