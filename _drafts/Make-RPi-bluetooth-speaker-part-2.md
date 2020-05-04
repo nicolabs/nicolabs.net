@@ -1,26 +1,27 @@
 ---
-title: Make a Raspberry Pi a A2DP Bluetooth receiver (part 2)
+title: Make a Raspberry Pi a Bluetooth speaker (part 2)
 layout: post
 tags:
   - raspberry pi
   - bluetooth
-  - "Series : your own cloud"
-  - "Series : Make a Raspberry Pi a A2DP Bluetooth receiver"
+  - "Series : Make a Raspberry Pi a Bluetooth speaker"
 ---
 
 ![Raspberry Pi 4 - https://www.raspberrypi.org / CC BY-SA (https://creativecommons.org/licenses/by-sa/4.0)](/assets/blog/3rdparty/pictures/800px-Raspberry_Pi_4.jpg)
 
 In this two-part article I describe the steps I had to take to make a *headless Raspberry Pi 4* a Bluetooth A2DP speaker.
 
-More precisely, the goal was to allow a user-friendly way for anyone in the room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
+The exact goal was to offer a user-friendly way for anyone in the room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
 
 ---
 
 *This is a two-part article :*
-1. *[How Bluetooth pairing works](Make-RPi-bluetooth-receiver-part-1) (part 1)*
+1. *[How Bluetooth pairing works](Make-RPi-bluetooth-speaker-part-1) (part 1)*
 2. *Raspberry Pi as a Bluetooth A2DP receiver (this part)*
 
 ---
+
+Now that we've seen how Bluetooth pairing works, what does it take to make a Raspberry Pi a Bluetooth A2DP receiver ?
 
 ## The basis
 
@@ -49,6 +50,45 @@ Why turning discovery off while a device is already connected ?
 
     # Turn off BT discover mode before connecting existing BT device to audio
     hciconfig hci0 noscan
+
+## Custom agent
+
+Some crafted implementations I found around seemed to do the job but their code was not clear enough so while I introspected them to understand what they were doing and why, I ended up writing a new one, matching my use case.
+
+Now let's identify which association model(s) fits our use case.
+
+
+### Implementing a headless validation mechanism
+
+In any of *Numeric Comparison*, *Just Works* and *Passkey Entry* we've seen that to fulfill our requirements we will need to implement some way to confirm that the device trying to connect is authorized. Bluetooth specifies this as "displaying" a number but they really mean "communicate to the device's owner".
+
+This could be done in several ways.
+
+Whitelist
+
+Bluetooth MAC address : it may probably be spoofed
+
+a Yes/No validation mechanism to validate any connection attempt.
+
+Concretely, it would be possible by make the RPi speak aloud the code or send it to a human "admin" (e.g. via instant messaging), then have him validate with some external mechanism (e.g. answering back "Yes" aloud or through his own smartphone).
+This could be an application on the admin's smartphone (chat, custom one, ...) or a custom agent on the RPi listening to the admin's vocal "OK", but it looks like there is no solution out of the box today...
+
+
+A headless device may then adopt one of the following options :
+
+- simply allow any device to connect ; data exchanges can still be secured, but will not protect against a MITM attack
+- use a program (a *bot* actually) to simulate a user input, making sure no random number would need to be input
+- develop advanced headless inputs (like audio speak / voice recognition)
+- leverage on Out-of-Band protocol ?
+
+
+#### Just works with BlueZ
+
+If a *Just Works* model is triggered, the bluetooth agent may automatically pair with devices without a confirmation, or it may ask by some "headless" way a confirmation.
+In the first case, although data exchange can be strongly secured, it cannot prevent an unknown device to pair.
+In the latter case, it may require a fair amount of work to build such a confirmation mechanism.
+
+Depending on the capabilities the *agent* advertised, it may never be called in this association model.
 
 
 ## References
