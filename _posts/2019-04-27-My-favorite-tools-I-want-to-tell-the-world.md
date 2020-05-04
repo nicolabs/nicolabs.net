@@ -73,6 +73,7 @@ I've been adding and reading articles with wallabag for years : you don't need a
 The following ones are part of my toolbox, they will get a small description each in the future :
 
 - Passwordstore
+  - warning ! [The f-droid version is far out of date](https://github.com/android-password-store/Android-Password-Store/issues/648)
 - ForceDoze (Android)
 - K-9 Mail
 - Silence
