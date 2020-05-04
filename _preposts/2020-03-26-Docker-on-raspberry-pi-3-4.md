@@ -64,6 +64,14 @@ As I understand this means running **armhf**/[arm32v7](https://hub.docker.com/u/
 This is risky as it may not be stable and many applications / libraries may not work yet. Docker would probably work since it mainly needs the kernel but that might mean running applications only as Docker containers, which is sometimes a lot of work...
 
 
+## Multi-arch images
+
+It is possible to build images for several architectures with *Docker Desktop*, which is bundled with OS-dependent hypervisors and LinuxKit, which can run binaries of any supported architectures.
+
+Unfortunately, *Docker Desktop* is only available for Mac OS and Windows, not for Ubuntu... But [it can be enabled](https://github.com/docker/buildx) :
+
+> buildx comes bundled with Docker CE starting with 19.03, but requires experimental mode to be enabled on the Docker CLI. To enable it, "experimental": "enabled" can be added to the CLI configuration file ~/.docker/config.json. An alternative is to set the DOCKER_CLI_EXPERIMENTAL=enabled environment variable.
+
 
 ## References
 
@@ -71,3 +79,4 @@ This is risky as it may not be stable and many applications / libraries may not 
 - [AArch64 support #550 @ github.com/raspberrypi/firmware](https://github.com/raspberrypi/firmware/issues/550)
 - [Operating System for Raspberry pi 4 (32/64 bit)](https://www.techiebouncer.com/2019/08/operating-system-for-raspberry-pi-4.html)
 - [64-bit OS on Raspberry Pi 4](https://raspberrypi.stackexchange.com/questions/100926/64-bit-os-on-raspberry-pi-4)
+- [](https://docker.com/blog/multi-arch-images)
