@@ -77,10 +77,28 @@ hr {
 }
 
 .site-header {
-  border-top: 5px solid $light-gray-color;
-  border-bottom: 1px solid lighten($light-gray-color, 5%);
+  /* @nicobo removed borders */
   margin-bottom: $small-spacing;
   min-height: 80px;
+
+  /* start @nicobo : color-inverted header */
+  background-color: $primary-color;
+  a {
+      font-weight: bolder;
+      color: white;
+      border-color: white;
+
+      /* preserves placement when drawing a box around when hovering */
+      display: inline-block;
+      padding: 0 .3em;
+      &:hover,
+      &:focus,
+      &:active {
+          background-color: white;
+          color: $primary-color;
+      }
+  }
+  /* end @nicobo */
 
   .nav {
     .container {
@@ -302,6 +320,15 @@ h2.tag a {
     font-size: rem(12);
     color: darken($medium-gray-color, 10%);
   }
+
+  /* start @nicobo : color-inverted footer */
+  background-color: $primary-color;
+  .container * {
+      color: white;
+      border-color: white;
+      font-weight: bolder;
+  }
+  /* end @nicobo */
 }
 
 /*
