@@ -32,6 +32,7 @@ $red-color: #ee2200;
 $yellow-color: #e0b300;
 $yellowgreen-color: #C2E71D;
 $white-color: #fff;
+$pinkorange-color: #ff0033;
 
 $primary-color: $red-color;
 $action-color: $primary-color;
@@ -47,6 +48,7 @@ $base-border: 1px solid $base-border-color;
 // Background Colors
 $base-background-color: $white-color;
 $secondary-background-color: tint($base-border-color, 80%);
+$header-background-color: $pinkorange-color; /* @nicobo header and footer */
 
 // Forms
 $form-box-shadow: inset 0 1px 3px rgba($black-color, 0.06);
