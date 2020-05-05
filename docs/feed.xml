@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2020-05-04T23:01:01+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">Make a Raspberry Pi a Bluetooth speaker (part 1)</title><link href="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1" rel="alternate" type="text/html" title="Make a Raspberry Pi a Bluetooth speaker (part 1)" /><published>2020-05-04T00:00:00+02:00</published><updated>2020-05-04T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1</id><content type="html" xml:base="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1">&lt;p&gt;&lt;img src=&quot;/assets/blog/3rdparty/logos/Bluetooth_FM_Color.png&quot; alt=&quot;Bluetooth logo&quot; height=&quot;128px&quot; /&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.6">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2020-05-05T07:52:11+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">Make a Raspberry Pi a Bluetooth speaker (part 1)</title><link href="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1" rel="alternate" type="text/html" title="Make a Raspberry Pi a Bluetooth speaker (part 1)" /><published>2020-05-04T00:00:00+02:00</published><updated>2020-05-04T00:00:00+02:00</updated><id>https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1</id><content type="html" xml:base="https://www.nicolabs.net/2020/Make-RPi-bluetooth-speaker-part-1">&lt;p&gt;&lt;img src=&quot;/assets/blog/3rdparty/logos/Bluetooth_FM_Color.png&quot; alt=&quot;Bluetooth logo&quot; height=&quot;128px&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;In this two-part article I describe the steps I had to take to make a &lt;em&gt;headless Raspberry Pi 4&lt;/em&gt; a Bluetooth &lt;a href=&quot;https://www.howtogeek.com/338750/whats-the-difference-between-bluetooth-a2dp-and-aptx/&quot;&gt;A2DP&lt;/a&gt; speaker.&lt;/p&gt;
 
@@ -10,7 +10,7 @@
   &lt;p&gt;&lt;em&gt;This is a two-part article :&lt;/em&gt;&lt;/p&gt;
   &lt;ol&gt;
     &lt;li&gt;&lt;em&gt;How Bluetooth pairing works (this part)&lt;/em&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;em&gt;&lt;a href=&quot;Make-RPi-bluetooth-speaker-part-2&quot;&gt;Raspberry Pi as a Bluetooth A2DP receiver&lt;/a&gt; (part 2)&lt;/em&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;em&gt;Raspberry Pi as a Bluetooth A2DP receiver (soon available)&lt;/em&gt;&lt;/li&gt;
   &lt;/ol&gt;
 &lt;/blockquote&gt;
 
@@ -351,7 +351,7 @@ Furthermore, adding another mechanism than Bluetooth as a requirement looks supe
 
 &lt;p&gt;We will use the &lt;em&gt;bluez&lt;/em&gt; Linux stack to implement the basis of our solution and will need to create a custom agent to handle pairing in the exact way we want.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Part 1 is over, let’s see how to set up the whole thing in &lt;a href=&quot;Make-RPi-bluetooth-speaker-part-2&quot;&gt;part 2 : “Raspberry Pi as a Bluetooth A2DP receiver”&lt;/a&gt;.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Part 1 is over, let’s see how to set up the whole thing in part 2 : “Raspberry Pi as a Bluetooth A2DP receiver” (soon available).&lt;/strong&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 
@@ -466,7 +466,11 @@ I’ve been adding and reading articles with wallabag for years : you don’t ne
 &lt;p&gt;The following ones are part of my toolbox, they will get a small description each in the future :&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Passwordstore&lt;/li&gt;
+  &lt;li&gt;Passwordstore
+    &lt;ul&gt;
+      &lt;li&gt;warning ! &lt;a href=&quot;https://github.com/android-password-store/Android-Password-Store/issues/648&quot;&gt;The f-droid version is far out of date&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;ForceDoze (Android)&lt;/li&gt;
   &lt;li&gt;K-9 Mail&lt;/li&gt;
   &lt;li&gt;Silence&lt;/li&gt;

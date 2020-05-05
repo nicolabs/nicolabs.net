@@ -18,7 +18,7 @@ First let's dive into how Bluetooth works.
 
 >*This is a two-part article :*
 >1. *How Bluetooth pairing works (this part)*
->2. *[Raspberry Pi as a Bluetooth A2DP receiver](Make-RPi-bluetooth-speaker-part-2) (part 2)*
+>2. *Raspberry Pi as a Bluetooth A2DP receiver (soon available)*
 
 
 ## How Bluetooth pairing works
@@ -362,7 +362,7 @@ The existence of several association models with complex selection rules make it
 
 We will use the *bluez* Linux stack to implement the basis of our solution and will need to create a custom agent to handle pairing in the exact way we want.
 
-**Part 1 is over, let's see how to set up the whole thing in [part 2 : "Raspberry Pi as a Bluetooth A2DP receiver"](Make-RPi-bluetooth-speaker-part-2).**
+**Part 1 is over, let's see how to set up the whole thing in part 2 : "Raspberry Pi as a Bluetooth A2DP receiver" (soon available).**
 
 
 ## References
