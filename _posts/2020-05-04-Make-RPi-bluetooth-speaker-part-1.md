@@ -12,7 +12,7 @@ maturity: draft
 
 In this two-part article I describe the steps I had to take to make a *headless Raspberry Pi 4* a Bluetooth [A2DP](https://www.howtogeek.com/338750/whats-the-difference-between-bluetooth-a2dp-and-aptx/) speaker.
 
-My goal was to offer a user-friendly way for anyone in the room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
+My goal was to offer a user-friendly way for anyone in the same room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
 
 First let's dive into how Bluetooth works.
 
