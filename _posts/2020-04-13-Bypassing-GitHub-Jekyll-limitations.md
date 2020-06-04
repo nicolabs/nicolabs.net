@@ -13,6 +13,7 @@ As I feared when I [migrated to GitHub's hosting](/2016/Migrating-from-Drupal-to
 I just needed to create a [*collection*](https://jekyllrb.com/docs/collections/) to put my ["live drafts"](/2016/Migrating-from-Drupal-to-Jekyll) into it, but the deprecated *jekyll-paginate* plugin provided with GitHub pages didn't support collections.
 
 I therefore switched to offline-building my site and pushing the generated static files to GitHub, which now serves them without Jekyll processing. I still use Jekyll to generate the final static files, which is perfectly ok.
+The only thing I'm missing a bit is automatic build & deploy after a minor edit from my android smartphone (using [Markor](https://f-droid.org/fr/packages/net.gsantner.markor/) to edit and [MGit](https://f-droid.org/fr/packages/com.manichord.mgit/) to push to GitHub). It might be solved with some Travis CI automation I guess...
 
 [GitHub's documentation about this](https://help.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators) is not very clear on the way one can still use *an autonomous* Jekyll installation to build offline, without them building the site with **their** locked-down Jekyll pipeline.
 I assumed that I had to consider the procedure that applied to other tools. I had to :
