@@ -61,6 +61,15 @@ The main issues is its centralised architecture :
 - as a US-hosted service it depends on US law (which forces the provider to disclose data, restricts cryptography exports)
 
 
+### keys.openpgp.org
+
+https://keys.openpgp.org/about/faq
+
+A key server that's not part of the federated SKS pool (not compatible).
+
+It brings confidentiality features by separating identifying data from public one. It has plans to federated several instances.
+
+
 ## OpenKeychain
 
 OpenKeychain is an implementation of OpenPGP for Android.
