@@ -14,7 +14,9 @@ In this two-part article I describe the steps I had to take to make a *headless 
 
 My goal was to offer a user-friendly way for anyone in the same room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
 
-First let's dive into how Bluetooth works.
+To output music, the Raspberry Pi audio Jack can simply be plugged into a Hi-Fi system or have an audio add-on card : this part depends on your setup and wishes.
+
+Allright, let's dive into how Bluetooth works.
 
 >*This is a two-part article :*
 >1. *How Bluetooth pairing works (this part)*
