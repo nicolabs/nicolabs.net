@@ -71,6 +71,11 @@ does. YAML syntax.
 
 Same for tags that I had to put to the end in blocks.
 
+## Also
+
+- no way to declare a requirement inside a role (I have to use requirements.yml and install by hand with galaxy ?)
+- cannot order in all parts (find the example ; was it with pre/post within roles ?)
+- it's SLOW ! For instance looping on a list makes (apparently ?) ansible trigger one connection for each item ! For instance if you include the *haxorof.docker_ce* role in each role that needs docker installed, you just add several minutes to each one of them !
 
 ## References
 

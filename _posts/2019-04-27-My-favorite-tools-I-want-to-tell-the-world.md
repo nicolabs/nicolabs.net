@@ -76,6 +76,7 @@ The following ones are part of my toolbox, they will get a small description eac
   - warning ! [The f-droid version is far out of date](https://github.com/android-password-store/Android-Password-Store/issues/648)
   - either use SyncThing for a seamless synchronization but : I couldn't install it on iPhone and it regularly creates conflict files (which are just ok to delete 99% of the time but still annoying)
   - or use a private git repository : works in all clients (qtpass, Android, iOS) but requires manual synchronization (it's just a button but still annoying)
+    - iOS Pass cannot generate SSH nor PGP keys by itself : it must import them (and [PGPro](https://pgpro.app/) only works on iOS 13+)
 - ForceDoze (Android)
 - K-9 Mail
 - Silence
