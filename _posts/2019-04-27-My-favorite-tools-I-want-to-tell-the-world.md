@@ -54,7 +54,7 @@ Even with the few tweaks available you may not be able to get a clear view with 
 ![Twidere logo](/assets/blog/3rdparty/logos/twidere.512x512.png){:height="128px"}
 
 [Twidere](https://github.com/TwidereProject/Twidere-Android) is definitely the only one, perfect, **Twitter** Android client for me (and I've been searching a lot).
-It's open source. It handles every single feature I need.
+It's open source. It handles every single feature I need (disclaimer : I'm only a casual Twitter user).
 
 I've been using it for years... And since it happens to be very good also at **Mastodon** I do continue to use it every day.
 
@@ -73,10 +73,11 @@ I've been adding and reading articles with wallabag for years : you don't need a
 The following ones are part of my toolbox, they will get a small description each in the future :
 
 - Passwordstore
-  - warning ! [The f-droid version is far out of date](https://github.com/android-password-store/Android-Password-Store/issues/648)
-  - either use SyncThing for a seamless synchronization but : I couldn't install it on iPhone and it regularly creates conflict files (which are just ok to delete 99% of the time but still annoying)
-  - or use a private git repository : works in all clients (qtpass, Android, iOS) but requires manual synchronization (it's just a button but still annoying)
-    - iOS Pass cannot generate SSH nor PGP keys by itself : it must import them (and [PGPro](https://pgpro.app/) only works on iOS 13+)
+  - warning ! [The f-droid version is far out of date](https://github.com/android-password-store/Android-Password-Store/issues/648). It's kind of tough to get a seamless integration with all tools (e.g. you have to get the very latest Android to benefit from Firefox mobile integration) but the simplicity of the mechanism (it's nothing else than GPG-encrypted files possibly versioned with git) make it universal. I'm only doubtful about the community looking smaller than the one of the more graphical KeePass, which is a risk to see it unsupported in the future.
+  - it can use git to pull & push changes to remote devices (the safest and most portable way I've found : it works in all clients I've tested : qtpass, Android, iOS), but not all apps provide the same user experience (e.g. *passforios* does not pull/push automatically, it's just a button but still annoying). The best option here - because we talk about critical data like passwords - is to use a private git repository, which unfortunately requires setting up a server
+  - or you can use SyncThing for a seamless synchronization, with its (see below)
+  - Available apps are not official and therefore suffer from a different maturity ; e.g. *passforios* cannot generate SSH nor PGP keys by itself : it must import them (and [PGPro](https://pgpro.app/) only works on iOS 13+)
+- SyncThing is a very useful and generic decentralized (server-less) synchronization system for all your devices. However I couldn't install it on iPhone and you can't go without conflict files on a regular basis (which are just ok to delete 99% of the time however, so it's fine in the end because it could not be done better after thinking about it)
 - ForceDoze (Android)
 - K-9 Mail
 - Silence
