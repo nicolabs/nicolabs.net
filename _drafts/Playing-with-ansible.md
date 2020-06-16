@@ -35,7 +35,7 @@ I've run into the following problem : if you include a third-party role that doe
 
 ## TODO
 
-Nom des variables avec underscore.
+Nom des variables avec underscore est la convention (mais écrit nulle part ?). En termes de conception c'est null : tout est mis à plat plutôt que de regrouper en 'namespaces', ce qui donnerait une isolation plus claire.
 
 Impossible de définir des structures yaml à spécialiser dans les variables des rôles : il faut mettre une liste de variables à plat.
 
@@ -44,6 +44,12 @@ Je regarde presque à chaque fois le manuel des tâches => prouve que ce n'est p
 Avantage : force à bien découper et dissocier les dépendances
 
 Inconvénient : parfois force à trop découper (difficile de trouver le juste milieu entre le découpage absolu qui est incompréhensible, complexe et du coup difficile à maintenir alors que c'est censé aider à la maintenance et trop de duplications / parties en dur)
+
+Sometimes (it happened several times to me already, I cannot count the hours I lost because of this) dependencies are needed at runtime for **ansible** modules or filters (e.g. docker, json_query, ...). The task will just fail and there is not clean way to make sure the dependencies are there other than installing them yourself using a task. So your playbooks/roles become cluttered with those meta-dependencies you should not deal with and it won't let you run with -C until you installed them once or run the task without -C first !!!
+E.g. https://github.com/ansible/ansible/issues/24319
+
+Error messages are not clear because there is too many levels of indirection. It's even stated in error messages : `The error appears to have been in '/root/ansible/setup.yaml': line 9, column 12, but may be elsewhere in the file depending on the exact syntax problem.`.
+The first time I mistyped the root password when ansible asked me I've just lost 1 or 2 hours finding the cause because the error was on an (apparently) unrelated task...
 
 ## Passwordstore integration
 
