@@ -45,20 +45,30 @@ See [NCC_Group_Keybase_KB2018_Public_Report_2019-02-27_v1.3.pdf](https://keybase
 
 Account created early, lost key (as usual because I've just not used it enough to make it in my long-term memory).
 
-It's now using its own separate cryptography system (it's not PGP anymore) but it can still certify PGP keys.
+Main security aspects :
+- It's now using its own separate cryptography system (it's not PGP anymore) but it can still certify PGP keys.
+- It's centralized (1 server provider ; see below)
+- It eases identities spreading by:
+    - providing a unique directory for identities (keybase.io)
+    - automatically creating a key per device, signed by any other owned key, that can be easily revoked (no more sacrosanct private key that can never be touched)
 
 It allows to sign generic statements (not only keys) and therefore can be used to certify almost anything like ownership of online accounts (twitter, Mastodon, ...) but also websites and PGP keys.
 
-IMHO it's still a very nice tool to advertise online identities (including PGP keys).
+IMHO it's still a very nice tool to advertise online identities (including PGP keys) and allow people to send you encrypted messages without having to reveal an email address to spammers or to set up an online form.
 
-The apps are quite good and they provide services over the main mechanism : encrypted chat, encrypted file system, encrypted git repository.
-I use a bit the encrypted chat to exchange data between my devices and to allow people to send encrypted message to me. The user experience it provides is far behind the big commercial ones but it does the job. I've started to use encrypted git repositories for not-so-sensitive-projects-that-I-still-don't-want-to-publish to prevent me from hosting my own, but I don't mean it as a target solution because I'm worried what would happen to my data if keybase turns off...
+The apps are quite good and they provide services over the main mechanism : encrypted chat, encrypted file system, encrypted git repository. The user experience they provide is far behind the big commercial ones (far less reactive) but it does the job. The biggest issue for me is the high battery drain it occurs (my Android phone mainly, which I suspect is very dependent on the phone's hardware).
 
-The main issues is its centralised architecture :
+One huge advantage is the availability of client apps for all platforms, which made me use it to securely* exchange data between my devices (PC, Android, iOS devices) through chat or file transfer.
+
+I've started to use encrypted git repositories for not-so-sensitive-projects-that-I-still-don't-want-to-publish to prevent me from hosting my own, but I don't mean it as a target solution because I'm worried what would happen to my data if keybase turns off...
+
+The main issue for me is its centralised architecture :
 - its availability and integrity depends on a unique provider (might be possible to deploy other instances but I haven't seen any and they would not federate, defeating the purpose of being a centralised directory)
 - its terms and privacy rules can change at any time
 - as a cloud service, gathers data about their users (see [their privacy policy](https://keybase.io/docs/privacypolicy))
 - as a US-hosted service it depends on US law (which forces the provider to disclose data, restricts cryptography exports)
+
+=> unfortunately proved right on May 7, 2020 when Keybase announced they were bought by Zoom...
 
 
 ### keys.openpgp.org
