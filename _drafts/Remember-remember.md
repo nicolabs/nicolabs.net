@@ -133,6 +133,7 @@ Self-host your services.
 
 ## References
 
+- [Killed by Google](https://killedbygoogle.com)
 - [wikipedia.org/wiki/Google_Web_Toolkit](https://en.wikipedia.org/wiki/Google_Web_Toolkit)
 - [wikipedia.org/wiki/Google%2B](https://en.wikipedia.org/wiki/Google%2B)
 - [wikipedia.org/wiki/Picasa](https://en.wikipedia.org/wiki/Picasa)
