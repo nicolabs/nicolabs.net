@@ -3,12 +3,18 @@
 {% endcomment %}
 <article class="post-item">
     <p>
-        <time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
-        —
-        <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong>
-        {% include maturity.html post=post show="draft,deprecated,unpublished" %}
-        <br />
-        <span> {{ post.content | strip_html | truncatewords: 40 }}</span>
-        <a class="post-link readmore" href="{{ post.url | prepend: site.baseurl }}">Read more</a>
+        <div class="post-item-header">
+          <time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>
+          —
+          <a class="post-title post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+          {% include maturity.html post=post show="draft,deprecated,unpublished" %}
+        </div>
+        <div class="excerpt"><div class="excerpt-text">{% if post.content contains '<!--more-->' %}
+            {{ post.content | split:'<!--more-->' | first }}
+          {% else %}
+            {{ post.content | truncatewords: 80 | markdownify }}
+          {% endif %}</div>
+        <a class="post-link readmore" href="{{ post.url | prepend: site.baseurl }}">Read more ...</a>
+        </div>
     </p>
 </article>

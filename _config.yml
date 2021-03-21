@@ -4,7 +4,6 @@ description: Work in progress...
 keywords: "android, development, java, javascript, python, web"
 url: https://www.nicolabs.net
 #baseurl: ""
-baseurl: null
 
 repo:
   url: https://github.com/nicolabs/nicolabs.github.io
@@ -32,6 +31,8 @@ pagination:
     permalink: '/page/:num/'    # Pages are html files, linked jekyll extensionless permalink style.
 #    #locale: en
 
+excerpt_separator: <!--more-->
+
 # Sass configuration
 sass:
   sass_dir: _sass
@@ -43,7 +44,7 @@ author:
   job      : Software Engineer
   bio      : "I'm interested into whatever is called technology and this is my <strong class=\"author-name\" itemprop=\"name\">lab's</strong> log."
   thumb    : /assets/about/nicobo.png
-  url      : https://nicolabs.net/contact
+  url      : https://www.nicolabs.net/contact
   github   : https://github.com/nicolabs
   twitter  : nic0b0
   mastodon:

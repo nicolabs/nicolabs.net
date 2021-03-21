@@ -38,6 +38,9 @@ Most of the code lies in `_includes/maturity.html` and `_sass/nicolabs/*.scss` i
 - advertise unstable articles in indexes (`index.html`, `tags.html`)
 - remove drafts from the default feed
 
+Drafts don't appear in the RSS feed, as this would trigger false updates until the article is ready for release (the publication date would change all the time).
+The current workaround is to put those articles in a *preposts* collection until ready.
+
 
 ## Fullscreen pictures & PlantUML diagrams
 

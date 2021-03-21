@@ -118,3 +118,48 @@ th.vertical {
         transform: rotate(180deg);
     }
 }
+
+/*
+  ~Good way to style a caption from markdown : https://stackoverflow.com/a/30366422.
+  In markdown, write *caption* in the line right below the image.
+  We allow both *text* and <figcaption>text</figcaption>..
+*/
+img + em, figcaption {
+  font-size: small;
+}
+/* We must also make sure the caption visually sticks to it */
+img {
+  margin-bottom: 0;
+}
+
+/*
+  Enhances the display of excerpts.
+*/
+.excerpt .excerpt-text {
+  /* hide stuff from the preview (helps automatic generation) */
+  img, h1, h2, h3, h4, h5, h6 {
+    display: none;
+  }
+  a, a:visited, a:hover, a:active, a:focus {
+    color: $base-font-color !important;
+    text-decoration: none !important;
+    outline: none !important;
+    border: none;
+  }
+
+  /* Only keep a small height for the first image in the preview (see https://themes.artbees.net/blog/crop-images-in-css/) */
+  img:first-of-type {
+    display: block;
+    object-fit: cover;
+    height: 15em;
+    width: 100%;
+    margin: 0;
+  }
+
+  /* Smaller image legend */
+  figcaption {
+    font-size: smaller;
+    /* Fixes the way the excerpt is generated in some cases */
+    margin-bottom: 0.5em;
+  }
+}
