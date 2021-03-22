@@ -14,7 +14,7 @@ In this two-part article I describe the steps I had to take to make a *headless 
 
 My goal was to offer a user-friendly way for anyone in the same room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
 
-To output music, the Raspberry Pi audio Jack can simply be plugged into a Hi-Fi system or have an audio add-on card : this part depends on your setup and wishes.
+To output music, you can connect a Hi-Fi system  to the Raspberry Pi using the Jack plug or an audio add-on card : this part depends on your setup.
 
 Allright, let's dive into how Bluetooth works.
 
@@ -25,8 +25,8 @@ Allright, let's dive into how Bluetooth works.
 
 ## How Bluetooth pairing works
 
-Bluetooth is quite a complex thing. Really. I didn't thought it was that much complicated before I started this mini project. Beside the original goal to be a wireless replacement for cables, Bluetooth actually includes [a myriad of features](https://en.wikipedia.org/wiki/Bluetooth#List_of_applications).
-In order to understand how we should connect to our Raspberry Pi (abbreviated *RPi*), let's focus on some core aspects of Bluetooth.
+Bluetooth is quite a complex thing. Really. I haven't realized before I started this mini project. Beside its original goal to be a wireless replacement for cables, Bluetooth actually includes [a myriad of features](https://en.wikipedia.org/wiki/Bluetooth#List_of_applications).
+In order to understand how we should connect to our Raspberry Pi (*RPi*), let's focus on some core aspects of Bluetooth.
 
 
 ### Bluetooth security models
@@ -39,11 +39,11 @@ This is why it has so many *security models* ; let's try to understand how they 
 
 The legacy, **Basic Rate (BR)** was the first and only protocol in the beginning. It was quickly complemented with *EDR (Enhanced Data Rate)* in Bluetooth 2.0, hence the name **BR/EDR**.
 
-Bluetooth 4.0 came with another protocol, with no backward compatibility : **Bluetooth Low Energy (abbreviated LE, or BLE)**. This new Bluetooth "family" requires less energy and fits better to smartphones and *IoT*.
+Bluetooth 4.0 came with another, not backward-compatible protocol  : **Bluetooth Low Energy (abbreviated LE, or BLE)**. This new Bluetooth "family" requires less energy and fits smartphones and *IoT* better.
 
 Althought *BR/EDR* and *BLE* are not compatible, Bluetooth devices can implement one or the other, or even both. For the record there is also an *AMP* specification, usually implemented in a secondary controller, in order to achieve Wi-Fi class transfer rates.
 
-Each protocol "family" have their own security and association models, even though they follow the same logic :
+Each protocol "family" has their own security and association models, even though they follow the same logic :
 
 {% plantuml %}
 @startuml
@@ -64,7 +64,7 @@ end title
         Since 2.1 + EDR
 
         Enhances security with stronger (FIPS) algorithms,
-        passive eavesdropping and MITM protections,
+        passive eavesdropping & MITM protections,
         and **4 possible pairing workflows**.
         Some security is still at the level of <i>BR/EDR legacy</i>.
     end note
@@ -99,7 +99,7 @@ le_legacy_pairing -up-> le_secure_connections : Security upgrade through\n<i>Sec
 {% endplantuml %}
 
 
-#### Which security level to chose ?
+#### Which security level to choose ?
 
 The Bluetooth Core Specification[^1] makes it clear that :
 
@@ -109,8 +109,8 @@ The Bluetooth Core Specification[^1] makes it clear that :
 My feeling reading the specifications is that Bluetooth was not made with high expectations on security from the beginning. It has so many trade-offs at the benefit of usability that *Secure Connections*, whether for BR/EDR or LE, just looks to me like the bare minimum to have.
 
 *BR/EDR Legacy Pairing*'s security for instance *unavoidably depends* on the length of the PIN (which is often a small four-digit number, or even a fixed value) and provide little-to-none protection against eavesdropping or man-in-the-middle (MITM) attacks.
-*Secure Simple Pairing* for its part only *"protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack[^2]"*. It leverages the failure alerts end users would receive to mitigate the risk and allows for configurations that *may* make it unsecure.
-Without going on with further examples : I just don't want my neighbors to accidentally connect to my RPi or any passing-by hacker to gather any personal information.
+*Secure Simple Pairing* for its part only *"protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack[^2]"*. It strongly depends on human decisions (based on failure alerts in case of an attack) to mitigate the risk and allows for configurations that *would* make it unsecure.
+Without going on with further examples, it's easy to configure it wrong and let the neighbors accidentally connect to your Bluetooth device or any passing-by hacker to gather any personal information.
 
 Also, "LE is the new BR/EDR". Most efforts seem to be put on Bluetooth LE and Bluetooh BR/EDR suffers from not being up-to-date with today's requirements. For instance : in BR/EDR, cryptographic key generation is being made in lower, often hardware, layers, making it difficult to upgrade security algorithms.
 This is probably the fate of a very pragmatic specification that didn't intend to foresee the future of technology ; unfortunately this leaves us with a plethora of unsecure devices in the wild.
