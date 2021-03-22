@@ -18,53 +18,75 @@ The [universally](https://docs.docker.com/ci-cd/github-actions/) [advertized](ht
 
 *Github Actions* (GA) is actually very easy to use but nonetheless still [under heavy development](https://github.com/actions/cache/graphs/code-frequency).
 
-Unfortunately, almost all tutorials out there are based on (the same) very simplistic use cases. I just couldn't get it right by simply following them : I've literally spent hours to test and understand how to *leverage on the cache action for Docker multi-stage builds*.
+Unfortunately, almost all tutorials out there are based on (the same) very simplistic use cases. I just couldn't get it right by simply following them : I've literally spent hours to test and understand how to *leverage the cache action for Docker multi-stage builds*.
 
 I hope this post will be useful to anyone with a similar use case.
 
-<!-- more -->
+<!--more-->
 
 This article will *not* describe how to make your first GA workflow.
-We will look at *traps to avoid* in the case of **building multiple and multi-stage Docker images with GA**, essentially covering caching, and more specifically using *actions/cache@v2*.
+We will look at *traps to avoid* when **building multiple and multi-stage Docker images with GA**, essentially covering caching, and more specifically using *actions/cache@v2*.
 
 
 ## Use parallelism
 
-The first thing to take care of when building multiple images is to run tasks in parallel, whenever possible.
+The first thing to take care of when building multiple images is to run tasks in parallel, whenever possible :
 
-Docker's *buildx* command already takes care of [multi-platform building](https://docs.docker.com/buildx/working-with-buildx/#build-multi-platform-images) so **using [docker/build-push-action@v2](https://github.com/docker/build-push-action) in your workflow is the way to go**.
+- Docker's *buildx* command already takes care of [multi-platform parallel building](https://docs.docker.com/buildx/working-with-buildx/#build-multi-platform-images) so **using [docker/build-push-action@v2](https://github.com/docker/build-push-action) in your workflow is the way to go**.
 
-Another thing to look at is how you can **split your build in several *workflows* or *jobs***.
-[In GA, workflows run in parallel as well as jobs](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions) inside a workflow, by default.
+- You will also need to figure out how you can **split your build in several *workflows* or *jobs***.
+[In GA, workflows run in parallel, as well as jobs inside a workflow](https://docs.github.com/en/actions/learn-github-actions/introduction-to-github-actions), by default.
 
-In my use case I have 3 images, let's call them *alpine*, *debian* and *signal-debian*, from which the first one : *alpine*, has no dependency on the 2 others.
+Let's consider my use case. I have 3 images : *alpine*, *debian* and *signal-debian*, from which the first one : *alpine*, has no dependency on the 2 others.
 
-Building them sequentially resulted in 1h50 workflows. By simply building *alpine* in a parallel job I gained 40 min (the duration of the *alpine* build) !
+Building them sequentially (as subsequent *steps* in a *job*) resulted in 1h50 runs... By simply building the *alpine* image in its own job **I saved 40 min** (the duration of the *alpine* build) !
 
-Next we're going to focus on what can be done with jobs inside a workflow.
-I haven't really explored how to use multiple workflows for that as multiple job already fulfilled my needs :
-- job ordering with [jobs.<job_id>.needs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)
-- easier to mutualize variables, steps, ...
-- a single file for all jobs related to the same workflow (good while it stays simple)
+```yaml
+jobs:
+
+  build-publish-alpine:
+    name: Build, Publish alpine
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+  ...
+
+  # This job will run in parallel of build-push-alpine
+  build-publish-debian:
+    name: Build, Publish debian
+    environment: prod
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+```
+
+
+I leave it up to you to look at [the documentation](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobs) :
+- ordering with [jobs.\<job_id\>.needs](https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idneeds)
+- can mutualize variables, steps, outputs, ...
 
 
 ## Use caching
 
-Building Docker images on your local machine uses cache by default. If your Dockerfile is correctly crafted this DRASTICALLY enhances build time. In my case, knowing that a build from scratch was taking up hours, my first concern was to ensure my Dockerfiles were always [cache-optimized](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache).
+Building Docker images on your local machine uses cache by default. If your Dockerfile is correctly crafted this DRASTICALLY enhances build time. In my case, building from scratch takes up hours. My first concern was therefore to ensure my Dockerfiles were always [cache-optimized](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache).
 
 When building with GitHub Actions however, caching is not straightforward.
 
-Let me first introduce a conceptual difference between :
+Let's start with a conceptual difference between :
 
 1. **sharing cache during the build** (e.g. image1 you just built which is also the base image of image2 in the *same* workflow) - doing this reduces build duration when using the same layers multiple times during the build (multi-arch builds probably do)
 
-2. **reusing cache from previous builds** - when you push a small modification in your code and the images have to be rebuilt, you would probably be grateful to get back the cache from the previous push, which was from *another* workflow
+2. **reusing cache from previous builds** - when you push a small modification in your code and the images have to be rebuilt, you would probably be grateful to get back the cache from the previous push, which was from *a past* workflow
 
 There are two ways to cache data with GitHub actions : [upload-artifact and download-artifacts](https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts) actions and [actions/cache](https://github.com/actions/cache) action.
 
-Although *actions/upload-artifact* and *actions/download-artifact* seem to cover both points above, [the major recommended approach I've seen](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#comparing-artifacts-and-dependency-caching) is to use **actions/cache@v2**, which also covers the two concepts.
+Although *actions/upload-artifact* and *actions/download-artifact* might be able to cover both points above, it is not meant to cache docker layers. [The major recommended approach I've seen](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#comparing-artifacts-and-dependency-caching) is to use **actions/cache@v2**, which also covers the two concepts.
 
-> **NOTE** As I understand, the 'artifact' approach should also work, maybe even better, so I will have to figure out why it's not advertized this much. I should only need to target the docker cache directory and save/restore it at the end/beginning of each job.
+> **NOTE** In theory, the 'artifact' approach should also work, but is not advertized for this kind of usage. This is maybe the premises of a future update to this article.
 
 ### Set mode=max
 
@@ -90,17 +112,16 @@ If you deal with multi-stage Dockerfiles, you MUST absolutely [set `mode=max` at
     cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 ```
 
-For me, this reduced the build time of individual jobs using the cache from ~45 minutes to 5-10 minutes !
+For me, this reduced the build time of individual jobs using the cache **from ~45 minutes to 5-10 minutes !**
 
 ### There is an overhead
 
-Why did I say that the jobs build in 5-10 minutes ? Why don't the same jobs have the same duration ?
+With this technique, subsequent runs of the same job will still vary (this is why I've stated a 5-10 min. variation above).
+It is due to *actions/cache*, which saves and retrieves the cache from a remote storage (S3 or alike). **The more the cache grows, the longer it takes to get and save it.**
 
-Because *actions/cache* works by saving and retrieving the cache from a remote URL. The more the cache grows, the longer it takes to get and save it.
+I've observed varying overheads from 1 min. for a 2GB cache, up to 7 min. for a 4GB+ cache (including both download and upload). Repeat this for every job...
 
-I've observed varying overheads from 1 min. for a 2GB cache up to 7 min. for a 4GB+ cache (including both download and upload).
-
-The exact pattern depends on what you put inside but this is something you should definitely keep in mind, as caching may not be worth it depending on your build's profile.
+The exact pattern depends on what you put in the cache but this is something you should definitely keep in mind, as caching may not be worth it, for instance if your build is fast and uses a large cache.
 
 ### There is a size limit
 
