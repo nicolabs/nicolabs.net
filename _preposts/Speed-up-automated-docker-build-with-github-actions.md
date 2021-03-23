@@ -88,6 +88,7 @@ Although *actions/upload-artifact* and *actions/download-artifact* might be able
 
 > **NOTE** In theory, the 'artifact' approach should also work, but is not advertized for this kind of usage. This is maybe the premises of a future update to this article.
 
+
 ### Set mode=max
 
 Common snippets found on the web for the *docker/build-push-action* **will only cache final Docker images** :
@@ -106,13 +107,14 @@ Common snippets found on the web for the *docker/build-push-action* **will only 
     cache-to: type=local,dest=/tmp/.buildx-cache
 ```
 
-If you deal with multi-stage Dockerfiles, you MUST absolutely [set `mode=max` attribute on the `cache-to` entry to enable caching of layers from all stages](https://github.com/docker/buildx#--cache-tonametypetypekeyvalue) :
+If you deal with multi-stage Dockerfiles, you SHOULD absolutely [set `mode=max` attribute on the `cache-to` entry to enable caching of layers from all stages](https://github.com/docker/buildx#--cache-tonametypetypekeyvalue) :
 
 ```yaml
     cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 ```
 
 For me, this reduced the build time of individual jobs using the cache **from ~45 minutes to 5-10 minutes !**
+
 
 ### There is an overhead
 
@@ -123,13 +125,29 @@ I've observed varying overheads from 1 min. for a 2GB cache, up to 7 min. for a 
 
 The exact pattern depends on what you put in the cache but this is something you should definitely keep in mind, as caching may not be worth it, for instance if your build is fast and uses a large cache.
 
+
 ### There is a size limit
 
-, if it is present or absent/has been deleted as per the GH retention policy (in which case it's fast because it's initialized).
+GitHub offers 5GB of storage : when this limit is reached or a week has passed, old caches will be deleted (based on their key).
 
-Don't be too greedy on cache reuse because if may lead a lot of steps to use the same cache, and therefore it will never be released.
+This can be problematic if you build generates a large cache, because the closer your build reaches this limit on each run, the less you will benefit from it, as recent data will be deleted before they can be used.
 
-For instance in this example, if the step *docker_build_debian* fills the cache with 5GB, it will be the only cache as it uses all the allowed space. The *docker_build_alpine* will likely not be able to add more content to the cache or it will be the whole cache will be discarded later by github, forcing the next build to start from scratch.
+The worst case happened to me : I was building 3 images using multi-stage builds and including large base image : the build typically exceeded the 5GB limit on each run and at least one of the 3 caches was deleted everytime, meaning that only 1 or 2 images could reuse the cache from the previous run.
+
+In the worst case, if your build always exceeds the cache limit, the cache will be discarded everytime and you will only be able to get some benefit from within a job, not between two subsequent runs.
+
+Your best bet to overcome this limit would probably be to use self-hosted runners or external storage (e.g. AWS), however if you feel up to it here are some tips :
+
+- you may observe `No space left on device` errors when you reach the max. cache size. It is very annoying but you may be able to bypass this by moving the cache to another mount point with more space (make a step `run: sudo df -h` to check ; I've observed `/` with 22 GB free on my setup)
+- you may try to split into more jobs (so smaller caches) to prevent the filesystem to fill up and crash, as it seems that eviction is not done while the runner is alive.
+- `mode=max` can highly increase the cache's size and cause errors or early evictions : you may find the default mode a good compromise for your usage
+- insert [a custom variable in the cache's key](https://github.community/t/how-to-clear-cache-in-github-actions/129038/5) so that you can reset it if your build is stuck because of a corrupted cache
+- maybe you should use multiple GitHub projects rather than a single one (e.g. one Dockerfile per project, if it's not overkill)
+
+
+#### Sample workflow that could be split into several jobs
+
+In the example below, 2 steps share the same cache. If the 1st step 'docker_build_debian' fills up the cache with 5GB of docker layers, the 2nd step 'docker_build_alpine' will likely not be able to add more content to the cache and will either crash or be discarded by GitHub prior to the next run, forcing it to start again from an empty cache.
 
 ```yaml
 - name: Cache Docker layers
@@ -164,6 +182,13 @@ For instance in this example, if the step *docker_build_debian* fills the cache 
       cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 ```
 
+
+### The key to cache matching
+
+The *actions/cache* matching algorithm is based on the cache's *key*, which could be thought as a branch in a tree : from the trunk to the leafs, the latter representing the most specific cache. If your build does not match or evict the cache as expected, I encourage you to [read the docs thoroughly](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#matching-a-cache-key), including the examples, as it may reveal the root cause.
+
+You will not want, for instance, to share the same prefix between 2 jobs that have no Docker layer in common (e.g. a *FROM alpine* and a *FROM debian* may not), otherwise each one might match the cache of the other one, increasing its size by adding its own layers but without finding any layer to reuse.
+
 In the following execution trace of the *Cache Docker layers* step, we see that although we are in the section that builds the *debian* image (`key: Linux-buildx-debian-9176c5bd644818205d94a68221a7ebf27005b30e`), it hits the previous cache from the *alpine* image (`Cache restored from key: Linux-buildx-alpine-75bd3133c854ab90910b7ceb92445fafbe256260`), which has little chance to provide the layers it needs :
 
 ```
@@ -189,7 +214,7 @@ Cache Size: ~4179 MB (4381819546 B)
 Cache restored from key: Linux-buildx-alpine-75bd3133c854ab90910b7ceb92445fafbe256260
 ```
 
-If the 2 steps *docker_build_debian* and *docker_build_alpine* don't need to share the same cache (here they have different base images and intermediate layers), a more efficient use of GA cache here would be to make sure they generate separate caches so they can be evicted separately.
+A more efficient use of GA cache here would be to make sure they target separate caches so they can be evicted separately.
 This can be done by limiting the `restore-keys` to non-overlapping values :
 
 ```yaml
@@ -212,59 +237,25 @@ This can be done by limiting the `restore-keys` to non-overlapping values :
         ${{ runner.os }}-buildx-alpine-
 ```
 
-In the worst case, if your build always exceeds the cache limit, the cache will be discarded everytime and you will only be able to get some benefit from within a job, not between two subsequent runs.
-
-In other cases (after a week a cache has not been used or if you have several caches which don't exceed the limit individually but overall do), you will observe longer builds from time to time because some caches have been evicted.
-
-
-
-## Storage size limitations
-
-On GH : 5GB for cache, 22 GB as observed for the Docker /var/lib (actually /).
-
-> **NOTE** : You may be able to overcome this limit with self-hosted runners, external storage (e.g. AWS), multiple GH projects (as the limits are per project), ...
-
-In order to get full benefits of GH services it is possible to do some optimizations.
-
-Split in jobs when possible, to allow the cache to be released (it appears that cache eviction is not done while the runner is alive).
-
-Splitting in smaller jobs also reduce the chances that the filesystem grows to much during a monolothic step.
-
-
-## Keep up with the flow
-
-It's probably a good idea to include some sanity checks / actions in your jobs to be more future proof regarding new or recurring bugs.
-
-Example for Ubuntu :
-
-```yaml
-- name: Sanity actions
-  run: |
-    # Will print the filesystem mounts and available storage
-    sudo df -h
-    # May free up some place
-    sudo apt clean
-```
 
 ## Conclusion
 
-Out of the box, GA allows to quickly set up continuous integration workflows for very basic requirements.
+Out of the box, *GitHub Actions* allows to quickly set up continuous integration workflows for very basic requirements.
 
-First make sure to design your workflows so that they **take advantage of parallel building**.
+First make sure to design your workflows so that they **take advantage of parallel building**. Think about the dependencies between your steps.
 
-Caching is another key factor to faster builds : the **actions/cache@v2** action can greatly improves the speed of the builds (x5 to x9).
-However, to use it right, this action requires a deep understanding of its internal workflow and is limited to 5GB in size, such that it loses most its interest if your build regularly exceeds this limit.
+Caching is another key factor to faster builds : the **actions/cache@v2** action can greatly improve the speed of the builds (x5 to x9 !).
+However, to use it right, this action requires a deep understanding of its internal workflow and the current limit to 5GB may compel you to spin custom runners or add your own storage, if your build regularly exceeds this limit.
 You may also not need to use such a cache if your build only takes a few minutes to complete, as downloading & saving the cache adds an overhead to the total execution time.
 
-This article showed some tips and workaround to get the maximum of it, but while the current **cache is limited to 5GB**, alternatives - like self-hosted runners, external storage, splitting in multiple github repositories or re-thinking about which cases should trigger a build at first - may be more suited for storage-demanding use cases like multi-images Docker builds.
+This article showed some tips and workarounds to get the maximum of *actions/cache* : by combining some of those practices **I was able to speed up repeated builds of 3 complex images from 1h50 to 10 minutes...**
 
-By combining all practices described here, **I was able to speed up repeated builds of 3 complex images from 1h50 to 10 minutes**.
+My final word would be to **build & test a maximum on your workstation** so you won't need to spend time on the tricky parts of this article. Once your build has become stable you will not bother waiting from time to time for it to end, as you will be confident that it will succeed in one attempt. For a lot of Docker build scenarios parallelization and basic caching alone will be sufficient.
 
 
 ## References
 
 - [actions/cache](https://github.com/actions/cache)
-
-https://github.com/whoan/docker-build-with-cache-action
-https://github.com/sdras/awesome-actions
-Storing & retrieving *github artifacts*](https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts)
+- [whoan/docker-build-with-cache-action](https://github.com/whoan/docker-build-with-cache-action)
+- [Awesome Actions](https://github.com/sdras/awesome-actions)
+- [Storing & retrieving *github artifacts*](https://docs.github.com/en/actions/guides/storing-workflow-data-as-artifacts)
