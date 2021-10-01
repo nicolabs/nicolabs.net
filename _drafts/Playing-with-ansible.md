@@ -1,5 +1,5 @@
 ---
-title: Playing with ansible
+title: Ansible : love and hate
 layout: post
 tags:
   - raspberry pi
@@ -77,11 +77,66 @@ does. YAML syntax.
 
 Same for tags that I had to put to the end in blocks.
 
+## The bad : demonstration
+
+Here is a simple use case :
+
+You need to *fetch* public keys from a file on each remote hosts and save them together in a directory on the local host.
+On each host, the key is located at the same place : `/home/me/.keys/me.pub`.
+You want it to be to stored locally at `/var/keys/{{ inventory_hostname }}.pub`.
+
+Fortunately, ansible **does** have a *[fetch](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/fetch_module.html)* module :
+
+```yaml
+  name: Fetch the remote public key
+  fetch:
+    src: /home/me/.keys/me.pub
+    dest: /var/keys/{{ inventory_hostname }}.pub
+    flat: yes
+```
+
+Well, according to the docs, it will just not work.
+
+First, you have to specify `flat: yes` otherwise the file will be saved into :
+
+    /var/keys/{{ inventory_hostname }}.pub/{{ inventory_hostname }}/home/me/.keys/me.pub
+
+What ? 🤔
+
+Ok, they've chosen a weird default behavior... But even with `flat: yes`, according to the docs, you will end up with the file copied into the wrong place :
+
+    /var/keys/{{ inventory_hostname }}.pub/me.pub
+
+What. The. Hell. 🙄
+
+Fortunately, the doc is wrong and this will work as expected. 😅
+
+However it reveals a lack of design that I've found in many modules. It looks cumbersome to introduce some very opinionated default behaviour like creating a whole file tree by default, rather than simply leaving the user specify the exact destination path.
+
+In many other modules, this ends up restricting the use cases so much that the user will have to craft the feature herself, making the playbook much more complicated.
+
+It happens very often to me.
+
+## TL;DR
+
+- Very easy to use and deploy : only SSH and Python is required on the target machine. This is the reason why I stick to it, still.
+- Not universal, though : mainly runs on Linux (Windows modules are separate ones, so you need to craft roles that include the 2 logics : one for Linux and one for Windows) ; there are other devices (like network routers) addressed through specific modules but I haven't tested
+- There is a lot of existing modules in *galaxy*, but you usually don't use them because you don't trust the code to be safe or it's not doing exactly what you need, or it's not documented.
+- It's slow : playbooks can very quickly take dozen of minutes with only a dozen of roles. This is because, to get them clean & evolutive, modules are quite independent of each others and run in sequence. The result is that plays are not globally optimized and ansible seems to execute each task one after the other, each time cumulating the time to transfer, unzip and prepare the code to the remote host...
+- A LOT of modules don't have a *check mode*, and ansible does not make it easy to provide one. So you will basically capitulate and don't test fully your playbooks.
+- I find many core features, modules, lookups, to have design flaws, making it sooo complex to do simple things... Quite often I end up with a (not-so-portable) `command` instead of crafting 3-4 tasks together, that would have made the play undreadable.
+
 ## Also
 
 - no way to declare a requirement inside a role (I have to use requirements.yml and install by hand with galaxy ?)
 - cannot order in all parts (find the example ; was it with pre/post within roles ?)
 - it's SLOW ! For instance looping on a list makes (apparently ?) ansible trigger one connection for each item ! For instance if you include the *haxorof.docker_ce* role in each role that needs docker installed, you just add several minutes to each one of them !
+
+- Check mode was a good idea but since it's only implemented in half of the modules it's unuseable.
+The playbook will fail because a prerequisite will not be done by some previous task (e.g. set a fact, create a file, ...)
+or just return inconsistent results, making the test useless...
+It may be useful to test a single task or small group of task but cannot be used to get confidence that a playbook will work.
+In order to change this, one would need to apply strict development rules (making sure every task has an (actually useful) check mode), but ansible does not make it easy by providing little to nothing to allow this. For instance, there is no simple way to provide an alternate command to the 'command' module, that would execute in check mode (it's just one drop in the ocean, however).
 
 ## References
 
