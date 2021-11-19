@@ -1,5 +1,5 @@
 ---
-title: Ansible : love and hate
+title: "Ansible : love and hate"
 layout: post
 tags:
   - raspberry pi

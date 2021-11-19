@@ -14,7 +14,7 @@ Everything is your definition and usage of the trust levels.
 
     gpg --expert --full-generate-key --allow-freeform-uid
 
-- `--expert` gives the full choice of algorithms (it's good to know what's available even though I'm not using ECC right now)
+- `--expert` gives the full choice of algorithms (I'm now always using the longest keys and strongest algorithms - ECC - I can)
 - `--allow-freeform-uid` allows to use an URL instead of an email (so I'm not spammed) for keys not intended for email communications. However to get benefit from automatic E-mail encryption it's mandatory to have the encryption key (or one of its signers?) attached to a key with your email.
 - *Curve 25519* algorithm, based on several lectures ; it's a bet on the future and might reveal wrong so let be ready to renew keys in some time anyway
 

@@ -12,8 +12,6 @@ maturity: draft
 
 # TODO
 
-- le menu d'hibernation ne fonctionne pas
-- charge par USB c très efficace. Le chargeur n'est pas plus compact que le classique par contre. Voir quelques grammes plus lourd.
 - des fichiers autostart vers des binaires absents (/usr/local/bin/vboxinstall.sh, /usr/local/bin/cryptshutdown.sh)
 - surélévation du capot à l'ouverture ok effectivement (me suffit pour avoir une position ~ ergonomique) - en revanche empêche de poser sur un docker usb-c comme celui vendu par tuxedo (le chassis + le bas de l'écran présentent un angle qui n'adhère pas)
 
@@ -78,12 +76,14 @@ https://www.tuxedocomputers.com/en/Linux-Hardware/Linux-Notebooks/15-16-inch/TUX
 
 ![Tuxedo InfinityBook scratched](/assets/blog/screenshots/tuxedo-infinity/tuxinfinity_scratch.jpg)
 
-## Battery
+## Battery & charge
 
 - Don't trust the battery life advertized o,n tuxedo's website. It's just a normal battery with normal life expectations. No more, no less.
 - The cable is long enough and the charger fairly small enough for transportation.
+- Charging with Tuxedo's USB-C cable is very efficient. Le chargeur n'est pas plus compact que le classique par contre. Voir quelques grammes plus lourd.
 - The *FlexiCharger* feature of Tuxedo is nice, as it lets you preserve battery life by preventing micro-charges. However when you need full capacity you have to reboot to change the parameter in the BIOS : this setting should be available from the OS (e.g. Tuxedo Control center) to be really called "flexible".
 - FlexiCharger has bugs also : the UI enters an infinite loop if you try to set up the 'stop charge' threshold below the 'start charge' one, and sometimes the charge does not start when the battery capacity reaches the configured threshold : you have to unplug the cable and plug it back.
+- *Hibernate* menu does not work (I suspect it may be linked to the fact that I have 64 GB of RAM and no dedicated swap partition, but I haven't investigated on this topic yet). Anyway hibernation has never worked out of the box with Ubuntu.
 
 ## Fingerprint reader
 
