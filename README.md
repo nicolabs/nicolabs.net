@@ -51,7 +51,7 @@ This is implemented with :
     - because it is the Jekyll integration advertized on plantuml.com
     - however it generates only `<svg>` inside `<object>`, which is not fullscreen-compatible OOTB => I replaced with `<img>` using the generated SVG as source
     - and it generated files in the root of the project
-    - TODO anyway a replacement that uses Markdown standard ` ```plantuml` rather than Jekyll-specific `{% plantuml %}` syntax should be found
+    - TODO anyway a replacement that uses Markdown standard `  \`\``plantuml` rather than Jekyll-specific `{% plantuml %}` syntax should be found
 - assets/lib/[screenfull.js polyfill](https://github.com/sindresorhus/screenfull.js) (seen at *Modernizr*) and [a few lines of code](/_includes/head.html) to activate it
 - [very few CSS](_sass/nicolabs/layout.css)
 
