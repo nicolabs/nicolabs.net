@@ -8,6 +8,9 @@ tags:
 maturity: good
 ---
 
+![Jekyll logo - CC-BY-4.0 License](https://github.com/jekyll/brand/raw/master/jekyll-logo-dark-solid.png){:width="100%"}
+<figcaption>Jekyll logo - CC-BY-4.0 License - https://github.com/jekyll/brand</figcaption>
+
 As I feared when I [migrated to GitHub's hosting](/2016/Migrating-from-Drupal-to-Jekyll), it has become too complicated to overcome GitHub's limitations on Jekyll plugins and features.
 
 I just needed to create a [*collection*](https://jekyllrb.com/docs/collections/) to put my ["live drafts"](/2016/Migrating-from-Drupal-to-Jekyll) into it, but the deprecated *jekyll-paginate* plugin provided with GitHub pages didn't support collections.
