@@ -126,6 +126,7 @@ th.vertical {
 */
 img + em, figcaption {
   font-size: small;
+  margin-bottom: 2em; /* Gives some space between the headline picture and the text following when there is no title */
 }
 /* We must also make sure the caption visually sticks to it */
 img {
