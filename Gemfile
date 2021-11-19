@@ -41,6 +41,8 @@ group :jekyll_plugins do
   gem "jekyll-sitemap"
   # Looks like the ideal solution but does not work
   #gem 'jekyll-plantuml_hook', git: 'https://github.com/chulkilee/jekyll-plantuml_hook.git', ref: 'master'
+  # To remove <a /> from article previews - https://github.com/joshdavenport/jekyll-regex-replace
+  gem "jekyll-regex-replace"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

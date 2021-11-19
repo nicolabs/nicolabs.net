@@ -1,5 +1,7 @@
 {% comment %}
-    'post' must be defined before including this template
+    - 'post' must be defined before including this template
+    - regex_replace module is used to strip off the HTML links from content
+      and put a single link over the whole excerpt to the article
 {% endcomment %}
 <article class="post-item">
     <p>
@@ -9,11 +11,15 @@
           <a class="post-title post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
           {% include maturity.html post=post show="draft,deprecated,unpublished" %}
         </div>
-        <div class="excerpt"><div class="excerpt-text">{% if post.content contains '<!--more-->' %}
-            {{ post.content | split:'<!--more-->' | first }}
-          {% else %}
-            {{ post.content | truncatewords: 80 | markdownify }}
-          {% endif %}</div>
+        <div class="excerpt"><div class="excerpt-text"><a href="{{ post.url | prepend: site.baseurl }}">
+          {% capture post_content %}
+            {% if post.content contains '<!--more-->' %}
+              {{ post.content | split:'<!--more-->' | first }}
+            {% else %}
+              {{ post.content | truncatewords: 80 | markdownify }}
+            {% endif %}
+          {% endcapture %}
+          {{ post_content | regex_replace: '<a', '<span' | regex_replace: '</a', '</span' }}</div>
         <a class="post-link readmore" href="{{ post.url | prepend: site.baseurl }}">Read more ...</a>
         </div>
     </p>
