@@ -10,6 +10,8 @@ comments: true
 This blog talks about computer technology.
 The old version can still be viewed at [blog.nicolabs.net](http://blog.nicolabs.net) but will be deleted one day, since all new work is now made here.
 
+You can find more work from me at [github.com/nicolabs](https://github.com/nicolabs).
+
 
 ## Contact
 
