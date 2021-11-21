@@ -3,6 +3,7 @@
 - does not include chat, files, git so one needs to use decentralized  tools  for that (and prove ownership of each account) : xmpp, GitLab instance,. ...
 - in the end it's just the intended usage of pgp
 - weakness is probably in fetching and parsing  proofs, which need a strict convention to prevent spoofing or tricking users into including fake claims in their online feeds
+- also trust in proofs are intrinsically dependent on each social service security policy (e.g. if an admin can modify a post containing a claim, since they are not always signed)
 - might include a 'twitter profile' fetcher that fetches claim from users profile instead of a tweet :
     - pros : doesn't pollute timeline, simpler to reverse, update
     - cons : profile has limited room for text
