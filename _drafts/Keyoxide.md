@@ -1,0 +1,9 @@
+- needs federation of verification servers ( it's wip)
+- same as keybase verification but with plain pgp
+- does not include chat, files, git so one needs to use decentralized  tools  for that (and prove ownership of each account) : xmpp, GitLab instance,. ...
+- in the end it's just the intended usage of pgp
+- weakness is probably in fetching and parsing  proofs, which need a strict convention to prevent spoofing or tricking users into including fake claims in their online feeds
+- might include a 'twitter profile' fetcher that fetches claim from users profile instead of a tweet :
+    - pros : doesn't pollute timeline, simpler to reverse, update
+    - cons : profile has limited room for text
+- can link/prove identities attached to several keys or is it only one key and multiple identities (star shaped) ?
