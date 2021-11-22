@@ -54,7 +54,7 @@ I made up my mind on [Tuxedo's InfinityBook S 15](https://www.tuxedocomputers.co
 - Speakers are the worst I've ever encountered, without a doubt. Still, it proved enough for video conferencing (tested with MS Teams).
 - The problem is only with internal speakers, the sound quality is good if you use an external headset.
 - [A suggested trick is to install PulseEffects](https://github.com/tuxedocomputers/pulseeffects-presets) but it does not add any significant improvement with the given settings.
-- Allowing volume over 100% is probably your best bet to get the most of it : `dconf write com/solus-project/budgie-raven/allow-volume-overdrive true`
+- Allowing volume over 100% is probably your best bet to get the most of it : `dconf write /com/solus-project/budgie-raven/allow-volume-overdrive true`
 
 ## Camera
 
@@ -116,7 +116,7 @@ I ordered the computer pre-installed with *Tuxedo OS*, a custom *Ubuntu Budgie* 
 - I'm not impressed with Tuxedo Control Center : it has only limited features, although usefull. Reading reviews I expected more. (also the tray icon is the only one in color)
 - After some tests, the computer seems to suspend to RAM when the lid is closed (as expected), but stills consumes a lot of energy from my point of view. I put it in suspend mode around 23h : it had at 61% battery remaining. When I woke it up around 8h, only 9% were remaining.
 	- Tried this : https://www.tuxedocomputers.com/en/Infos/Help-Support/Instructions/Fine-tuning-of-power-management-with-suspend-standby.tuxedo : from 31% to 21% in 7h30
-- Automatic or manual screen lock (*<Super>L*) does not work OOTB, you have to manually enable it : `dconf write org/gnome/desktop/lockdown/disable-lock-screen false`
+- Automatic or manual screen lock (*<Super>L*) does not work OOTB, you have to manually enable it : `dconf write /org/gnome/desktop/lockdown/disable-lock-screen false`
 - When you ask for Tuxedo OS to be installed, in addition to the main partition, they also create the UEFI partition (512 MB FAT) and a swap partition at the end of the disk. But they made the swap partition 8 GB, whereas I have 64 GB of RAM...
 - Software center is used (comes from Ubuntu), but it's just not useable (anybody uses it anyway ?). You get multiple identical entries with no clue about which one to choose. Most of the time the version is outdated. etc.
 - des fichiers autostart vers des binaires absents (/usr/local/bin/vboxinstall.sh, /usr/local/bin/cryptshutdown.sh)
