@@ -32,11 +32,12 @@ I made up my mind on [Tuxedo's InfinityBook S 15](https://www.tuxedocomputers.co
 
 ![Tuxedo InfinityBook 15S](/assets/blog/screenshots/tuxedo-infinity/TUXEDO%20InfinityBook%20S%2015%20Gen6.jpg)
 
-## Shipping and documentation
+## Customer service : shipping, documentation,. ..
 
 - At the difference of many comments I've seen around, my computer was shipped within a few days (around a week) - very statisfying
 - [The website](https://tuxedocomputers.com) is annoying as it does not let you CTRL-click a link to open into a new tab : the current page will freeze (click event is probably registered in javascript in a wrong way :-()
 - At the time of writing, there is no dedicated help page for my device ([only for InfinityBook S14, not S15](https://www.tuxedocomputers.com/en/Infos/Help-Support/Help-for-my-device/TUXEDO-InfinityBook-Series.tuxedo))
+- One mandatory thing for me is to be able to tune memory, disks, CPU before ordering. Tuxedo's website is very good at this. You can even [make your own keyboard](https://www.youtube.com/watch?v=6wrwNaS5dw4&t=38) or [engrave a custom logo on the chassis](https://www.tuxedocomputers.com/en/Individual-Keyboards.tuxedo).
 
 ## Performance
 
@@ -65,6 +66,7 @@ I made up my mind on [Tuxedo's InfinityBook S 15](https://www.tuxedocomputers.co
 
 - Numeric keypad (it's been a long time I haven't used one) ; it's nice to have it but I can live without it and in the end I would prefer to have it removed and the room used to get larger keys on the right side (shift, enter, ...) and/or the speakers enhanced
 - Black keys on black background is beautiful but not the best choice for the eyes : keys are faster to locate with silver/black combination for instance
+- By default, there is a 'Tux' key instead of a 'Windows ' or 'Apple' one, which is funny, but [you could also have whatever symbols printed on all keys](https://www.youtube.com/watch?v=nidnvlt6lzw&t=1). This may help reduce the typing learning curve but it seems impossible to get what the default keyboard would look like anyway.
 - Back-lit keyboard is also not the best technique to light keys. From my experience I find it more comfortable to light the keys from above ([ThinkPad™ had a ThinkLight™ embedded at the top of the lid](https://youtu.be/MH7o3Zb8HVg)) : it enlightens all keys, their surface AND the touchpad (which is not, on the tux, making it tricky to find it or its fingerprint reader in the dark). It's barely OK to use for times when you don't have a mouse at hand.
 - I confirm that the keys lights comes both from around (their side) and the characters are also enlightnen (semi transparent)
 - This model can only have on color at a time (I couldn't find a place where it's stated) ; to change the color follow the procedure on tc's website and reboot (it takes a kernel module to reload ; the doc is really hard to find (it's [here](https://www.tuxedocomputers.com/en/Infos/Help-Support/Instructions/Installation-of-keyboard-drivers-for-TUXEDO-Computers-models-with-RGB-keyboard-.tuxedo) and [there](https://github.com/tuxedocomputers/tuxedo-keyboard)))
