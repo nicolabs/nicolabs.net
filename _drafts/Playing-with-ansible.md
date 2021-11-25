@@ -51,6 +51,13 @@ E.g. https://github.com/ansible/ansible/issues/24319
 Error messages are not clear because there is too many levels of indirection. It's even stated in error messages : `The error appears to have been in '/root/ansible/setup.yaml': line 9, column 12, but may be elsewhere in the file depending on the exact syntax problem.`.
 The first time I mistyped the root password when ansible asked me I've just lost 1 or 2 hours finding the cause because the error was on an (apparently) unrelated task...
 
+Bug des loop imbriquées :
+> Attention, en plus de nécessiter 3 (!) fichiers pour imbriquer 2 boucles,
+> si la variable 'item' est utilisée dans des boucles imbriquées cela fait
+> planter avec un message ~ "incompatible type dict au lieu de string" !!!
+> --> utiliser des loop_var distincts !
+
+
 ## Passwordstore integration
 
 Using password store to automate SSH / sudo.
@@ -143,6 +150,7 @@ In order to change this, one would need to apply strict development rules (makin
   - include_role and other similar "modules" don't propagate their properties (e.g. 'ignore_errors'), you have to use 'apply' or stick with import_role...
   - cannot loop inside a loop (you have to put in an external file) ; it makes the code heavy
   - cannot loop blocks...
+  - I'm not the only one : https://medium.com/opsops/ansible-anti-pattern-import-role-task-with-task-level-vars-a9f5c752c9c3
 
 
 ## References

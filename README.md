@@ -11,7 +11,7 @@ Source code for https://www.nicolabs.net
 
 The [assets/blog](assets/blog) folder gathers asset files used in articles.
 
-It keeps the same layout as the previous wesite located from http://www.nicobo.net/sites/default/files in order to ease migration of URLs, but the `pictures` subfolder may not be used for new assets.
+It keeps the same layout as the previous website located from http://www.nicobo.net/sites/default/files in order to ease migration of URLs, but the `pictures` subfolder may not be used for new assets.
 
 The new layout is :
 
