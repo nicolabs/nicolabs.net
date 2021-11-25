@@ -107,3 +107,4 @@ exclude:
   - "Rakefile"
   - "changelog.md"
   - "assets/blog/screenshots/remove-metadata.sh"
+  - "Makefile"
