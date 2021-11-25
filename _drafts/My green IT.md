@@ -1,0 +1,28 @@
+- Représentation du cycle de vie d'un produit informatique :
+  - émissions pour chaque étape (conception, développement, run, décommissionnement)
+  - représentation sous forme d'un cycle (ISO 14040, ISO 14044)
+  - représentation sous forme d'un arbre (avec les dépendances, prestataires, services utilisés, composants, l'outil de mesure des émissions lui-même, ...)
+    - distinguer les dépendances (ajouter leurs émissions) des utilisations (émissions impliquées ; permet de faire un graphe de type maillage pour retrouver toutes les émissions liées)
+    - distinguer les mesures des estimations
+  - construire le(s) diagramme(s) d'architecture visuellement d'abord, et pour chaque élément le relier à un mode de calcul
+- Prévision en amont + mesure pdt la vie du produit
+- Identification de la consommation de chaque partie comme en mode debug
+- abaques par type de dépendance (ex. NAS, ...) : en tout cas identifier les parties qui sont mutualisées avec d'autres et faire leur bilan à part
+- MVP : consommation électricité au run
+- outils :
+  - github.com/hubblo-org/scaphandre (infra) - agent sur VM
+  - ++ cloud carbon footprint (cloud)
+  - fruggr ???
+  - ++ code carbon (back-end + cloud, machine learning/gpu)
+  - power api (infra) - inria, ovh
+  - greenspector (dev, mobile, front, services) - commercial
+  - greenframe (dev, front-end + services) - commercial fr
+  - easyvirt "DC scope" (infra, énergie grise de construction) - commercial
+  - my it footprint (dev, plugin "ServiceNow") - commercial ?
+- référentiels :
+  - boavizta
+  - green it
+  - electricitymap.org & www.rte-france.com/eco2mix (FR seulement mais plus détaillé)
+  - ecoindex.fr (front-end) - en maintenance
+  - muchas glacias (front-end) - labanqui.se
+  - microsoft sustainability calculator (azure)
