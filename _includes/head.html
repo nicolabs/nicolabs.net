@@ -125,4 +125,14 @@
         });
 </script>
 
+<script>
+  window.onscroll = function() {
+    if (document.body.scrollTop > 0 || document.documentElement.scrollTop > 0) {
+      document.querySelector('.site-header').classList.add('site-header-pinned');
+    } else {
+      document.querySelector('.site-header').classList.remove('site-header-pinned');
+    }
+  };
+</script>
+
 </head>

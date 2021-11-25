@@ -80,6 +80,9 @@ hr {
   /* @nicobo removed borders */
   margin-bottom: $small-spacing;
   min-height: 80px;
+  width: 100%;  /* does not change visually but useful when this element dynamically changes for position:fixed */
+  font-size: clamp( 100%, 1em, 4vw );
+  transition: 0.3s;
 
   /* start @nicobo : color-inverted header */
   background-color: $header-background-color;
@@ -97,14 +100,44 @@ hr {
           background-color: white;
           color: $primary-color;
       }
+
+      /* E.g. Padding is too much for Galaxy S10 */
+      @media screen and (max-width: 400px) {
+        padding: 0;
+      }
   }
-  /* end @nicobo */
+
+  /*
+    When the site is scrolled down the site header is reduced and pinned at the top
+    Thanks https://css-tricks.com/how-do-you-do-max-font-size-in-css/
+  */
+  &.site-header-pinned {
+    position: fixed;
+    // height: 2em;
+    width: 100%;
+    min-height: 0;
+    z-index: 999;
+
+    .nav .container {
+      padding-top: 0;
+    }
+
+    .logo {
+      font-size: clamp( 80%, 2em, 4vw );
+      margin: 0;
+    }
+
+  }
 
   .nav {
     .container {
       padding-top: 1.5em;
+      padding-left: 1.5em;
+      padding-right: 1.5em;
     }
   }
+
+    /* end @nicobo */
 
 }
 
@@ -127,9 +160,10 @@ hr {
   margin: 0 0 1em 0;
   cursor: pointer;
   letter-spacing: 0.8px;
-  font-size: 1.2em;
+  font-size: clamp( 100%, 2.8em, 6vw );
   line-height: 28px;
   font-weight: 300;
+  transition: 0.5s;
 
   a {
     text-decoration: none;
@@ -139,10 +173,6 @@ hr {
   span {
     font-weight: 700;
   }
-}
-
-.nav {
-  min-height: 64px;
 }
 
 .navbar {
