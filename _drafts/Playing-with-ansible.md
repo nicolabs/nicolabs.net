@@ -146,7 +146,7 @@ It may be useful to test a single task or small group of task but cannot be used
 In order to change this, one would need to apply strict development rules (making sure every task has an (actually useful) check mode), but ansible does not make it easy by providing little to nothing to allow this. For instance, there is no simple way to provide an alternate command to the 'command' module, that would execute in check mode (it's just one drop in the ocean, however).
 
 - globally counter-intuitive behaviors, which often lead to bugs or does not compile :
-  - variables are global, and cannot be redefined in a role if already set, but it's silent so you will not get the intended value ! -> you need to prefix variables in roles with the name of the role (or maybe it's the purpose of collections, but it came a bit late now I have to redesign all my roles...).
+  - variables are global, and cannot be redefined in a role if already set, but it's silent so you will not get the intended value ! -> you need to prefix variables in roles with the name of the role (or maybe it's the purpose of collections, but it came a bit late now I have to redesign all my roles...). See https://stackoverflow.com/questions/22522985/how-can-i-write-variables-inside-the-tasks-file-in-ansible => there is no simple way to cleanly define 'local' variables, which makes the "code" cluttered with copy-pasted texts and makes it less evolutive
   - include_role and other similar "modules" don't propagate their properties (e.g. 'ignore_errors'), you have to use 'apply' or stick with import_role...
   - cannot loop inside a loop (you have to put in an external file) ; it makes the code heavy
   - cannot loop blocks...
