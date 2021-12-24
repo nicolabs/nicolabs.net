@@ -20,6 +20,9 @@ Everything is your definition and usage of the trust levels.
 
 Choosing RSA and 4096 because of compatibility **BUT does it makes sense for the primary key ???**.
 
+Duration : for keys attached to mobile devices (smartphone, laptop you take with you in the train), it makes sense to use a reduced timelife for the keys (like 1 month ?).
+It will not prevent the stealer of your smartphone to use the key if he has really planned to do so, but you'll sleep better after the key has expired.
+
 
 ## Make it useable
 
@@ -69,6 +72,11 @@ The main issue for me is its centralised architecture :
 - as a US-hosted service it depends on US law (which forces the provider to disclose data, restricts cryptography exports)
 
 => unfortunately proved right on May 7, 2020 when Keybase announced they were bought by Zoom...
+
+
+### Keyoxide
+
+TODO
 
 
 ### keys.openpgp.org
