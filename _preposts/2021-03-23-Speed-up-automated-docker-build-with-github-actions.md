@@ -1,6 +1,7 @@
 ---
 title: Speed up your automated Docker builds with GitHub Actions
 layout: post
+date: 2021-03-23
 tags:
   - docker
   - github
