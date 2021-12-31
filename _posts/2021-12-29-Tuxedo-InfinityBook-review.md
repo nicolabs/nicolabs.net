@@ -10,6 +10,9 @@ tags:
   - review
   - ubuntu
 maturity: good
+alternate:
+  - https://dev.to/nicobo/tuxedo-infinitybook-s-15-review-2aho
+  - https://www.reddit.com/r/tuxedocomputers/comments/rsw8c9/tuxedo_infinitybook_s_15_review/
 ---
 
 ![Tuxedo InfinityBook with keyboard lights](/assets/blog/screenshots/tuxedo-infinity/tuxinfinity_kblight.jpg)
