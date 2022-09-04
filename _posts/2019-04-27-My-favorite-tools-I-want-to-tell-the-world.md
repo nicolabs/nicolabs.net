@@ -17,6 +17,15 @@ maturity: good
 This page lists some tools I've been using with success for a while : they may fit your needs as well !
 
 
+## Sweet Home 3D
+
+![Sweet Home 3D logo](https://www.sweethome3d.com/images/SweetHome3DLogo.png)
+
+> [Sweet Home 3D](https://www.sweethome3d.com) is a free interior design application which helps you draw the plan of your house, arrange furniture on it and visit the results in 3D.
+
+And it works. I've been using it for years and I can still open the models, edit them... This is the exact reason why to choose open source here. No compatibility issue, works on Windows, Mac, Linux.
+
+
 ## NextCloud
 
 ![NextCloud logo](/assets/blog/3rdparty/logos/nextcloud.108x72.png)
