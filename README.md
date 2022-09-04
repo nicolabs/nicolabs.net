@@ -2,7 +2,7 @@ Source code for https://www.nicolabs.net
 
 ## Setup
 
-- Install jekyll
+- Install jekyll : `sudo gem install jekyll jekyll-feed jekyll-gist jekyll-paginate jekyll-sass-converter jekyll-coffeescript`
 - [Install plantuml and a `plantuml` command in the PATH](https://github.com/yegor256/jekyll-plantuml#install-plantumljar) (requirement of *jekyll-plantuml*) (and probably *dot* : `apt install graphviz`)
 - Run `bundle install`
 
