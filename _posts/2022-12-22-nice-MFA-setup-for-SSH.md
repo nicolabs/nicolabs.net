@@ -19,6 +19,8 @@ This article shows how to set up an SSH server so that users can authenticate :
 2. or with a two-factor authentication (2FA) process, using their password and a one-time password (OTP)
 3. from the intranet, with a standard SSH key
 
+<!--more-->
+
 {% plantuml %}
 @startuml
 
