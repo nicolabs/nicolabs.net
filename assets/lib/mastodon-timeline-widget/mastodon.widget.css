@@ -98,8 +98,11 @@ a.btn-spoiler {
 	position: relative;
 	margin-top: 5px;
 	height: 100px;
-	background-size: cover;
-	background-position: center center;
+	background-size: contain;
+	/* nicobo : reduced size but not truncated too much */
+	/*background-position: center center;*/
+	background-repeat: no-repeat;
+	/* end nicobo */
 	box-sizing: border-box;
 	color: white;
 	text-align: center;
