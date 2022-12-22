@@ -98,7 +98,8 @@ hr {
       &:focus,
       &:active {
           background-color: white;
-          color: $primary-color;
+          /* background color is used to make a 'inversion' effect */
+          color: $header-background-color;
       }
 
       /* E.g. Padding is too much for Galaxy S10 */
