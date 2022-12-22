@@ -241,7 +241,11 @@ MastodonApi.prototype.listStatuses = function() {
 			);
 		}
 		else {
-			content = $("<div class='toot-text'>" + status_.content + "</div>" + "<div class='toot-medias'></div>");
+      if ( status_.reblog != null ) {
+        content = $("<div class='toot-text'>" + status_.reblog.content + "</div>" + "<div class='toot-medias'></div>");
+      } else {
+        content = $("<div class='toot-text'>" + status_.content + "</div>" + "<div class='toot-medias'></div>");
+      }
 		}
 
 		if(status_.reblog) {
