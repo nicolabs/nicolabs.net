@@ -1,5 +1,6 @@
 ---
 # Only the main Sass file needs front matter (the dashes are enough)
+# NOTE : Had to rename `_sass/main.scss` into `_sass/root.scss` because of https://github.com/jekyll/jekyll-sass-converter#dropped-support-of-importing-files-with-the-same-filename-as-their-parent-file
 ---
 @charset "utf-8";
-@import "main";
+@import "root";
