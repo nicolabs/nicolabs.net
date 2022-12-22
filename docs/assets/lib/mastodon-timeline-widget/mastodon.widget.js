@@ -241,7 +241,12 @@ MastodonApi.prototype.listStatuses = function() {
 			);
 		}
 		else {
-			content = $("<div class='toot-text'>" + status_.content + "</div>" + "<div class='toot-medias'></div>");
+      if ( status_.reblog != null ) {
+        // See https://github.com/AzetJP/mastodon-timeline-widget/issues/7#issuecomment-1336381975
+        content = $("<div class='toot-text'>" + status_.reblog.content + "</div>" + "<div class='toot-medias'></div>");
+      } else {
+        content = $("<div class='toot-text'>" + status_.content + "</div>" + "<div class='toot-medias'></div>");
+      }
 		}
 
 		if(status_.reblog) {
