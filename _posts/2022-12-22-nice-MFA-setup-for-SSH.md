@@ -8,6 +8,7 @@ tags:
   - 2fa
   - fido
   - yubikey
+maturity: good
 ---
 
 ![SoloKeys](/assets/blog/3rdparty/pictures/solokeys.png)
