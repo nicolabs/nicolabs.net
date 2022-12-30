@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2022-12-22T22:48:26+01:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">A nice multi-factor setup for SSH</title><link href="https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH" rel="alternate" type="text/html" title="A nice multi-factor setup for SSH" /><published>2022-12-22T00:00:00+01:00</published><updated>2022-12-22T00:00:00+01:00</updated><id>https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH</id><content type="html" xml:base="https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH"><![CDATA[<p><img src="/assets/blog/3rdparty/pictures/solokeys.png" alt="SoloKeys" /></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2022-12-30T17:08:12+01:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">A nice multi-factor setup for SSH</title><link href="https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH" rel="alternate" type="text/html" title="A nice multi-factor setup for SSH" /><published>2022-12-22T00:00:00+01:00</published><updated>2022-12-22T00:00:00+01:00</updated><id>https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH</id><content type="html" xml:base="https://www.nicolabs.net/2022/nice-MFA-setup-for-SSH"><![CDATA[<p><img src="/assets/blog/3rdparty/pictures/solokeys.png" alt="SoloKeys" /></p>
 <figcaption>Illustration © 2022 SOLOKEYS - https://solokeys.com</figcaption>
 
 <p>This article shows how to set up an SSH server so that users can authenticate :</p>
@@ -265,7 +265,9 @@ me@somehost.intranet:~<span class="err">$</span>
 
 <p>You’re in !</p>
 
-<h2 id="bugs">Bugs</h2>
+<h2 id="bugs-and-limitations">Bugs and limitations</h2>
+
+<h3 id="agent-refused-operation">Agent refused operation</h3>
 
 <p>When your hardware token is not plugged in, you might have the following message :</p>
 
@@ -273,6 +275,12 @@ me@somehost.intranet:~<span class="err">$</span>
 </code></pre></div></div>
 
 <p>This is not blocking and SSH will use another method to authenticate (another ssh key or OTP).</p>
+
+<h3 id="non-interactive-logins">Non-interactive logins</h3>
+
+<p>OTP and FIDO2 “touch” method are suited for interactive login, but you might need to keep SSH public key authentication open for background services (e.g. mounting remote filesystems via SFTP).</p>
+
+<p>In this case finer tuning is possible by targeting specific users in the SSH configuration.</p>
 
 <h2 id="references">References</h2>
 

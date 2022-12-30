@@ -314,13 +314,23 @@ You're in !
 
 
 
-## Bugs
+## Bugs and limitations
+
+### Agent refused operation
 
 When your hardware token is not plugged in, you might have the following message :
 
     sign_and_send_pubkey: signing failed for ED25519-SK "/home/me/.ssh/ed25519_sk_yubikey1" from agent: agent refused operation
 
 This is not blocking and SSH will use another method to authenticate (another ssh key or OTP).
+
+### Non-interactive logins
+
+OTP and FIDO2 "touch" method are suited for interactive login, but you might need to keep SSH public key authentication open for background services (e.g. mounting remote filesystems via SFTP).
+
+In this case finer tuning is possible by targeting specific users in the SSH configuration.
+
+
 
 ## References
 
