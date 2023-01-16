@@ -2,9 +2,10 @@ Source code for https://www.nicolabs.net
 
 ## Setup
 
-- Install jekyll : `sudo gem install jekyll jekyll-feed jekyll-gist jekyll-paginate jekyll-sass-converter jekyll-coffeescript`
-- [Install plantuml and a `plantuml` command in the PATH](https://github.com/yegor256/jekyll-plantuml#install-plantumljar) (requirement of *jekyll-plantuml*) (and probably *dot* : `sudo apt install graphviz`)
-- Run `bundle install`
+- Install **ruby** : `sudo apt install ruby`
+- Install **jekyll** : `sudo gem install jekyll jekyll-feed jekyll-gist jekyll-paginate jekyll-sass-converter jekyll-coffeescript`
+- [Install **plantuml** and a `plantuml` command in the PATH](https://github.com/yegor256/jekyll-plantuml#install-plantumljar) (requirement of *jekyll-plantuml*) (and probably **dot** : `sudo apt install graphviz` for Debian systems)
+- Install **make** then run `make setup` (or look into `Makefile` for the underlying commands)
 
 
 ## Assets/blog folder
@@ -23,7 +24,11 @@ The new layout is :
 
 ## Previewing locally
 
-Run `bundle exec jekyll serve --livereload -H '*' --drafts` to start a local server with automatic reload and drafts preview.
+Run the following to update Ruby gems & and start a local server with automatic reload and drafts preview :
+
+```shell
+make serve
+```
 
 
 ## Drafts
@@ -64,10 +69,11 @@ Based on :
 
 ## Publishing
 
-1. Update Ruby gems & build the final site without drafts :
+1. Build the final site without drafts :
 
-    bundle update
-    bundle exec jekyll build
+```shell
+make build
+```
 
 2. Add, commit & push files [into the *master* git branch](https://help.github.com/en/github/working-with-github-pages/about-github-pages#publishing-sources-for-github-pages-sites), including the `docs` directory (same as Jekyll's `_site` directory, but renamed for github pages)
 

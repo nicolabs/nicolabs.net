@@ -1,13 +1,18 @@
-all: install
+all: setup update build
 
-install:
+setup:
 	bundle install
 
 update:
 	bundle update
 
-serve:
+serve: update
 	bundle exec jekyll serve --livereload -H '*' --drafts
 
 build:
+	rm -rf assets/uml docs/assets/uml
 	bundle exec jekyll build
+
+clean:
+	bundle exec jekyll clean
+	rm -rf assets/uml docs/assets/uml
