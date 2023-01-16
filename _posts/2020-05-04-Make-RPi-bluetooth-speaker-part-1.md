@@ -5,16 +5,37 @@ tags:
   - raspberry pi
   - bluetooth
   - "Series : Make a Raspberry Pi a Bluetooth speaker"
-maturity: draft
+maturity: good
+last_modified_at: 2023-01-15
 ---
 
 ![Bluetooth logo](/assets/blog/3rdparty/logos/Bluetooth_FM_Color.png){:height="128px"}
 
 In this two-part article I describe the steps I had to take to make a *headless Raspberry Pi 4* a Bluetooth [A2DP](https://www.howtogeek.com/338750/whats-the-difference-between-bluetooth-a2dp-and-aptx/) speaker.
 
-My goal was to offer a user-friendly way for anyone in the same room to pair its Bluetooth smartphone with the Raspberry Pi and play music through it, while making sure the neighbors won't be able to connect without approval.
+My goal was to offer a user-friendly way for anyone in the same room to **pair its Bluetooth smartphone with the Raspberry Pi and play music through it**, while making sure the **neighbors won't be able to connect without approval**.
 
-To output music, you can connect a Hi-Fi system  to the Raspberry Pi using the Jack plug or an audio add-on card : this part depends on your setup.
+To output music, you can **connect a Hi-Fi system to the Raspberry Pi** using the Jack plug or an audio add-on card : this part depends on your setup.
+
+{% plantuml %}
+@startuml
+
+!include <tupadr3/common>
+!include <tupadr3/devicons/raspberry_pi>
+!include <tupadr3/material/phone_android.puml>
+!include <tupadr3/material/speaker.puml>
+
+rectangle "Home <&home>" as Home {
+  MATERIAL_PHONE_ANDROID(Guest,Guest smartphone)
+  DEV_RASPBERRY_PI(RPi,Raspberry Pi)
+  MATERIAL_SPEAKER(Speaker,Speaker)
+}
+
+RPi - Speaker : Audio cable
+Guest .[#Blue].> RPi : Broadcasts music\nthrough Bluetooth A2DP <&bluetooth>
+
+@enduml
+{% endplantuml %}
 
 Allright, let's dive into how Bluetooth works.
 
@@ -26,6 +47,7 @@ Allright, let's dive into how Bluetooth works.
 ## How Bluetooth pairing works
 
 Bluetooth is quite a complex thing. Really. I haven't realized before I started this mini project. Beside its original goal to be a wireless replacement for cables, Bluetooth actually includes [a myriad of features](https://en.wikipedia.org/wiki/Bluetooth#List_of_applications).
+
 In order to understand how we should connect to our Raspberry Pi (*RPi*), let's focus on some core aspects of Bluetooth.
 
 
@@ -35,15 +57,17 @@ Being tightly coupled with hardware, Bluetooth has evolved a lot since its begin
 This is why it has so many *security models* ; let's try to understand how they compare.
 
 
-#### There are two distinct "families" of Bluetooth.
+#### There are two distinct "branches" in Bluetooth.
 
-The legacy, **Basic Rate (BR)** was the first and only protocol in the beginning. It was quickly complemented with *EDR (Enhanced Data Rate)* in Bluetooth 2.0, hence the name **BR/EDR**.
+The legacy Bluetooth branch, **"Basic Rate" (BR)** was the first and only protocol in the beginning. It was quickly complemented with *EDR (Enhanced Data Rate)* in Bluetooth 2.0, hence the name **BR/EDR**.
 
-Bluetooth 4.0 came with another, not backward-compatible protocol  : **Bluetooth Low Energy (abbreviated LE, or BLE)**. This new Bluetooth "family" requires less energy and fits smartphones and *IoT* better.
+Bluetooth 4.0 introduced another, not backward-compatible protocol  : **"Bluetooth Low Energy" (abbreviated LE, or BLE)**. This new Bluetooth "branch" requires less energy and fits smartphones and *IoT* better.
 
-Althought *BR/EDR* and *BLE* are not compatible, Bluetooth devices can implement one or the other, or even both. For the record there is also an *AMP* specification, usually implemented in a secondary controller, in order to achieve Wi-Fi class transfer rates.
+Althought *BR/EDR* and *BLE* are not compatible with each other, Bluetooth devices can actually implement both.
 
-Each protocol "family" has their own security and association models, even though they follow the same logic :
+For the record there is also an additional "AMP" specification to achieve Wi-Fi class transfer rates, usually implemented by a secondary electronic chip.
+
+Each branch has its own security and association models, even though they all follow the same logic :
 
 {% plantuml %}
 @startuml
@@ -108,28 +132,27 @@ The Bluetooth Core Specification[^1] makes it clear that :
 
 My feeling reading the specifications is that Bluetooth was not made with high expectations on security from the beginning. It has so many trade-offs at the benefit of usability that *Secure Connections*, whether for BR/EDR or LE, just looks to me like the bare minimum to have.
 
-*BR/EDR Legacy Pairing*'s security for instance *unavoidably depends* on the length of the PIN (which is often a small four-digit number, or even a fixed value) and provide little-to-none protection against eavesdropping or man-in-the-middle (MITM) attacks.
-*Secure Simple Pairing* for its part only *"protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack[^2]"*. It strongly depends on human decisions (based on failure alerts in case of an attack) to mitigate the risk and allows for configurations that *would* make it unsecure.
-Without going on with further examples, it's easy to configure it wrong and let the neighbors accidentally connect to your Bluetooth device or any passing-by hacker to gather any personal information.
+*BR/EDR Legacy Pairing*'s security for instance *unavoidably depends* on the length of the PIN (which is often a small four-digit number, or even a fixed value) and provide little-to-none protection against [eavesdropping](https://en.wikipedia.org/wiki/Eavesdropping) or [man-in-the-middle (MITM) attacks](https://en.wikipedia.org/wiki/Man-in-the-middle_attack).
+*Secure Simple Pairing* for its part only *"protects the user from MITM attacks with a goal of offering a 1 in 1,000,000 chance that a MITM could mount a successful attack[^2]"*. **It strongly relies on human decision (based on warning messages in case of an attack) to mitigate risks and allows for configurations that *can* make it unsecure**.
+In short, it's easy to configure it wrong and let the neighbors accidentally connect to your Bluetooth device and maybe gather personal informations.
 
-Also, "LE is the new BR/EDR". Most efforts seem to be put on Bluetooth LE and Bluetooh BR/EDR suffers from not being up-to-date with today's requirements. For instance : in BR/EDR, cryptographic key generation is being made in lower, often hardware, layers, making it difficult to upgrade security algorithms.
-This is probably the fate of a very pragmatic specification that didn't intend to foresee the future of technology ; unfortunately this leaves us with a plethora of unsecure devices in the wild.
+Also, "LE is the new BR/EDR". Indeed, most efforts seem to be put on Bluetooth LE as Bluetooh BR/EDR lacks behind, not keeping up with today's requirements. For instance : with BR/EDR, cryptographic key generation is being made in lower, often hardware, layers, making it difficult to upgrade security algorithms.
+**This leaves us with a plethora of insecure devices in the wild.**
 
-Wrapping up, this gives the "LE Secure Connections" mode my preference and I will try to make it rule my configuration.
+**👉 Wrapping up, this gives the "LE Secure Connections" mode my preference.**
 
 
 ### Bluetooth association models
 
-The above diagram states that there are several *association models* ; here are the four ones that apply to *Bluetooth Low Energy* :
+As advertised in the above diagram, each security model allows a number of *association models*.
+There are four of them available since *Secure Simple Pairing* :
 
-- **Numeric Comparison** (only since Bluetooth 4.2 for BLE)
+- **Numeric Comparison** (since Bluetooth 4.2 for BLE)
 - **Just Works**
 - **Passkey entry**
 - **Out-of-Band (OOB)**
 
-For the sake of completeness we will also talk about :
-
-- **BR/EDR Legacy pairing**
+For the sake of completeness we will also talk about **BR/EDR Legacy pairing**.
 
 Let's see how they work, and how well they would fit our use case.
 
@@ -142,9 +165,11 @@ The Bluetooth Core Specification[^3] has a very neat way to describe the *Numeri
 displays and then asked whether the numbers are the same on both devices. If
 "yes" is entered on both devices, the pairing is successful.
 
-It is important to understand that *this number is not chosen* by any party : it is randomly computed on each connection attempt, as part of the pairing algorithm[^4]. *It is not a passcode* either : it just helps users check that they pair to the expected device by showing the same value on both sides. If a malicious user were trying to penetrate our home he would just have to hit "Yes" on its side, whatever the value of this 6-digit number.
+It is important to understand that *this number is not chosen* by any party : it is randomly computed on each connection attempt, as part of the pairing algorithm[^4]. *It is not a passcode* either : it just helps users check that they pair to the expected device by showing the same value on both sides. A malicious user trying to penetrate our home would just have to initiate pairing, hit "Yes" on its side and hope we would do the same, not really looking at the number.
 
-The *Numeric Comparison* protocol also allows devices to skip this user confirmation[^4] to automatically pair, but in order to preserve control over who can connect, we should not make this possible and enforce a confirmation on the RPi side.
+The *Numeric Comparison* protocol also allows devices to skip user confirmation[^4], implementing automatic pairing. In this case anyone within reach of such a device can connect. End.
+
+As we'll see later, you may not have a choice and be forced into a model due to devices limitations. In our case we will need to make sure the Raspberry Pi will not offer this kind of bypass.
 
 
 #### Just works
@@ -159,7 +184,7 @@ the user is never shown a number and the application may simply ask the user
 to accept the connection (exact implementation is up to the end product
 manufacturer).
 
-As for *Numeric Comparison*, it looks like a good candidate for our use case, provided that we add a confirmation step as allowed.
+As for *Numeric Comparison*, it may still be a good candidate for our use case, provided that we add a mandatory confirmation step, as allowed.
 
 
 #### Passkey Entry
@@ -175,10 +200,10 @@ In contrast with *Numeric Comparison*, this model does not allow automatic conne
 - the *display device* is the only one to know the number in the beginning ; it decides the way the *passkey* is revealed to the other one
 - the *input-only device* must enter the (supposedly secret) *passkey*
 
-With some tweaks, a headless Raspberry Pi might be on one side or the other :
+In the case of a headless Raspberry Pi :
 
-- if it were the *display device*, we should replace the display step with an equivalent, headless mechanism that allows the other user to obtain the number
-- if it were the *input-only device*, we should find a way to get the number displayed on the other device entered into the RPi
+- if it were the *display device*, we could plug a mini display on it, or make it *speak* the code through the Hi-Fi system, to provide it to the user
+- if it were the *input-only device*, we should find a way to get the number displayed on the other device entered into the RPi (maybe letting the user type it)
 
 This may not look trivial ; we'll see what can be done later on...
 
@@ -189,61 +214,61 @@ With [Out of Band](https://www.bluetooth.com/blog/bluetooth-pairing-part-5-legac
 
 This fits well when both devices are known to share a common mechanism and are explicitly set up to work in this way. For instance a camera and its manufacturer's mobile application will both be programmed to connect with NFC first, then share their "services" through Bluetooth.
 
-But this seemingly won't work for us, as we want to allow common smartphones - with only standard applications - to connect.
-Furthermore, adding another mechanism than Bluetooth as a requirement looks superfluous...
+But this does not fit our use case, as we want to allow most smartphones - with only standard applications - to connect.
+Furthermore, we want to leverage on existing Bluetooth capabilites, not invent new ones...
 
 
 #### BR/EDR models
 
-The four previous models also apply to the BR/EDR side but with some subtle differences in their implementation, which we will not cover...
+The four previous models also apply to the BR/EDR side, with some subtle differences in their implementation (not covered here)...
 
-Finally, there is one more model that apply only to the BR/EDR family : **BR/EDR Legacy pairing**, which was the only association model before Bluetooth 2.1 (see the diagram above).
+The last model, **BR/EDR Legacy pairing**, only applies to BR/EDR. It is outdated but was the only association model before Bluetooth 2.1 and therefore is very probably still there because of older devices.
 
 It requires the two devices to enter the same, 16-character maximum, secret PIN code.
 
-Although it looks similar to *Passkey Entry*, it is far less secure because, here, the connection's encryption directly depends on the complexity of the PIN code.
+Although it looks similar to *Passkey Entry*, it is far less secure because, here, the connection's encryption directly depends on the complexity of the PIN. [Nowadays, passwords less than 7 characters (including special ones) can be cracked instantly, it requires a maximum of 4 hours and 100$ for a 16-*digit* PIN](https://thesecurityfactory.be/password-cracking-speed/)...
 
-What sounds like a practical idea that could be easily implemented on headless devices by simply setting up a static PIN code, unfortunately reveals to be largely unsecure, because the underlying cryptography is not strong enough to compensate weak/short/static/numeric only PIN codes that can be seen on many devices in the wild...
+What sounds like a practical idea to implement on headless devices with a static PIN, unfortunately reveals to be largely insecure. The underlying cryptography is just not strong enough to compensate weak PIN codes that have been hardcoded on existing devices...
 
 It is therefore not considered a potential solution in this article.
-
->TODO Compare the security of a four-digit vs a really long PIN code in this model vs in other models
 
 
 ### Choosing the right association model
 
 I've chosen the three following factors to compare BLE association models regarding my use case :
 
-1. Should not require complex user interaction on the Raspberry Pi's side (e.g. no SSH login to type a passkey)
+1. User authentication but with simple interaction (e.g. no SSH login to type a passkey)
 2. Must be able to control who can connect to the Raspberry Pi (i.e. only known device or manually approved ones)
 3. Secure enough (as much as Bluetooth can)
 
 Let's summarize what we've asserted in the previous chapter :
 
-|                                         |  Numeric comparison\* |  Just Works                        |  Passkey Entry |  Out of Band                       | BR/EDR Legacy Pairing |
-|-----------------------------------------|---------------------|------------------------------------|----------------|------------------------------------|-----------------|
-| No user interaction                     | no ❌                | yes ✅                              | no ❌          | assumed yes ✅         | yes ✅           |
-| Control who can connect                 | no ❌                | no ❌                               | yes ✅         | assumed yes ✅                      | yes ✅           |
-| Secure                                  | yes ✅               | yes ✅                             | yes ✅         | yes\*\* ✅ | no ❌            |
+|-----------------------------+--------------------------+---------------+----------------------------+---------------+-----------------------|
+|                             |  Numeric comparison\*    |  Just Works   |  Passkey Entry             |  Out of Band  | BR/EDR Legacy Pairing |
+|-----------------------------|--------------------------|---------------|----------------------------|---------------|-----------------------|
+| User interaction needed     | yes ✅                   | no ❌         | yes ✅                     | possible ✅   | yes ✅                |
+| Control who can connect     | no ❌<br>(random number) | no ❌         | yes ✅<br>(shared passkey) | possible ✅   | yes ✅                |
+| Secure-enough protocol      | yes ✅                   | yes ✅        | yes ✅                     | yes\*\* ✅    | no ❌                 |
+|-----------------------------+--------------------------+---------------+----------------------------+---------------+-----------------------|
 
 *\* without automatic pairing*
-*\*\* even more than others[^6]*
+*\*\* possibly more than others[^6]*
 
-This table shows, in a way, that authorization in Bluetooth expects either no approval or a manual one, which makes it hard to get good security with headless devices...
+This tables depicts the fact that the only way to *control who can connect* is by requiring the user to enter some - not random - key. Cells indicating "no user interaction" imply that there is no approval.
 
-As discussed before, *Out of Band* is eliminated because it requires another protocol and *BR/EDR Legacy Pairing* is irrelevant for security reasons.
+As discussed before, *Out of Band* is eliminated because it requires an additional protocol and *BR/EDR Legacy Pairing* is irrelevant for security reasons.
 
-In order to get all three requirements met we therefore may use :
+👉 In order to get all our three requirements statisfied we may therefore use :
 
-- **Just Works** with additional authorization
-- **Numeric Comparison** with a headless validation step
-- **Passkey Entry** with a headless mechanism to display and validate a 6-digit number
+- **Numeric Comparison, but with a custom headless validation step**
+- **Just Works, but with additional custom authorization**
+- **Passkey Entry** by implementing a headless mechanism to display and validate a 6-digit number
 
-Unfortunately, except for *BR/EDR Legacy Pairing* **one cannot *choose* the association model : it is asserted from the devices' capabilities**, called [*Input and Output capabilities (IO capabilities)*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/)[^7].
+Unfortunately, except for *BR/EDR Legacy Pairing* **one cannot directly *choose* the association model : it is automatically asserted from the devices' [*Input and Output capabilities (IO capabilities)*](https://www.bluetooth.com/blog/bluetooth-pairing-part-1-pairing-feature-exchange/)[^7]**.
 
-In order to make sure only approved workflows can be selected, our RPi device must therefore advertise only the matching IO capabilites.
+In order to make sure only approved workflows can be used, our RPi device must therefore advertise only the corresponding IO capabilites.
 
-How ? There are full-blown tables[^3] describing the available IO capabilities and the mapping to the matching association models.
+How ? There are full-blown tables[^3] mapping the available IO capabilities to the matching association models.
 
 The **input capabilites** are :
 - **No input** : Device does not have the ability to indicate 'yes' or 'no'
@@ -334,11 +359,11 @@ Here is an overview of the **IO capabilities mapping to the matching association
 </table>
 *Source : Mapping of IO capabilities to key generation method[^7] (without OOB nor LE Legacy Pairing)*
 
-Assuming smartphones would advertise themselves either as *DisplayYesNo* or *KeyboardDisplay* (highlighted cells), the above matrix shows that we should prepare to connect using any association model.
+Assuming smartphones would advertise themselves either as *DisplayYesNo* or *KeyboardDisplay* (highlighted cells), the above matrix shows that we should prepare to connect using any association model of "Numeric Comparison", "Just works" or "Passkey entry".
 
-Additionally, this table emphasizes that **a device may enforce the *Just Works* model** simply by advertising itself as *NoInputNoOutput*. Although this makes it easier for the Industry to build devices with limited or no interface, this is also a leverage for pirates to force our system into a lower security.
+Additionally, this table emphasizes that **a device may enforce the *Just Works* model** simply by advertising itself as *NoInputNoOutput*. Although this makes it easier for the Industry to build devices with limited or no interface, this is also a leverage for pirates ☠ to force our system into a lower security.
 
-We have the possibility to deny any pairing with the *Just Works* workflow, but this may prevent some genuine devices to connect : we should rather enforce a validation step. The main difference between "Just Works + validation" and other workflows would be the use of a custom authentication mechanism instead of a six-digit number verification.
+We have the possibility to deny any pairing in the *Just Works* workflow, but this may prevent some genuine devices to connect : we should rather enforce a validation step. The main difference between "Just Works + validation" and other workflows would be the use of a custom authentication mechanism instead of a six-digit number verification.
 
 
 ### Putting it altogether with BlueZ
@@ -349,11 +374,14 @@ Linux systems (which we will use for our Raspberry Pi) have a complex Bluetooth 
 
 - the [BlueZ](http://www.bluez.org/) system daemon will handle core Bluetooth features
 - modules will allow us to connect with specialized services : ALSA/PulseAudio in our case in order to receive and play sound from paired devices
-- a registration **agent** will handle the pairing part as we like
+- a registration **agent** will handle the pairing part as we like **=> this is where we will put any custom authorization step**
 
 Having the Bluez daemon and the audio modules work together is only a matter of configuration (which is already not trivial).
 
-However I could not find a bluetooth agent matching my use case : the default agent [`bt-agent` has been deprecated](https://unix.stackexchange.com/questions/352494/alternative-to-the-now-deprecated-rfcomm-binary-in-bluez#463502) ; the `bluetoothctl` command is not really scriptable ; the quite common `simple-agent` sample script does not implement the right features.
+However I could not find a bluetooth agent matching my use case :
+- the default agent [`bt-agent` has been deprecated](https://unix.stackexchange.com/questions/352494/alternative-to-the-now-deprecated-rfcomm-binary-in-bluez#463502)
+- the `bluetoothctl` command cannot easily be used in scripts
+- the quite common `simple-agent` sample script does not implement the right features...
 
 
 #### Conclusion
@@ -362,7 +390,7 @@ Bluetooth does not provide a secure and automatic way to pair with headless devi
 
 The existence of several association models with complex selection rules make it easy to get it wrong.
 
-We will use the *bluez* Linux stack to implement the basis of our solution and will need to create a custom agent to handle pairing in the exact way we want.
+We will use the *bluez* Linux stack to implement the basis of our solution and will need to create a custom agent to add secure-enough authorization to the existing pairing workflows.
 
 **Part 1 is over, let's see how to set up the whole thing in part 2 : "Raspberry Pi as a Bluetooth A2DP receiver" (soon available).**
 
