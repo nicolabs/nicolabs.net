@@ -85,9 +85,11 @@ That does not prevent you from properly configuring your custom domain to redire
 
 
 
-### Draw
+## Draw
 
-#### Trust
+There are a few features worth describing even though they don't give a clear advantage to one or the other.
+
+### Trust
 
 Proton Mail has a good reputation among the global community and [Mailfence is recommended by Thunderbird](https://support.mozilla.org/en-US/kb/new-email-address).
 
@@ -97,7 +99,7 @@ They both promote security by transparency : Proton [audits its client apps](htt
 
 None of them publish the server-side code though, but this is hopefully not absolutely required because of end-to-end encryption.
 
-#### Importing emails
+### Importing emails
 
 Proton Mail has a helpful feature to import mail history from external providers. You may have to run the procedure several times to get all mail transferred with high volumes, but I found it OK to merge ~1GB of data from 2 GMail accounts (I've not tested on my whole 20+ GB of emails because it was a good opportunity to trim old mails).
 
@@ -118,7 +120,7 @@ Mailfence documentation, on its side, is quite a mess to search for : Google was
 
 Although it may be a bit in favor of Proton, I could not clearly determine a winner on this one...
 
-### Unique email address
+### Anti-spam addresses
 
 Both support *[Plus Addressing](https://blog.mailfence.com/plus-addressing-to-track-spammers/)* to fight against spam : e.g. `uniqueprefix+myname@mf.me` or `uniqueprefix+myname@pm.me`.
 
