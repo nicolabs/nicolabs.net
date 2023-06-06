@@ -5,7 +5,7 @@ tags:
   - mail
   - security
 permalink: 2023/protonmail-vs-mailfence
-maturity: draft
+maturity: good
 ---
 
 
