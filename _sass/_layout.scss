@@ -86,27 +86,22 @@ hr {
 
   /* start @nicobo : color-inverted header */
   background-color: $header-background-color;
+  background-image: $header-background-image;
+  background-size: 100%;
   a {
       font-weight: bolder;
-      color: white;
-      border-color: white;
 
       /* preserves placement when drawing a box around when hovering */
       display: inline-block;
       padding: 0 .3em;
-      &:hover,
-      &:focus,
-      &:active {
-          background-color: white;
-          /* background color is used to make a 'inversion' effect */
-          color: $header-background-color;
-      }
 
       /* E.g. Padding is too much for Galaxy S10 */
       @media screen and (max-width: 400px) {
         padding: 0;
       }
   }
+
+
 
   /*
     When the site is scrolled down the site header is reduced and pinned at the top
@@ -167,8 +162,15 @@ hr {
   transition: 0.5s;
 
   a {
+    color: $header-logo-color;
     text-decoration: none;
     border: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+        color: $header-logo-active-color;
+    }
   }
 
   span {
@@ -192,6 +194,16 @@ hr {
 
   a {
     @extend .link;
+    color: $header-link-color;
+    border-color: $header-link-border-color;
+    background-color: $header-link-background-color;
+
+    &:hover,
+    &:focus,
+    &:active {
+        background-color: $header-link-active-background-color;
+        color: $header-link-active-color;
+    }
   }
 }
 
@@ -362,14 +374,22 @@ h2.tag a {
     display: block;
     font-size: rem(12);
     color: darken($medium-gray-color, 10%);
+    color: #000;
   }
 
   /* start @nicobo : color-inverted footer */
-  background-color: $header-background-color;
-  .container * {
-      color: white;
+  background-color: $footer-background-color;
+  background-image: $footer-background-image;
+  background-size: 100%;
+
+  .container {
+    * {
+      background-color: #fff;
+      padding: rem(5);
+      color: #000;
       border-color: white;
       font-weight: bolder;
+    }
   }
   /* end @nicobo */
 }
