@@ -149,12 +149,20 @@ img {
   }
 
   /* Only keep a small height for the first image in the preview (see https://themes.artbees.net/blog/crop-images-in-css/) */
-  img:first-of-type {
+/*
     display: block;
     object-fit: cover;
     height: 15em;
     width: 100%;
     margin: 0;
+  }
+*/
+
+  /* Hides the first image in the preview */
+  // TODO This works as long as the first image convention is fulfilled,
+  // but would better be implemented by filtering images by class ?
+  img:first-of-type {
+    display: none;
   }
 
   /* Smaller image legend */
