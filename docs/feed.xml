@@ -1,4 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2023-06-06T23:23:06+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">I got bored of Google reading my emails</title><link href="https://www.nicolabs.net/2023/protonmail-vs-mailfence" rel="alternate" type="text/html" title="I got bored of Google reading my emails" /><published>2023-06-06T00:00:00+02:00</published><updated>2023-06-06T00:00:00+02:00</updated><id>https://www.nicolabs.net/2023/ProtonMail-vs-Mailfence</id><content type="html" xml:base="https://www.nicolabs.net/2023/protonmail-vs-mailfence"><![CDATA[<p><a href="https://proton.me/mail"><strong>Proton Mail</strong></a> and <a href="https://mailfence.com"><strong>Mailfence</strong></a> are two famous email service providers known for their privacy-friendly policies.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://www.nicolabs.net/feed.xml" rel="self" type="application/atom+xml" /><link href="https://www.nicolabs.net/" rel="alternate" type="text/html" /><updated>2023-06-23T12:52:27+02:00</updated><id>https://www.nicolabs.net/feed.xml</id><title type="html">nicolabs</title><subtitle>Work in progress...</subtitle><author><name>nicobo</name></author><entry><title type="html">An email domain for your family</title><link href="https://www.nicolabs.net/2023/An-email-domain-for-your-family" rel="alternate" type="text/html" title="An email domain for your family" /><published>2023-06-23T00:00:00+02:00</published><updated>2023-06-23T00:00:00+02:00</updated><id>https://www.nicolabs.net/2023/An-email-domain-for-your-family</id><content type="html" xml:base="https://www.nicolabs.net/2023/An-email-domain-for-your-family"><![CDATA[<p>Do you want your family members to share the same <strong>@&lt;put your family name here&gt;</strong> emails ?</p>
+
+<p>You have several choices :</p>
+
+<ol>
+  <li>pay an email provider to host email accounts =&gt; this may become expensive if your pals send a lot of multimedia files through emails and require lots of GB</li>
+  <li>self-host an email server =&gt; this implies a lot of administration if you want it to be highly available, including complex white-listing to bypass anti-spam filters</li>
+  <li>let everyone choose their own email provider and use the common domain to redirect to/from them</li>
+</ol>
+
+<p><strong>This article is a very draft description on how to do it the 3rd way.</strong></p>
+
+<h2 id="the-pattern">The pattern</h2>
+
+<p>Let’s say you want everyone in your family (or friends) to share the same email domain : <strong>mom@myfunky.family</strong>, <strong>jul@myfunky.family</strong>, <strong>dog@myfunky.family</strong>, …</p>
+
+<p>For <em>Jul</em> which is using <code class="language-plaintext highlighter-rouge">jul@sadmail.org</code> that means :</p>
+<ol>
+  <li>forward all incoming messages at <code class="language-plaintext highlighter-rouge">jul@myfunky.family</code> to <code class="language-plaintext highlighter-rouge">jul@sadmail.org</code></li>
+  <li>allow sending out emails as <code class="language-plaintext highlighter-rouge">jul@myfunky.family</code> from <code class="language-plaintext highlighter-rouge">sadmail.org</code></li>
+</ol>
+
+<p>The basic steps for this are explained in the following paragraphs :</p>
+
+<ol>
+  <li>Choose an email provider that will forward <code class="language-plaintext highlighter-rouge">@myfunky.family</code> messages to each member’s own address</li>
+  <li>Register (rent) <code class="language-plaintext highlighter-rouge">myfunky.family</code> domain to a registrar and configure it</li>
+  <li>Members must allow their account at their personal email provider to send e-mails with their family address</li>
+  <li>Members may also need to add a new identify in their e-mail apps</li>
+</ol>
+
+<h2 id="choose-an-email-provider">Choose an email provider</h2>
+
+<p>You need an email server to forward emails received at <em>@myfunky.family</em> to each members’ personal mailbox.</p>
+
+<p>In this tutorial we don’t want to host the email server ourselves, so you may choose any email provider offering a <em>forwarding</em> service to external email addresses (I guess they all provide it).
+It may be the one of your personal mailbox or a totally different one.
+Often the domain registrar itself will offer it already so you probably don’t need to go further.</p>
+
+<p><strong>For each family member (after having configured the MX records) you will need to add a forward rule</strong> :</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>From</th>
+      <th>To</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">jul@myfunky.family</code></td>
+      <td><code class="language-plaintext highlighter-rouge">jul@sadmail.org</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">mom@myfunky.family</code></td>
+      <td><code class="language-plaintext highlighter-rouge">mom455678@iamaboomer.com</code></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dog@myfunky.family</code></td>
+      <td><code class="language-plaintext highlighter-rouge">snoopy@snoopymail.waf</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>See the mail provider for the exact procedure (if you’re using the domain registrar’s to do this, <a href="https://docs.gandi.net/en/gandimail/forwarding_and_aliases/index.html">you probably just have to change to the correct tab…</a>).</p>
+
+<p>Note that <strong>you will first need to configure the MX records</strong> on <code class="language-plaintext highlighter-rouge">myfunky.family</code> so you don’t loose emails - see below.</p>
+
+<h2 id="register-and-configure-the-family-domain">Register and configure the family domain</h2>
+
+<p>There are 2 things to configure on the domain :</p>
+
+<ul>
+  <li>Set <a href="https://www.cloudflare.com/learning/dns/dns-records/dns-mx-record/">MX records</a> pointing at the <em>forwarding</em> email server you chose in 1.</li>
+  <li>Set anti-spam records (<a href="https://www.cloudflare.com/learning/dns/dns-records/dns-spf-record/">a.k.a. “SPF”</a>) to allow other email providers to send upon the family addresses without being flagged as spammers</li>
+</ul>
+
+<h3 id="mx-records-">MX records :</h3>
+
+<p><strong>See the mail provider for the values tu put in the MX records</strong>. Basically, it consists of putting the email server address.</p>
+
+<p>If it is the domain registrar chances are it is already configured or there is a one-click procedure.</p>
+
+<p>Once MX records are configured, you can proceed to forwarding rules (see above).</p>
+
+<h3 id="spf-records-">SPF records :</h3>
+
+<p><em>Receiving</em> email on your <em>@myfunky.family</em> address is ultra-simple and most of the time instant (it’s just adding a forward rule at the email provider - see above).</p>
+
+<p>But <strong>to be able to send from this address you will have to set anti-spam records on the DNS</strong> to pass through spam filters : this is called <a href="https://www.cloudflare.com/learning/dns/dns-records/dns-spf-record/">SPF (Sender Policy Framework)</a>.</p>
+
+<p>The principle is simple : this is a <a href="https://www.cloudflare.com/learning/dns/dns-records/dns-txt-record/">TXT record</a> on the <code class="language-plaintext highlighter-rouge">myfunky.family</code> domain which contains the email providers allowed to send emails with this domain.
+For instance if some members use Gmail and others Yahoo Mail, you need to include both <code class="language-plaintext highlighter-rouge">_spf.google.com</code> and <code class="language-plaintext highlighter-rouge">_spf.mail.yahoo.com</code> to this list (exact values are provided by each mail provider).</p>
+
+<p>However, when including too many of them (this may come quickly since your family members probably use different email providers), you will reach the <strong>limit of 10 total DNS queries allowed</strong> by the SPF specification !
+Important to know : <a href="https://toolbox.googleapps.com/apps/checkmx/">each initial domain may resolve to several ones</a> : for instance <code class="language-plaintext highlighter-rouge">_spf.google.com</code> currently resolves to 3 other domains (3 additional DNS queries).</p>
+
+<p>The only way to bypass this limitation is to directly include IP addresses instead of domain names, <strong>but then you must take care of updating them when they change</strong>.
+You <a href="https://dmarcly.com/blog/spf-permerror-too-many-dns-lookups-when-spf-record-exceeds-10-dns-lookup-limit">might find online tools</a> to do this - it’s called <a href="https://smalltechstack.com/blog/flattening-your-spf-record"><strong>SPF flattening</strong></a>, but I haven’t found a correct one.
+There are also tools to update by hand or automatically (<a href="https://github.com/nicolabs/gandi-spf-flatten/tree/main">here’s mine</a>).</p>
+
+<p>This was the touchy part, other steps are usually straightforward…</p>
+
+<h2 id="steps-for-each-family-member">Steps for each family member</h2>
+
+<h3 id="allow-their-account-to-send-e-mails-with-their-family-address">Allow their account to send e-mails with their family address</h3>
+
+<p>In ordert to <em>send</em> emails with their family address, members need to configure their own email provider : the procedure differs for each of them but it often imply sending a verification email to the new address <a href="https://support.google.com/mail/answer/22370">e.g. for Gmail</a>.</p>
+
+<h3 id="add-a-new-identity-in-their-e-mail-apps">Add a new identity in their e-mail apps</h3>
+
+<p>As a final step, each member will probably want to add their family address as a new identity so that they don’t need to manually change the <code class="language-plaintext highlighter-rouge">from:</code> field for each message to send.</p>
+
+<p>This is also a client-specific configuration (e.g. for <a href="https://docs.k9mail.app/en/6.400/settings/account/#manage-identities">K9-Mail</a> ; for <a href="https://support.mozilla.org/en-US/kb/using-identities">Thunderbird</a>).</p>]]></content><author><name>nicobo</name></author><category term="mail" /><category term="self hosting" /><category term="domain" /><summary type="html"><![CDATA[Do you want your family members to share the same @&lt;put your family name here&gt; emails ? You have several choices : pay an email provider to host email accounts =&gt; this may become expensive if your pals send a lot of multimedia files through emails and require lots of GB self-host an email server =&gt; this implies a lot of administration if you want it to be highly available, including complex white-listing to bypass anti-spam filters let everyone choose their own email provider and use the common domain to redirect to/from them This article is a very draft description on how to do it the 3rd way. The pattern Let’s say you want everyone in your family (or friends) to share the same email domain : mom@myfunky.family, jul@myfunky.family, dog@myfunky.family, … For Jul which is using jul@sadmail.org that means : forward all incoming messages at jul@myfunky.family to jul@sadmail.org allow sending out emails as jul@myfunky.family from sadmail.org The basic steps for this are explained in the following paragraphs : Choose an email provider that will forward @myfunky.family messages to each member’s own address Register (rent) myfunky.family domain to a registrar and configure it Members must allow their account at their personal email provider to send e-mails with their family address Members may also need to add a new identify in their e-mail apps Choose an email provider You need an email server to forward emails received at @myfunky.family to each members’ personal mailbox. In this tutorial we don’t want to host the email server ourselves, so you may choose any email provider offering a forwarding service to external email addresses (I guess they all provide it). It may be the one of your personal mailbox or a totally different one. Often the domain registrar itself will offer it already so you probably don’t need to go further. For each family member (after having configured the MX records) you will need to add a forward rule : From To jul@myfunky.family jul@sadmail.org mom@myfunky.family mom455678@iamaboomer.com dog@myfunky.family snoopy@snoopymail.waf See the mail provider for the exact procedure (if you’re using the domain registrar’s to do this, you probably just have to change to the correct tab…). Note that you will first need to configure the MX records on myfunky.family so you don’t loose emails - see below. Register and configure the family domain There are 2 things to configure on the domain : Set MX records pointing at the forwarding email server you chose in 1. Set anti-spam records (a.k.a. “SPF”) to allow other email providers to send upon the family addresses without being flagged as spammers MX records : See the mail provider for the values tu put in the MX records. Basically, it consists of putting the email server address. If it is the domain registrar chances are it is already configured or there is a one-click procedure. Once MX records are configured, you can proceed to forwarding rules (see above). SPF records : Receiving email on your @myfunky.family address is ultra-simple and most of the time instant (it’s just adding a forward rule at the email provider - see above). But to be able to send from this address you will have to set anti-spam records on the DNS to pass through spam filters : this is called SPF (Sender Policy Framework). The principle is simple : this is a TXT record on the myfunky.family domain which contains the email providers allowed to send emails with this domain. For instance if some members use Gmail and others Yahoo Mail, you need to include both _spf.google.com and _spf.mail.yahoo.com to this list (exact values are provided by each mail provider). However, when including too many of them (this may come quickly since your family members probably use different email providers), you will reach the limit of 10 total DNS queries allowed by the SPF specification ! Important to know : each initial domain may resolve to several ones : for instance _spf.google.com currently resolves to 3 other domains (3 additional DNS queries). The only way to bypass this limitation is to directly include IP addresses instead of domain names, but then you must take care of updating them when they change. You might find online tools to do this - it’s called SPF flattening, but I haven’t found a correct one. There are also tools to update by hand or automatically (here’s mine). This was the touchy part, other steps are usually straightforward… Steps for each family member Allow their account to send e-mails with their family address In ordert to send emails with their family address, members need to configure their own email provider : the procedure differs for each of them but it often imply sending a verification email to the new address e.g. for Gmail. Add a new identity in their e-mail apps As a final step, each member will probably want to add their family address as a new identity so that they don’t need to manually change the from: field for each message to send. This is also a client-specific configuration (e.g. for K9-Mail ; for Thunderbird).]]></summary></entry><entry><title type="html">I got bored of Google reading my emails</title><link href="https://www.nicolabs.net/2023/protonmail-vs-mailfence" rel="alternate" type="text/html" title="I got bored of Google reading my emails" /><published>2023-06-06T00:00:00+02:00</published><updated>2023-06-06T00:00:00+02:00</updated><id>https://www.nicolabs.net/2023/ProtonMail-vs-Mailfence</id><content type="html" xml:base="https://www.nicolabs.net/2023/protonmail-vs-mailfence"><![CDATA[<p><a href="https://proton.me/mail"><strong>Proton Mail</strong></a> and <a href="https://mailfence.com"><strong>Mailfence</strong></a> are two famous email service providers known for their privacy-friendly policies.</p>
 
 <p>You will find <a href="https://www.lifewire.com/best-secure-email-services-4136763">many</a> <a href="https://restoreprivacy.com/email/secure/">articles</a> <a href="https://www.makeuseof.com/mailfence-vs-protonmail-which-is-more-secure/">comparing</a> them as well as other similar providers (<a href="https://tutanota.com/">Tutanota</a>, …), but most of them are just based on specifications, so I decided to give them a <em>real world</em> test run.</p>
 
@@ -1252,64 +1365,4 @@ The good news is that some content that was hidden, in draft state, is going to 
 <ul>
   <li><a href="http://designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do/">designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do</a></li>
   <li><a href="http://www.thesassway.com/intermediate/responsive-web-design-part-2">thesassway.com/intermediate/responsive-web-design-part-2</a></li>
-</ul>]]></content><author><name>nicobo</name></author><category term="css" /><category term="graphism" /><category term="media queries" /><category term="sass" /><category term="web design" /><summary type="html"><![CDATA[A year ago I was very excited to get my hands at Sass. I thought it could fill the gaps in coding with CSS : preventing variables duplications, automatic generation of multiple static stylesheets depending on the rendering device (vs using media queries which are not always supported and require downloading all versions of the code)… But it could not. What really is Saas Sass-lang.com states it is a “CSS extension language”, but don’t take it literaly or you will head straight for failure. That would imply that Sass adds instructions to the CSS language ; however it’s not right because web browsers today only understand CSS, not Sass. Sass is nothing but dynamic : it’s a pre-processor that may only really be used to offline-produce different versions of a CSS with different sizes, colors and layouts, but it’s not able to make your CSS dynamic. It’s just several static versions of CSS that you must still dynamically/selectively load using an external mechanism (like static media queries or Javascript). I fell into this trap as I tried to organize stylesheets with inheritance like in object oriented languages (OO) : this structure would always failed at a given point. For instance : as variables only live in the Sass context, and disappear in the compiled CSS, if you want to make two versions of a stylesheet with different values of the same variable, you only have one option : build a CSS block or stylesheet for each value. There is no added value using Sass variables in media queries because they will just be replaced with their static, final value. Conclusion Make no mistake : Sass is a very helpful evolution for CSS, use it, but know its limits ! References designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do thesassway.com/intermediate/responsive-web-design-part-2]]></summary></entry><entry><title type="html">Scaffolding the Web 2.0</title><link href="https://www.nicolabs.net/articles/scaffolding-web-20" rel="alternate" type="text/html" title="Scaffolding the Web 2.0" /><published>2015-01-29T23:52:38+01:00</published><updated>2015-01-29T23:52:38+01:00</updated><id>https://www.nicolabs.net/articles/Scaffolding-the-Web-2.0</id><content type="html" xml:base="https://www.nicolabs.net/articles/scaffolding-web-20"><![CDATA[<h2 id="starting-up-with-web-20-development-">Starting up with Web 2.0 development ?</h2>
-
-<p>Let’s choose between three essentials tools to begin a new project !</p>
-
-<p><img src="/assets/blog/h5bp.png" alt="h5bp" class="inline" height="120px" width="120px" /> <img src="/assets/blog/html5-logo-165.png" alt="initializr" class="inline" height="120px" width="120px" /> <img src="/assets/blog/yeoman.png" alt="yeoman" class="inline" height="120px" width="120px" /></p>
-
-<h2 id="-html5-boilerplate"><img src="/assets/blog/h5bp-logo.png" alt="H5BP logo (star)" class="inline" style="vertical-align:middle;" /> HTML5 Boilerplate</h2>
-
-<p><strong>HTML5 Boilerplate</strong> (a.k.a. <em>H5BP</em>) is the original scaffolding tool by Paul Irish &amp; Co (will have to search for the exact history…).</p>
-
-<p>It allows you to build a clean website structure with standard features based on best practices like :</p>
-
-<ul>
-  <li>responsive design-ready CSS</li>
-  <li>standard javascript libraries : Modernizr, Respond.js, …</li>
-  <li>404 page</li>
-  <li>Google Analytics</li>
-  <li>favicons for apple</li>
-  <li>many more…</li>
-</ul>
-
-<p>It does not support CSS preprocessing (SASS, …) and requires you some effort to upgrade to the latest version later (by separating your work from the original files that will be upgraded)…</p>
-
-<p>It’s good for <strong>small</strong> sites.</p>
-
-<p>Find it at <a href="http://html5boilerplate.com">html5boilerplate.com</a></p>
-
-<h2 id="-initializr"><img src="/assets/blog/html5-logo-165.png" alt="Initializr logo" class="inline" style="vertical-align:middle;" height="80px" /> Initializr</h2>
-
-<p>While <em>H5BP</em> is a static project template to download, <strong>Initializr</strong> allows you to customize it by selecting the features you want on your site and then downloading the generated files.</p>
-
-<p>It has 3 ready-to-use configurations :</p>
-
-<ul>
-  <li>Classic H5BP</li>
-  <li>Responsive (using a custom framework by <a href="https://github.com/verekia">@verekia</a>)</li>
-  <li>(Twitter) Bootstrap</li>
-</ul>
-
-<p>The customization is made online and on-the-fly : you can see the generated files directly online while filtering the features (“What’s inside” button).
-It still does not support CSS preprocessing.</p>
-
-<p>Since it’s simply a “configurator” over H5BP I find it <strong>more convenient</strong> than H5BP alone <strong>for small sites</strong>.</p>
-
-<p>Find it at <a href="http://www.initializr.com">initializr.com</a></p>
-
-<h2 id="-yeoman"><img src="/assets/blog/yeoman-1.svg" alt="Yeoman logo" class="inline" style="vertical-align:middle;" height="80px" /> Yeoman</h2>
-
-<p>To solve the “static template” issue, <em>H5BP</em> first evolved into “<a href="https://github.com/h5bp/generator-mobile-boilerplate">generator-mobile-boilerplate</a>”, then into several specialized tools now known as “<strong>Yeoman</strong>”.</p>
-
-<p>Those tools bring the features you usually want on any project :</p>
-
-<ul>
-  <li><strong>yo</strong> scaffolds your project (like a <em>Maven archetype</em>)</li>
-  <li><strong>Grunt</strong> and <strong>Gulp</strong> build and execute it (like <em>Maven</em> / <em>Ant</em>)</li>
-  <li><strong>Bower</strong> and <strong>npm</strong> handle dependencies (like <em>Maven</em> / <em>Ivy</em>)</li>
-</ul>
-
-<p>In short, Yeoman is the <strong>standard</strong>, complete tool suite for Web 2.0 developers like Maven is for Java developers.</p>
-
-<p>Find it at <a href="http://yeoman.io">yeoman.io</a></p>]]></content><author><name>nicobo</name></author><category term="ant" /><category term="bower" /><category term="grunt" /><category term="gulp" /><category term="h5bp" /><category term="HTML5" /><category term="initializr" /><category term="java" /><category term="maven" /><category term="npm" /><category term="sass" /><category term="scaffolding" /><category term="web design" /><category term="yeoman" /><category term="yo" /><summary type="html"><![CDATA[Starting up with Web 2.0 development ? Let’s choose between three essentials tools to begin a new project ! HTML5 Boilerplate HTML5 Boilerplate (a.k.a. H5BP) is the original scaffolding tool by Paul Irish &amp; Co (will have to search for the exact history…). It allows you to build a clean website structure with standard features based on best practices like : responsive design-ready CSS standard javascript libraries : Modernizr, Respond.js, … 404 page Google Analytics favicons for apple many more… It does not support CSS preprocessing (SASS, …) and requires you some effort to upgrade to the latest version later (by separating your work from the original files that will be upgraded)… It’s good for small sites. Find it at html5boilerplate.com Initializr While H5BP is a static project template to download, Initializr allows you to customize it by selecting the features you want on your site and then downloading the generated files. It has 3 ready-to-use configurations : Classic H5BP Responsive (using a custom framework by @verekia) (Twitter) Bootstrap The customization is made online and on-the-fly : you can see the generated files directly online while filtering the features (“What’s inside” button). It still does not support CSS preprocessing. Since it’s simply a “configurator” over H5BP I find it more convenient than H5BP alone for small sites. Find it at initializr.com Yeoman To solve the “static template” issue, H5BP first evolved into “generator-mobile-boilerplate”, then into several specialized tools now known as “Yeoman”. Those tools bring the features you usually want on any project : yo scaffolds your project (like a Maven archetype) Grunt and Gulp build and execute it (like Maven / Ant) Bower and npm handle dependencies (like Maven / Ivy) In short, Yeoman is the standard, complete tool suite for Web 2.0 developers like Maven is for Java developers. Find it at yeoman.io]]></summary></entry></feed>
+</ul>]]></content><author><name>nicobo</name></author><category term="css" /><category term="graphism" /><category term="media queries" /><category term="sass" /><category term="web design" /><summary type="html"><![CDATA[A year ago I was very excited to get my hands at Sass. I thought it could fill the gaps in coding with CSS : preventing variables duplications, automatic generation of multiple static stylesheets depending on the rendering device (vs using media queries which are not always supported and require downloading all versions of the code)… But it could not. What really is Saas Sass-lang.com states it is a “CSS extension language”, but don’t take it literaly or you will head straight for failure. That would imply that Sass adds instructions to the CSS language ; however it’s not right because web browsers today only understand CSS, not Sass. Sass is nothing but dynamic : it’s a pre-processor that may only really be used to offline-produce different versions of a CSS with different sizes, colors and layouts, but it’s not able to make your CSS dynamic. It’s just several static versions of CSS that you must still dynamically/selectively load using an external mechanism (like static media queries or Javascript). I fell into this trap as I tried to organize stylesheets with inheritance like in object oriented languages (OO) : this structure would always failed at a given point. For instance : as variables only live in the Sass context, and disappear in the compiled CSS, if you want to make two versions of a stylesheet with different values of the same variable, you only have one option : build a CSS block or stylesheet for each value. There is no added value using Sass variables in media queries because they will just be replaced with their static, final value. Conclusion Make no mistake : Sass is a very helpful evolution for CSS, use it, but know its limits ! References designshack.net/articles/css/sass-and-media-queries-what-you-can-and-cant-do thesassway.com/intermediate/responsive-web-design-part-2]]></summary></entry></feed>
