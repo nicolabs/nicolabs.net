@@ -28,30 +28,43 @@ The following part extracts all the tags from your posts and sort tags, so that 
 {% comment %}
 =======================
 The following part removes duplicated tags and invalid tags like blank tag.
+
+It also removes duplicates with different character case :
+`normtags` is the list of normalized tags (lower case) ; each tag is normalized and tested
+against this list before being added to the final list.
 =======================
 {% endcomment %}
 {% assign tags = "" %}
+{% assign normtags = "" %}
 {% for tag in rawtags %}
+  {% assign norm_tag = tag|downcase %}
 	{% if tag != "" %}
 		{% if tags == "" %}
 			{% assign tags = tag | split:'|' %}
 		{% endif %}
-		{% unless tags contains tag %}
-			{% assign tags = tags | join:'|' | append:'|' | append:tag | split:'|' %}
-		{% endunless %}
+    {% unless normtags contains norm_tag %}
+      {% assign tags = tags | join:'|' | append:'|' | append:tag | split:'|' %}
+      {% assign normtags = normtags | join:'|' | append:'|' | append:norm_tag | split:'|' %}
+    {% endunless %}
 	{% endif %}
 {% endfor %}
 
 {% comment %}
 =======================
 The purpose of this snippet is to list all your posts posted with a certain tag.
+
+norm_tag and normtags are the current tag and the current post's tags
+in a normalized format (lower case) to be able to remove duplicates with different case
 =======================
 {% endcomment %}
 {% for tag in tags %}
 	<h2 class="tag" id="{{ tag | slugify }}"><a href="#{{tag | slugify}}"><span class="tag-decoration">#</span>{{ tag }}</a></h2>
 	<ul>
 	 {% for post in allposts %}
-		 {% if post.tags contains tag %}
+
+     {% assign norm_tag = tag|downcase %}
+     {% assign normtags = post.tags | join:'|' | downcase | split:'|' %}
+		 {% if normtags contains norm_tag %}
 		 <li>
       <strong><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></strong>
       <span class="post-meta-separator">•</span> <time class="post-meta datePublished" datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: "%b %-d, %Y" }}</time>

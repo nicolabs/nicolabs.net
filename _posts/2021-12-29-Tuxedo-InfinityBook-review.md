@@ -8,7 +8,7 @@ tags:
   - linux
   - privacy
   - review
-  - ubuntu
+  - Ubuntu
 maturity: good
 alternate:
   - https://dev.to/nicobo/tuxedo-infinitybook-s-15-review-2aho
