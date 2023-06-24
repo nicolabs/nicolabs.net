@@ -30,7 +30,7 @@ For *Jul* which is using `jul@sadmail.org` that means :
 The basic steps for this are explained in the following paragraphs :
 
 1. Choose an email provider that will forward `@myfunky.family` messages to each member's own address
-2. Register (rent) `myfunky.family` domain to a registrar and configure it
+2. Register (rent) `myfunky.family` domain and configure it
 3. Members must allow their account at their personal email provider to send e-mails with their family address
 4. Members may also need to add a new identify in their e-mail apps
 
@@ -41,9 +41,9 @@ You need an email server to forward emails received at *@myfunky.family* to each
 
 In this tutorial we don't want to host the email server ourselves, so you may choose any email provider offering a *forwarding* service to external email addresses (I guess they all provide it).
 It may be the one of your personal mailbox or a totally different one.
-Often the domain registrar itself will offer it already so you probably don't need to go further.
+Often the domain registrar itself will offer this already so you probably don't need to go further.
 
-**For each family member (after having configured the MX records) you will need to add a forward rule** :
+**For each family member you will need to add a forward rule** :
 
 | From                 | To                         |
 |----------------------|----------------------------|
@@ -52,8 +52,6 @@ Often the domain registrar itself will offer it already so you probably don't ne
 | `dog@myfunky.family` | `snoopy@snoopymail.waf`    |
 
 See the mail provider for the exact procedure (if you're using the domain registrar's to do this, [you probably just have to change to the correct tab...](https://docs.gandi.net/en/gandimail/forwarding_and_aliases/index.html)).
-
-Note that **you will first need to configure the MX records** on `myfunky.family` so you don't loose emails - see below.
 
 
 ## Register and configure the family domain
@@ -69,7 +67,7 @@ There are 2 things to configure on the domain :
 
 If it is the domain registrar chances are it is already configured or there is a one-click procedure.
 
-Once MX records are configured, you can proceed to forwarding rules (see above).
+Once MX records and forward rules are configured, you will start receiving emails to the `@myfunky.family address`. **That's all for incoming emails.**
 
 ### SPF records :
 
