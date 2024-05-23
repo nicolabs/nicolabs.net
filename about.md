@@ -38,7 +38,7 @@ The *mastodon* widget on the front page is from [mastodon-timeline-widget](https
 
 The [tags page](/tags) has been possible thanks to [this blog article](https://codinfox.github.io/dev/2015/03/06/use-tags-and-categories-in-your-jekyll-based-github-pages/).
 
-[jekyll-plantuml](https://github.com/yegor256/jekyll-plantuml) is used to generate inline PlantUML diagrams. It has been slightly modified to fit my needs.
+[jekyll-plantuml](https://github.com/yegor256/jekyll-plantuml) is used to generate inline PlantUML diagrams. It has been [slightly modified](https://github.com/nicolabs/nicolabs.net/blob/master/_plugins/jekyll-plantuml.rb) to fit my needs.
 
 
 ## License
