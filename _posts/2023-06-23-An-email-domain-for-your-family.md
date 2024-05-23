@@ -12,6 +12,7 @@ last_modified_at: 2024-02-14
 Do you want your *tribe* to share the same *cool* email addresses suffix like **@smith.org**, **@smith.family**, **@thesmithes.club**... ?
 
 You have several choices :
+<!--more-->
 
 **1. Pay an email provider to host all email accounts.** This forces everyone to use the same provider and may become expensive if your pals are many or require lots of storage...
 You may get it "free of charge" but you will have to pay by giving up your personal data.
@@ -96,6 +97,8 @@ Others -left-> DNS : sends Tom@smith.org
 {% endplantuml %}
 
 **This article is a very draft description on how to do it the 3rd way.**
+
+> *Disclaimer :* The providers in this article are just examples. I am not saying that you should use them.
 
 
 ## The pattern
