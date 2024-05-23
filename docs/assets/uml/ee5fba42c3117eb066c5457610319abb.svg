@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="443px" preserveAspectRatio="none" style="width:470px;height:443px;background:#FFFFFF;" version="1.1" viewBox="0 0 470 443" width="470px" zoomAndPan="magnify"><defs><filter height="300%" id="f1wf85ph5r5e5o" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[6df1b17e028a6595473ebf2c38a949b3]
+cluster Tribe--><rect fill="#FFFFFF" filter="url(#f1wf85ph5r5e5o)" height="132" style="stroke:#000000;stroke-width:1.5;" width="214" x="43.5" y="7"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="79" x="111" y="21.9951">Your tribe</text><!--MD5=[5070aa250e8b4ba9626418664fdacaac]
+entity Tim--><ellipse cx="74.5" cy="51.5" fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M74.5,59.5 L74.5,86.5 M61.5,67.5 L87.5,67.5 M74.5,86.5 L61.5,101.5 M74.5,86.5 L87.5,101.5 " fill="none" filter="url(#f1wf85ph5r5e5o)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="62" y="119.9951">Tim</text><!--MD5=[e5c6b80fce71bb68c9f5a5a167960991]
+entity Tom--><ellipse cx="139.5" cy="51.5" fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M139.5,59.5 L139.5,86.5 M126.5,67.5 L152.5,67.5 M139.5,86.5 L126.5,101.5 M139.5,86.5 L152.5,101.5 " fill="none" filter="url(#f1wf85ph5r5e5o)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="31" x="124" y="119.9951">Tom</text><!--MD5=[a1de45461187b4f810e5413b74cc1c45]
+entity Thelma--><ellipse cx="215.5" cy="51.5" fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M215.5,59.5 L215.5,86.5 M202.5,67.5 L228.5,67.5 M215.5,86.5 L202.5,101.5 M215.5,86.5 L228.5,101.5 " fill="none" filter="url(#f1wf85ph5r5e5o)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="51" x="190" y="119.9951">Thelma</text><!--MD5=[175677f230258dc8412a3c0b98c7f4c4]
+entity Others--><ellipse cx="418.5" cy="350.5" fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" rx="8" ry="8" style="stroke:#A80036;stroke-width:1.5;"/><path d="M418.5,358.5 L418.5,385.5 M405.5,366.5 L431.5,366.5 M418.5,385.5 L405.5,400.5 M418.5,385.5 L431.5,400.5 " fill="none" filter="url(#f1wf85ph5r5e5o)" style="stroke:#A80036;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="90" x="373.5" y="418.9951">Another tribe</text><!--MD5=[901cf53cb08d7305ccbe5be03fbced1d]
+entity TimServer--><rect fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" height="84.2969" style="stroke:#000000;stroke-width:1.5;" width="61" x="7" y="186"/><image height="48" width="26" x="17" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAwCAIAAACAH/3JAAAAnklEQVR4XmP49+8cFREDphAlCGFcR0deaKgrGSgtLfju3c0oxs2cWYOpjiT07t1BhHGY0qQiiANHunFnziyFCBJERBm3alUXUI4YRJRx5KFR48hHo8aRj0aNIx+NGkc+GjWOfDREjQM2sMrLE4lBRBlH5VYAsK23e/cMYhBRxpGHhqhxVG5BUTlmyUOjxpGPUIwDdoEoRBBzoMZRCwEAIYEP71d6oSMAAAAASUVORK5CYII=" y="196"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="37" x="21" y="256.9951">GMail</text><!--MD5=[b9e124d0b593b578a61f7777bf599d78]
+entity TomServer--><rect fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" height="84.2969" style="stroke:#000000;stroke-width:1.5;" width="73" x="103" y="186"/><image height="48" width="26" x="113" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAwCAIAAACAH/3JAAAAnklEQVR4XmP49+8cFREDphAlCGFcR0deaKgrGSgtLfju3c0oxs2cWYOpjiT07t1BhHGY0qQiiANHunFnziyFCBJERBm3alUXUI4YRJRx5KFR48hHo8aRj0aNIx+NGkc+GjWOfDREjQM2sMrLE4lBRBlH5VYAsK23e/cMYhBRxpGHhqhxVG5BUTlmyUOjxpGPUIwDdoEoRBBzoMZRCwEAIYEP71d6oSMAAAAASUVORK5CYII=" y="196"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="49" x="117" y="256.9951">Yahoo!</text><!--MD5=[b59aaec7f0ac01e1aaca20d6808cff10]
+entity ThelmaServer--><rect fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" height="84.2969" style="stroke:#000000;stroke-width:1.5;" width="70" x="211.5" y="186"/><image height="48" width="26" x="221.5" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAwCAIAAACAH/3JAAAAnklEQVR4XmP49+8cFREDphAlCGFcR0deaKgrGSgtLfju3c0oxs2cWYOpjiT07t1BhHGY0qQiiANHunFnziyFCBJERBm3alUXUI4YRJRx5KFR48hHo8aRj0aNIx+NGkc+GjWOfDREjQM2sMrLE4lBRBlH5VYAsK23e/cMYhBRxpGHhqhxVG5BUTlmyUOjxpGPUIwDdoEoRBBzoMZRCwEAIYEP71d6oSMAAAAASUVORK5CYII=" y="196"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="46" x="225.5" y="256.9951">Librem</text><!--MD5=[60dbf8e8a50666c70dad943d5e023697]
+entity DNS--><rect fill="#FEFECE" filter="url(#f1wf85ph5r5e5o)" height="100.5938" style="stroke:#000000;stroke-width:1.5;" width="107" x="86" y="331"/><image height="48" width="26" x="96" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAwCAIAAACAH/3JAAAAnklEQVR4XmP49+8cFREDphAlCGFcR0deaKgrGSgtLfju3c0oxs2cWYOpjiT07t1BhHGY0qQiiANHunFnziyFCBJERBm3alUXUI4YRJRx5KFR48hHo8aRj0aNIx+NGkc+GjWOfDREjQM2sMrLE4lBRBlH5VYAsK23e/cMYhBRxpGHhqhxVG5BUTlmyUOjxpGPUIwDdoEoRBBzoMZRCwEAIYEP71d6oSMAAAAASUVORK5CYII=" y="341"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="36" x="100" y="401.9951">Front</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="96" y="418.292">mail provider</text><!--MD5=[890d8c39daaaa165b992ce732ebd39ea]
+link Tim to TimServer--><path d="M64.29,123.09 C59.7,140.91 54.24,162.07 49.46,180.63 " fill="none" id="Tim-to-TimServer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="48.13,185.79,54.2417,178.0668,49.3729,180.9469,46.4928,176.0782,48.13,185.79" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[b3f81bb900d0d002311274e1acc80c23]
+link Tom to TomServer--><path d="M139.5,123.09 C139.5,140.91 139.5,162.07 139.5,180.63 " fill="none" id="Tom-to-TomServer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="139.5,185.79,143.5,176.79,139.5,180.79,135.5,176.79,139.5,185.79" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[f1ed1722d7c39b74f66fb19ab2553927]
+link Thelma to ThelmaServer--><path d="M224.05,123.09 C227.9,140.91 232.47,162.07 236.48,180.63 " fill="none" id="Thelma-to-ThelmaServer" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="237.6,185.79,239.6062,176.1476,236.5426,180.9031,231.7871,177.8395,237.6,185.79" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[72832a04653b7c7e0516f4fbcb40a8f5]
+reverse link TimServer to DNS--><path d="M68.36,274.83 C80.26,292.51 93.9,312.78 106.04,330.8 " fill="none" id="TimServer-backto-DNS" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="65.37,270.4,67.0572,280.1033,68.1534,274.5537,73.703,275.6499,65.37,270.4" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[e68912975a90876f1712a534b6aded84]
+reverse link TomServer to DNS--><path d="M139.5,275.73 C139.5,293.2 139.5,313.08 139.5,330.8 " fill="none" id="TomServer-backto-DNS" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="139.5,270.4,135.5,279.4,139.5,275.4,143.5,279.4,139.5,270.4" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[bb020fa0a45f1ae2500bf6a7db1c3a71]
+reverse link ThelmaServer to DNS--><path d="M214.13,274.83 C201.64,292.51 187.33,312.78 174.6,330.8 " fill="none" id="ThelmaServer-backto-DNS" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="217.26,270.4,208.8006,275.4437,214.3755,274.484,215.3351,280.0589,217.26,270.4" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[270e057182a2d1f1fa203c86cefd8117]
+reverse link DNS to Others--><path d="M198.58,381.5 C250.73,381.5 325.63,381.5 373.17,381.5 " fill="none" id="DNS-backto-Others" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="193.29,381.5,202.29,385.5,198.29,381.5,202.29,377.5,193.29,381.5" style="stroke:#A80036;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="144" x="211.25" y="374.5669">sends Tom@smith.org</text><!--MD5=[031f727c2ae73bf43e4af2070d0b0120]
+@startuml
+
+!include <tupadr3/common>
+!include <office/Servers/server_generic>
+
+top to bottom direction
+
+rectangle Tribe as "Your tribe" {
+  actor Tim
+  actor Tom
+  actor Thelma
+}
+actor Others as "Another tribe"
+
+OFF_SERVER_GENERIC(TimServer,GMail)
+OFF_SERVER_GENERIC(TomServer,Yahoo!)
+OFF_SERVER_GENERIC(ThelmaServer,Librem)
+OFF_SERVER_GENERIC(DNS,Front\nmail provider)
+
+Tim - -> TimServer
+Tom - -> TomServer
+Thelma - -> ThelmaServer
+TimServer <- - DNS
+TomServer <- - DNS
+ThelmaServer <- - DNS
+Others -left-> DNS : sends Tom@smith.org
+
+@enduml
+
+@startuml
+
+
+
+hide stereotype
+sprite $server_generic [26x48/16] {
+00000000000000000000000000
+00000000000000000000000000
+0007AAAAAAAAAAAAAAAAAA9200
+006AAAAAAAAAAAAAAAAAAAAA10
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAA30000000000000AAAA20
+00AAAA52222222222222AAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAA98888888888888AAAA20
+00AAAA30000000000000AAAA20
+00AAAA64444444444444AAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAA52222222222222AAAA20
+00AAAA30000000000000AAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00AAAAAAAAAAAAAAAAAAAAAA20
+00111111111111111111111100
+00000000000000000000000000
+}
+
+
+top to bottom direction
+
+rectangle Tribe as "Your tribe" {
+  actor Tim
+  actor Tom
+  actor Thelma
+}
+actor Others as "Another tribe"
+
+rectangle "<color:black><$server_generic></color>\r GMail" as TimServer <<OFF SERVER_GENERIC>>
+rectangle "<color:black><$server_generic></color>\r Yahoo!" as TomServer <<OFF SERVER_GENERIC>>
+rectangle "<color:black><$server_generic></color>\r Librem" as ThelmaServer <<OFF SERVER_GENERIC>>
+rectangle "<color:black><$server_generic></color>\r Front\nmail provider" as DNS <<OFF SERVER_GENERIC>>
+
+Tim - -> TimServer
+Tom - -> TomServer
+Thelma - -> ThelmaServer
+TimServer <- - DNS
+TomServer <- - DNS
+ThelmaServer <- - DNS
+Others -left-> DNS : sends Tom@smith.org
+
+@enduml
+
+PlantUML version 1.2021.9(Sun Jul 25 12:13:56 CEST 2021)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
