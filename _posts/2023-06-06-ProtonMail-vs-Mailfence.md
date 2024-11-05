@@ -5,7 +5,7 @@ tags:
   - mail
   - security
 permalink: 2023/protonmail-vs-mailfence
-last_modified_at: 2024-02-16
+last_modified_at: 2024-11-05
 maturity: good
 ---
 
@@ -144,6 +144,6 @@ Proton is therefore probably well advised for a closed group of people who want 
 On the other hand if, like most people, you want to exchange emails with non-Proton users, copies of your messages will be found *unencrypted* in others' mailboxes anyway.
 In this case Proton does not offer significant advantages and **you will prefer providers implementing email standards like Mailfence or others, for a better integration** with common software.
 
-Note that what applies to Mailfence here might apply to other email providers with end-to-end encryption as well. I've actually started to test Tutanota some time ago and they were looking so much the same that I've not bothered testing both of them.
+Note that what applies to Mailfence here might apply to other email providers with end-to-end encryption as well.
 
 Ultimately, **if you search for secure and practical *messaging*, then you might not want to use emails at all** and switch over to other protocols like XMPP, Signal, ... which have a larger user base than Proton and are built on security-focused standards, unlike emails.
