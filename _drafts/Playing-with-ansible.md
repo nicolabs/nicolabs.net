@@ -153,6 +153,9 @@ In order to change this, one would need to apply strict development rules (makin
   - I'm not the only one : https://medium.com/opsops/ansible-anti-pattern-import-role-task-with-task-level-vars-a9f5c752c9c3
   - they have so many issues (over 1k !) that I don't see how they can possibly go through... And it's almost impossible to find one (try to search an issue for `is file` test on paths...)
 
+- Le test minimum : avec -vv -C en ciblant un seul serveur pour aller plus vite puis seulement une fois toutes les erreurs de syntaxe corrigées lancer sur tous
+
+- diviser les tâches par type de machine cible (ex. master / node) sinon créer des rôles différents mais travail plus conséquent
 
 ## References
 
