@@ -8,6 +8,13 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
+
+
+# Spécification des versions
+# '>= 4' : au moins 4.*
+# '~> 4' : entre 4.* et 5.* (5.* exclu)
+#
+
 gem "jekyll", "~> 4"
 
 # This is the default theme for new Jekyll sites. You may change this to anything you like.

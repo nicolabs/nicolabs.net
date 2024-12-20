@@ -3,6 +3,7 @@ Source code for https://www.nicolabs.net
 ## Setup
 
 - Install **ruby** : `sudo apt install ruby`
+- Install **bundler** : `gem install bundler`
 - Install **jekyll** : `sudo gem install jekyll jekyll-feed jekyll-gist jekyll-paginate jekyll-sass-converter jekyll-coffeescript`
 - [Install **plantuml** and a `plantuml` command in the PATH](https://github.com/yegor256/jekyll-plantuml#install-plantumljar) (requirement of *jekyll-plantuml*) (and probably **dot** : `sudo apt install graphviz` for Debian systems)
 - Install **make** then run `make setup` (or look into `Makefile` for the underlying commands)
