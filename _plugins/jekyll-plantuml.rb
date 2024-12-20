@@ -35,10 +35,10 @@ module Jekyll
       name = Digest::MD5.hexdigest(super)
       # TODO moving from ./uml/ to ./assets/uml/ is still not correct ; those files should go to the output directory directly
       subdir = "assets/uml"
-      if !File.exists?(File.join(site.dest, "#{subdir}#{name}.svg"))
+      if !File.exist?(File.join(site.dest, "#{subdir}#{name}.svg"))
         uml = File.join(site.source, "#{subdir}/#{name}.uml")
         svg = File.join(site.source, "#{subdir}/#{name}.svg")
-        if File.exists?(svg)
+        if File.exist?(svg)
           puts "File #{svg} already exists (#{File.size(svg)} bytes)"
         else
           FileUtils.mkdir_p(File.dirname(uml))
