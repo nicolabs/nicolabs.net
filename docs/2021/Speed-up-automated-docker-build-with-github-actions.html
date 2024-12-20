@@ -25,7 +25,7 @@
     <span class="na">context</span><span class="pi">:</span> <span class="s">./</span>
     <span class="na">file</span><span class="pi">:</span> <span class="s">./Dockerfile</span>
     <span class="na">builder</span><span class="pi">:</span> <span class="s">$</span>
-    <span class="na">push</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">push</span><span class="pi">:</span> <span class="kc">true</span>
     <span class="na">tags</span><span class="pi">:</span>  <span class="s">ushamandya/simplewhale:latest</span>
     <span class="na">cache-from</span><span class="pi">:</span> <span class="s">type=local,src=/tmp/.buildx-cache</span>
     <span class="na">cache-to</span><span class="pi">:</span> <span class="s">type=local,dest=/tmp/.buildx-cache</span>
@@ -46,7 +46,7 @@
       <span class="na">context</span><span class="pi">:</span> <span class="s">./</span>
       <span class="na">file</span><span class="pi">:</span> <span class="s">./debian.Dockerfile</span>
       <span class="na">builder</span><span class="pi">:</span> <span class="s">$</span>
-      <span class="na">push</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">push</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">cache-from</span><span class="pi">:</span> <span class="s">type=local,src=/tmp/.buildx-cache</span>
       <span class="na">cache-to</span><span class="pi">:</span> <span class="s">type=local,dest=/tmp/.buildx-cache,mode=max</span>
 
@@ -57,7 +57,7 @@
       <span class="na">context</span><span class="pi">:</span> <span class="s">./</span>
       <span class="na">file</span><span class="pi">:</span> <span class="s">./alpine.Dockerfile</span>
       <span class="na">builder</span><span class="pi">:</span> <span class="s">$</span>
-      <span class="na">push</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">push</span><span class="pi">:</span> <span class="kc">true</span>
       <span class="na">cache-from</span><span class="pi">:</span> <span class="s">type=local,src=/tmp/.buildx-cache</span>
       <span class="na">cache-to</span><span class="pi">:</span> <span class="s">type=local,dest=/tmp/.buildx-cache,mode=max</span>
 </code></pre></div></div> <h3 id="the-key-to-cache-matching">The key to cache matching</h3> <p>The <em>actions/cache</em> matching algorithm is based on the cache’s <em>key</em>, which could be thought as a branch in a tree : from the trunk to the leafs, the latter representing the most specific cache. If your build does not match or evict the cache as expected, I encourage you to <a href="https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#matching-a-cache-key">read the docs thoroughly</a>, including the examples, as it may reveal the root cause.</p> <p>You will not want, for instance, to share the same prefix between 2 jobs that have no Docker layer in common (e.g. a <em>FROM alpine</em> and a <em>FROM debian</em> may not), otherwise each one might match the cache of the other one, increasing its size by adding its own layers but without finding any layer to reuse.</p> <p>In the following execution trace of the <em>Cache Docker layers</em> step, we see that although we are in the section that builds the <em>debian</em> image (<code class="language-plaintext highlighter-rouge">key: Linux-buildx-debian-9176c5bd644818205d94a68221a7ebf27005b30e</code>), it hits the previous cache from the <em>alpine</em> image (<code class="language-plaintext highlighter-rouge">Cache restored from key: Linux-buildx-alpine-75bd3133c854ab90910b7ceb92445fafbe256260</code>), which has little chance to provide the layers it needs :</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Run actions/cache@v2
