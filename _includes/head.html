@@ -3,6 +3,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/png" href="/assets/about/favicon.ico">
 
   {% assign page_title = '' %}
   {% if page.title == "Home" %}
@@ -97,9 +98,8 @@
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
   {% feed_meta %}
 
-  <script type="text/javascript">
-  var disqus_shortname = '{{ site.disqus_shortname }}';
-  </script>
+  <script type="text/javascript" src="/assets/lib/cactus.js"></script>
+  <link rel="stylesheet" href="/assets/css/cactus.css" type="text/css">
 
   <!-- Enable displaying pictures in full size using the Fullscreen API -->
   <!-- A polyfill that also simplifies the API.

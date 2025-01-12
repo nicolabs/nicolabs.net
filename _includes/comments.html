@@ -1,28 +1,22 @@
-{% if page.comments %}
-  <aside id="comments" class="disqus">
+{%- if page.comments != false -%}
 
-    <div class="container">
-      <h3><i class="icon icon-comments-o"></i> Comments</h3>
-      <div id="disqus_thread"></div>
+  <style>
+      /* quick fix for the default cactus theme ; to be enhanced */
+      :root {
+          --cactus-background-color--strong: white;
+          --cactus-box-shadow-color: #999;
+      }
+  </style>
+  <div id="comment-section"></div>
+  <script>
+  initComments({
+    node: document.getElementById("comment-section"),
+    defaultHomeserverUrl: "https://matrix.cactus.chat:8448",
+    serverName: "cactus.chat",
+    siteName: "{{ site.cactus.shortname }}",
+    commentSectionId: "{{ page.url }}"
+  })
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://cactus.chat" rel="nofollow">comments powered by matrix.org.</a></noscript>
 
-      <script type="text/javascript">
-        var disqus_shortname = '{{ site.disqus_shortname }}';
-        var disqus_identifier = '{{ page.id }}';
-        var disqus_title = '{{ page.title }}';
-        var disqus_url = '{{ site.url }}{{ post.url }}';
-        /*var disqus_developer = 1;*/
-
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-      </script>
-
-      <noscript>
-        Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
-      </noscript>
-    </div>
-
-  </aside>
-{% endif %}
+{%- endif -%}

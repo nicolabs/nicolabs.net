@@ -17,7 +17,7 @@ You can find more work from me at [github.com/nicolabs](https://github.com/nicol
 
 <img src="assets/about/nicobo-nb-96x96.png" />
 
-You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}]({{ site.author.mastodon.instance }}/{{ site.author.mastodon.username }}) or [twitter.com/{{ site.author.twitter }}](https://twitter.com/{{ site.author.twitter }}) or leave a comment at the end of this page.
+You can **contact me** at [mastodon.social/{{ site.author.mastodon.username }}]({{ site.author.mastodon.instance }}/{{ site.author.mastodon.username }}) or [{{ site.author.matrix }}](https://matrix.to/#/{{ site.author.matrix }}) or leave a comment at the end of this page.
 
 You can **contact me more privately** from [keybase.io/encrypt#nicolabs](https://keybase.io/encrypt#nicolabs) or by using [my PGP key](assets/about/nicobo.gpgpubkey.asc) with your favorite tool.
 
@@ -51,5 +51,3 @@ More details as well as acknowledgments for third-party assets can be found in [
 ## Privacy policy
 
 We do not collect any information, but [GitHub may collect User Personal Information from visitors, including logs of visitor IP addresses, to comply with legal obligations, and to maintain the security and integrity of the Website and the Service](https://help.github.com/en/github/site-policy/github-privacy-statement#github-pages).
-
-Pages with a Disqus thread are subject to [Disqus' privacy policy](https://help.disqus.com/customer/portal/articles/466259-privacy-policy).

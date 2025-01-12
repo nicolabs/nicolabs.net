@@ -9,7 +9,6 @@ repo:
   url: https://github.com/nicolabs/nicolabs.github.io
   # Path to add to `repo.url` to get the commits history root URL
   commits_path: commits/master
-disqus_shortname: nicolabs
 # Required for GitHub Pages
 destination: docs
 
@@ -46,7 +45,7 @@ author:
   thumb    : /assets/about/nicobo.png
   url      : https://www.nicolabs.net/contact
   github   : https://github.com/nicolabs
-  twitter  : nic0b0
+  matrix   : "@nico:matrix.fdn.fr"
   mastodon:
     instance: https://mastodon.social
     username: "@nicobo"
@@ -54,6 +53,12 @@ author:
 # social settings
 og_locale: en_US
 og_locale_alternate: [fr_FR]
+
+# Cactus Comments
+cactus:
+    # Leave shortname blank to disable comments site-wide.
+    #"matrix.fdn.fr", Disable comments for any post by adding `comments: false` to that post's YAML Front Matter.
+    shortname: nicolabs.net
 
 # It looks like the following list is totally controlled on github pages : https://help.github.com/articles/configuring-jekyll-plugins/
 # More accurate : https://github.com/github/pages-gem/blob/master/lib/github-pages/plugins.rb
