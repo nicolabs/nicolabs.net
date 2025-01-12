@@ -14,7 +14,7 @@ tags:
 ---
 
 LineageOS does not ship with Google apps ("gapps"), which are unfortunately required for some usages (localization, push notifications, Maps API) and by few apps which depend directly on it (which is actually a bad practice).
-Although LineageOS provides [a procedure to install gapps]((https://wiki.lineageos.org/gapps/), they DO NOT support it.
+Although LineageOS provides [a procedure to install gapps](https://wiki.lineageos.org/gapps/), they DO NOT support it.
 
 [LineageOS of microG](https://lineage.microg.org/) provides LineageOS images for your phone, *directly shipping with microG*, which is an implementation of gapps.
 shipping
