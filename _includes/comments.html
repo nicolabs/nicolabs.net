@@ -13,8 +13,11 @@
     node: document.getElementById("comment-section"),
     defaultHomeserverUrl: "https://matrix.cactus.chat:8448",
     serverName: "cactus.chat",
+    /* Chat room name will be the concatenation of 'comments_', siteName, '_', commentSectionId.
+      E.g. #comments_nicolabs.net_LineageOS4microg-Upgrade:cactus.chat */
     siteName: "{{ site.cactus.shortname }}",
-    commentSectionId: "{{ page.url }}"
+    /* Don't use page.url as slashes are not supported : https://gitlab.com/cactus-comments/cactus-client/-/issues/62 */
+    commentSectionId: "{{ page.slug }}"
   })
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://cactus.chat" rel="nofollow">comments powered by matrix.org.</a></noscript>
