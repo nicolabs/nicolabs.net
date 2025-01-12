@@ -48,13 +48,12 @@ $base-border: 1px solid $base-border-color;
 
 // Background Colors
 $base-background-color: $white-color;
-$stripes-background-image: url('https://showyourstripes.info/stripes/GLOBE---1850-2022-MO.png');
 $secondary-background-color: tint($base-border-color, 80%);
 
 $header-background-color: $pinkorange-color; /* @nicobo header and footer */
-$header-background-image: $stripes-background-image;
+$header-background-image: none;
 $footer-background-color: $header-background-color;
-$footer-background-image: $header-background-image;
+$footer-background-image: none;
 
 $header-logo-color: #fff;
 $header-logo-active-color: $header-logo-color;
