@@ -1,0 +1,23 @@
+/*
+  Style customization of the cactus comments widget
+*/
+
+/* quick fix for the default dark theme from cactus (dark text on dark background) */
+:root {
+    --cactus-background-color--strong: white;
+    --cactus-box-shadow-color: #999;
+}
+
+/* reducing the size of the comments section : aligns the width with the article content */
+.cactus-container {
+  @extend .container;
+}
+/* reducing the size of the comments section : smaller height */
+.cactus-editor-textarea {
+  height: 4rem;
+}
+/* reducing the size of the comments section : aligns the background text with the new height */
+.cactus-editor-textarea::placeholder {
+  line-height: 1rem;
+  font-size: 1.5rem;
+}
