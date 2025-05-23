@@ -1,0 +1,32 @@
+@startuml
+
+@startuml
+
+!include <tupadr3/common>
+!include <office/Servers/server_generic>
+
+top to bottom direction
+
+rectangle Tribe as "Your tribe" {
+  actor Tim
+  actor Tom
+  actor Thelma
+}
+actor Others as "Another tribe"
+
+OFF_SERVER_GENERIC(TimServer,GMail)
+OFF_SERVER_GENERIC(TomServer,Yahoo!)
+OFF_SERVER_GENERIC(ThelmaServer,Librem)
+OFF_SERVER_GENERIC(DNS,Front\nmail provider)
+
+Tim --> TimServer
+Tom --> TomServer
+Thelma --> ThelmaServer
+TimServer <-- DNS
+TomServer <-- DNS
+ThelmaServer <-- DNS
+Others -left-> DNS : sends Tom@smith.org
+
+@enduml
+
+@enduml

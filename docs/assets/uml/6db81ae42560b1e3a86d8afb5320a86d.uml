@@ -1,0 +1,21 @@
+@startuml
+
+@startuml
+
+!include <tupadr3/common>
+!include <tupadr3/devicons/raspberry_pi>
+!include <tupadr3/material/phone_android.puml>
+!include <tupadr3/material/speaker.puml>
+
+rectangle "Home <&home>" as Home {
+  MATERIAL_PHONE_ANDROID(Guest,Guest smartphone)
+  DEV_RASPBERRY_PI(RPi,Raspberry Pi)
+  MATERIAL_SPEAKER(Speaker,Speaker)
+}
+
+RPi - Speaker : Audio cable
+Guest .[#Blue].> RPi : Broadcasts music\nthrough Bluetooth A2DP <&bluetooth>
+
+@enduml
+
+@enduml

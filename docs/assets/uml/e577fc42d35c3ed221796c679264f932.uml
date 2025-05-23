@@ -1,0 +1,24 @@
+@startuml
+
+@startuml
+
+!include <tupadr3/common>
+!include <office/Servers/server_generic>
+
+rectangle Tribe as "Your tribe" {
+  actor Tim
+  actor Tom
+  actor Thelma
+}
+actor Others as "Another tribe"
+
+OFF_SERVER_GENERIC(Server,"GMail\n(common provider)")
+
+Tim --> Server
+Tom --> Server
+Thelma --> Server
+Others -left-> Server : sends Tom@smith.org
+
+@enduml
+
+@enduml

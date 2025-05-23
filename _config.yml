@@ -113,3 +113,6 @@ exclude:
   - "changelog.md"
   - "assets/blog/screenshots/remove-metadata.sh"
   - "Makefile"
+
+redirect_from:
+  json: false

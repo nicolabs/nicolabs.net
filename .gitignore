@@ -3,3 +3,4 @@
 .jekyll-cache
 assets/uml/**
 docs/**/remove-metadata.sh
+.local
