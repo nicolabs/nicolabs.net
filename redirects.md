@@ -2,9 +2,9 @@
 layout: page
 title: Lost something ?
 redirect_from:
-    - /sites/default/files/egg.xcf
-    - /sites/default/files/pycrypto-2.6.win32-py3.2_0.exe
-    - /sites/default/files/tweaking-android-notifications.zip
+    - /sites/default/files/egg.xcf.html
+    - /sites/default/files/pycrypto-2.6.win32-py3.2_0.exe.html
+    - /sites/default/files/tweaking-android-notifications.zip.html
 comments: false
 ---
 Is it down there by any chance ?
